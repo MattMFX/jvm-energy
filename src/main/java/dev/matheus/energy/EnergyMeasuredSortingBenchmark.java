@@ -2,6 +2,7 @@ package dev.matheus.energy;
 
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
+import dev.matheus.energy.jrapl.EnergyCheckUtils;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -22,11 +23,7 @@ public class EnergyMeasuredSortingBenchmark {
     int[] data;
     Random random;
 
-    // Lazy reflection to avoid hard dependency in case library fails to init on non-supported CPUs
-    private Object energyUtils;
-    private java.lang.reflect.Method initMethod;
-    private java.lang.reflect.Method getStatsMethod;
-    private java.lang.reflect.Method deallocMethod;
+    // Track if energy measurement is available
     private boolean energyAvailable;
 
     @Setup(Level.Trial)
@@ -34,14 +31,13 @@ public class EnergyMeasuredSortingBenchmark {
         random = new Random(123);
         data = new int[arraySize];
         try {
-            Class<?> utils = Class.forName("jrapl.EnergyCheckUtils");
-            energyUtils = utils;
-            initMethod = utils.getMethod("init");
-            getStatsMethod = utils.getMethod("getEnergyStats");
-            deallocMethod = utils.getMethod("dealloc");
+            // Test if jRAPL is available by calling a simple method
+            EnergyCheckUtils.GetSocketNum();
             energyAvailable = true;
+            System.out.println("jRAPL energy measurement enabled");
         } catch (Throwable t) {
             energyAvailable = false;
+            System.out.println("jRAPL energy measurement not available: " + t.getMessage());
         }
     }
 
@@ -55,14 +51,18 @@ public class EnergyMeasuredSortingBenchmark {
         int[] copy = Arrays.copyOf(data, data.length);
         double energyConsumed = Double.NaN;
         if (energyAvailable) {
-            initMethod.invoke(energyUtils);
-            String before = (String) getStatsMethod.invoke(energyUtils);
-            SortingAlgorithms.quickSort(copy);
-            String after = (String) getStatsMethod.invoke(energyUtils);
-            try { deallocMethod.invoke(energyUtils); } catch (Throwable ignored) {}
-            energyConsumed = parsePackageEnergyDelta(before, after);
-            System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "quick_sort", arraySize, energyConsumed);
-            EnergyLog.append("quick_sort", arraySize, energyConsumed);
+            try {
+                EnergyCheckUtils.init();
+                String before = EnergyCheckUtils.getEnergyStats();
+                SortingAlgorithms.quickSort(copy);
+                String after = EnergyCheckUtils.getEnergyStats();
+                energyConsumed = parsePackageEnergyDelta(before, after);
+                System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "quick_sort", arraySize, energyConsumed);
+                EnergyLog.append("quick_sort", arraySize, energyConsumed);
+            } catch (Throwable t) {
+                System.err.println("Energy measurement failed: " + t.getMessage());
+                SortingAlgorithms.quickSort(copy);
+            }
         } else {
             SortingAlgorithms.quickSort(copy);
         }
@@ -75,14 +75,18 @@ public class EnergyMeasuredSortingBenchmark {
         int[] copy = Arrays.copyOf(data, data.length);
         double energyConsumed = Double.NaN;
         if (energyAvailable) {
-            initMethod.invoke(energyUtils);
-            String before = (String) getStatsMethod.invoke(energyUtils);
-            SortingAlgorithms.bubbleSort(copy);
-            String after = (String) getStatsMethod.invoke(energyUtils);
-            try { deallocMethod.invoke(energyUtils); } catch (Throwable ignored) {}
-            energyConsumed = parsePackageEnergyDelta(before, after);
-            System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "bubble_sort", arraySize, energyConsumed);
-            EnergyLog.append("bubble_sort", arraySize, energyConsumed);
+            try {
+                EnergyCheckUtils.init();
+                String before = EnergyCheckUtils.getEnergyStats();
+                SortingAlgorithms.bubbleSort(copy);
+                String after = EnergyCheckUtils.getEnergyStats();
+                energyConsumed = parsePackageEnergyDelta(before, after);
+                System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "bubble_sort", arraySize, energyConsumed);
+                EnergyLog.append("bubble_sort", arraySize, energyConsumed);
+            } catch (Throwable t) {
+                System.err.println("Energy measurement failed: " + t.getMessage());
+                SortingAlgorithms.bubbleSort(copy);
+            }
         } else {
             SortingAlgorithms.bubbleSort(copy);
         }
@@ -95,14 +99,18 @@ public class EnergyMeasuredSortingBenchmark {
         int[] copy = Arrays.copyOf(data, data.length);
         double energyConsumed = Double.NaN;
         if (energyAvailable) {
-            initMethod.invoke(energyUtils);
-            String before = (String) getStatsMethod.invoke(energyUtils);
-            SortingAlgorithms.mergeSort(copy);
-            String after = (String) getStatsMethod.invoke(energyUtils);
-            try { deallocMethod.invoke(energyUtils); } catch (Throwable ignored) {}
-            energyConsumed = parsePackageEnergyDelta(before, after);
-            System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "merge_sort", arraySize, energyConsumed);
-            EnergyLog.append("merge_sort", arraySize, energyConsumed);
+            try {
+                EnergyCheckUtils.init();
+                String before = EnergyCheckUtils.getEnergyStats();
+                SortingAlgorithms.mergeSort(copy);
+                String after = EnergyCheckUtils.getEnergyStats();
+                energyConsumed = parsePackageEnergyDelta(before, after);
+                System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "merge_sort", arraySize, energyConsumed);
+                EnergyLog.append("merge_sort", arraySize, energyConsumed);
+            } catch (Throwable t) {
+                System.err.println("Energy measurement failed: " + t.getMessage());
+                SortingAlgorithms.mergeSort(copy);
+            }
         } else {
             SortingAlgorithms.mergeSort(copy);
         }
@@ -111,10 +119,10 @@ public class EnergyMeasuredSortingBenchmark {
     }
 
     private static double parsePackageEnergyDelta(String before, String after) {
-        // Typical jRAPL string: "<pkg0,dram0,pkg1,dram1,...>" in joules. We'll parse first field as pkg0.
+        // Parse package energy (first value in comma-separated list from getEnergyStats)
         try {
-            double b = Double.parseDouble(before.split(",")[0].replace("[", "").trim());
-            double a = Double.parseDouble(after.split(",")[0].replace("[", "").trim());
+            double b = Double.parseDouble(before.split(",")[0].trim());
+            double a = Double.parseDouble(after.split(",")[0].trim());
             return a - b;
         } catch (Exception e) {
             return Double.NaN;
