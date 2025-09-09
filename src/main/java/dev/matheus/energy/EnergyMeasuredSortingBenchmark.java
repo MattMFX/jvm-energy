@@ -2,17 +2,18 @@ package dev.matheus.energy;
 
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
+import org.openjdk.jmh.infra.IterationParams;
+import org.openjdk.jmh.runner.IterationType;
 import dev.matheus.energy.jrapl.EnergyCheckUtils;
 
 import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-// Minimal integration of jRAPL. If jRAPL is unavailable on this CPU, we print a note.
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-@Warmup(iterations = 2)
-@Measurement(iterations = 3)
+@Warmup(iterations = 50, time = 5, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 @State(Scope.Thread)
 public class EnergyMeasuredSortingBenchmark {
@@ -25,13 +26,15 @@ public class EnergyMeasuredSortingBenchmark {
 
     // Track if energy measurement is available
     private boolean energyAvailable;
+    
+    // Track current iteration type
+    private volatile IterationType currentIterationType;
 
     @Setup(Level.Trial)
     public void setup() {
         random = new Random(123);
         data = new int[arraySize];
         try {
-            // Test if jRAPL is available by calling a simple method
             EnergyCheckUtils.GetSocketNum();
             energyAvailable = true;
             System.out.println("jRAPL energy measurement enabled");
@@ -39,6 +42,12 @@ public class EnergyMeasuredSortingBenchmark {
             energyAvailable = false;
             System.out.println("jRAPL energy measurement not available: " + t.getMessage());
         }
+    }
+
+    @Setup(Level.Iteration)
+    public void setupIteration(IterationParams iterationParams) {
+        currentIterationType = iterationParams.getType();
+        System.out.printf("DEBUG: Setting up iteration type: %s%n", currentIterationType);
     }
 
     @Setup(Level.Invocation)
@@ -50,6 +59,8 @@ public class EnergyMeasuredSortingBenchmark {
     public void quick_sort_energy(Blackhole bh) throws Exception {
         int[] copy = Arrays.copyOf(data, data.length);
         double energyConsumed = Double.NaN;
+        boolean isMeasurementPhase = currentIterationType != null && currentIterationType.equals(IterationType.MEASUREMENT);
+        
         if (energyAvailable) {
             try {
                 EnergyCheckUtils.init();
@@ -57,8 +68,13 @@ public class EnergyMeasuredSortingBenchmark {
                 SortingAlgorithms.quickSort(copy);
                 String after = EnergyCheckUtils.getEnergyStats();
                 energyConsumed = parsePackageEnergyDelta(before, after);
-                System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "quick_sort", arraySize, energyConsumed);
-                EnergyLog.append("quick_sort", arraySize, energyConsumed);
+                
+                if (isMeasurementPhase) {
+                    System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "quick_sort", arraySize, energyConsumed);
+                    EnergyLog.append("quick_sort", arraySize, energyConsumed);
+                } else {
+                    System.out.printf("warmup,algo=%s,size=%d,joules=%.9f (WARMUP - NOT LOGGED)%n", "quick_sort", arraySize, energyConsumed);
+                }
             } catch (Throwable t) {
                 System.err.println("Energy measurement failed: " + t.getMessage());
                 SortingAlgorithms.quickSort(copy);
@@ -74,6 +90,8 @@ public class EnergyMeasuredSortingBenchmark {
     public void bubble_sort_energy(Blackhole bh) throws Exception {
         int[] copy = Arrays.copyOf(data, data.length);
         double energyConsumed = Double.NaN;
+        boolean isMeasurementPhase = currentIterationType != null && currentIterationType.equals(IterationType.MEASUREMENT);
+
         if (energyAvailable) {
             try {
                 EnergyCheckUtils.init();
@@ -81,8 +99,13 @@ public class EnergyMeasuredSortingBenchmark {
                 SortingAlgorithms.bubbleSort(copy);
                 String after = EnergyCheckUtils.getEnergyStats();
                 energyConsumed = parsePackageEnergyDelta(before, after);
-                System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "bubble_sort", arraySize, energyConsumed);
-                EnergyLog.append("bubble_sort", arraySize, energyConsumed);
+                
+                if (isMeasurementPhase) {
+                    System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "bubble_sort", arraySize, energyConsumed);
+                    EnergyLog.append("bubble_sort", arraySize, energyConsumed);
+                } else {
+                    System.out.printf("warmup,algo=%s,size=%d,joules=%.9f (WARMUP - NOT LOGGED)%n", "bubble_sort", arraySize, energyConsumed);
+                }
             } catch (Throwable t) {
                 System.err.println("Energy measurement failed: " + t.getMessage());
                 SortingAlgorithms.bubbleSort(copy);
@@ -98,6 +121,8 @@ public class EnergyMeasuredSortingBenchmark {
     public void merge_sort_energy(Blackhole bh) throws Exception {
         int[] copy = Arrays.copyOf(data, data.length);
         double energyConsumed = Double.NaN;
+        boolean isMeasurementPhase = currentIterationType != null && currentIterationType.equals(IterationType.MEASUREMENT);
+        
         if (energyAvailable) {
             try {
                 EnergyCheckUtils.init();
@@ -105,8 +130,13 @@ public class EnergyMeasuredSortingBenchmark {
                 SortingAlgorithms.mergeSort(copy);
                 String after = EnergyCheckUtils.getEnergyStats();
                 energyConsumed = parsePackageEnergyDelta(before, after);
-                System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "merge_sort", arraySize, energyConsumed);
-                EnergyLog.append("merge_sort", arraySize, energyConsumed);
+                
+                if (isMeasurementPhase) {
+                    System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "merge_sort", arraySize, energyConsumed);
+                    EnergyLog.append("merge_sort", arraySize, energyConsumed);
+                } else {
+                    System.out.printf("warmup,algo=%s,size=%d,joules=%.9f (WARMUP - NOT LOGGED)%n", "merge_sort", arraySize, energyConsumed);
+                }
             } catch (Throwable t) {
                 System.err.println("Energy measurement failed: " + t.getMessage());
                 SortingAlgorithms.mergeSort(copy);
@@ -119,7 +149,6 @@ public class EnergyMeasuredSortingBenchmark {
     }
 
     private static double parsePackageEnergyDelta(String before, String after) {
-        // Parse package energy (first value in comma-separated list from getEnergyStats)
         try {
             double b = Double.parseDouble(before.split(",")[0].trim());
             double a = Double.parseDouble(after.split(",")[0].trim());

@@ -71,6 +71,7 @@ public final class EnergyMeasuredSortingBenchmark_bubble_sort_energy_jmhTest {
             EnergyMeasuredSortingBenchmark_jmhType l_energymeasuredsortingbenchmark0_0 = _jmh_tryInit_f_energymeasuredsortingbenchmark0_0(control);
 
             control.preSetup();
+            l_energymeasuredsortingbenchmark0_0.setupIteration(iterationParams);
 
 
             control.announceWarmupReady();
@@ -145,6 +146,7 @@ public final class EnergyMeasuredSortingBenchmark_bubble_sort_energy_jmhTest {
             EnergyMeasuredSortingBenchmark_jmhType l_energymeasuredsortingbenchmark0_0 = _jmh_tryInit_f_energymeasuredsortingbenchmark0_0(control);
 
             control.preSetup();
+            l_energymeasuredsortingbenchmark0_0.setupIteration(iterationParams);
 
 
             control.announceWarmupReady();
@@ -219,6 +221,7 @@ public final class EnergyMeasuredSortingBenchmark_bubble_sort_energy_jmhTest {
             EnergyMeasuredSortingBenchmark_jmhType l_energymeasuredsortingbenchmark0_0 = _jmh_tryInit_f_energymeasuredsortingbenchmark0_0(control);
 
             control.preSetup();
+            l_energymeasuredsortingbenchmark0_0.setupIteration(iterationParams);
 
 
             control.announceWarmupReady();
@@ -312,6 +315,7 @@ public final class EnergyMeasuredSortingBenchmark_bubble_sort_energy_jmhTest {
             EnergyMeasuredSortingBenchmark_jmhType l_energymeasuredsortingbenchmark0_0 = _jmh_tryInit_f_energymeasuredsortingbenchmark0_0(control);
 
             control.preSetup();
+            l_energymeasuredsortingbenchmark0_0.setupIteration(iterationParams);
 
 
             notifyControl.startMeasurement = true;

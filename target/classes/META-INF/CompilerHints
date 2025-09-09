@@ -8,3 +8,4 @@ inline,dev/matheus/energy/EnergyMeasuredSortingBenchmark.merge_sort_energy
 inline,dev/matheus/energy/EnergyMeasuredSortingBenchmark.prepareData
 inline,dev/matheus/energy/EnergyMeasuredSortingBenchmark.quick_sort_energy
 inline,dev/matheus/energy/EnergyMeasuredSortingBenchmark.setup
+inline,dev/matheus/energy/EnergyMeasuredSortingBenchmark.setupIteration
