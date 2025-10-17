@@ -59,93 +59,129 @@ public class EnergyMeasuredSortingBenchmark {
     public void quick_sort_energy(Blackhole bh) throws Exception {
         int[] copy = Arrays.copyOf(data, data.length);
         double energyConsumed = Double.NaN;
+        double executionTimeMs = Double.NaN;
         boolean isMeasurementPhase = currentIterationType != null && currentIterationType.equals(IterationType.MEASUREMENT);
         
         if (energyAvailable) {
             try {
                 EnergyCheckUtils.init();
                 String before = EnergyCheckUtils.getEnergyStats();
+                long startTime = System.nanoTime();
                 SortingAlgorithms.quickSort(copy);
+                long endTime = System.nanoTime();
                 String after = EnergyCheckUtils.getEnergyStats();
+                
                 energyConsumed = parsePackageEnergyDelta(before, after);
+                executionTimeMs = (endTime - startTime) / 1_000_000.0; // Convert to milliseconds
                 
                 if (isMeasurementPhase) {
-                    System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "quick_sort", arraySize, energyConsumed);
-                    EnergyLog.append("quick_sort", arraySize, energyConsumed);
+                    System.out.printf("energy,algo=%s,size=%d,joules=%.9f,time_ms=%.3f%n", "quick_sort", arraySize, energyConsumed, executionTimeMs);
+                    EnergyLog.append("quick_sort", arraySize, energyConsumed, executionTimeMs);
                 } else {
-                    System.out.printf("warmup,algo=%s,size=%d,joules=%.9f (WARMUP - NOT LOGGED)%n", "quick_sort", arraySize, energyConsumed);
+                    System.out.printf("warmup,algo=%s,size=%d,joules=%.9f,time_ms=%.3f (WARMUP - NOT LOGGED)%n", "quick_sort", arraySize, energyConsumed, executionTimeMs);
                 }
             } catch (Throwable t) {
                 System.err.println("Energy measurement failed: " + t.getMessage());
+                long startTime = System.nanoTime();
                 SortingAlgorithms.quickSort(copy);
+                long endTime = System.nanoTime();
+                executionTimeMs = (endTime - startTime) / 1_000_000.0;
             }
         } else {
+            long startTime = System.nanoTime();
             SortingAlgorithms.quickSort(copy);
+            long endTime = System.nanoTime();
+            executionTimeMs = (endTime - startTime) / 1_000_000.0;
         }
         bh.consume(copy);
         bh.consume(energyConsumed);
+        bh.consume(executionTimeMs);
     }
 
     @Benchmark
     public void bubble_sort_energy(Blackhole bh) throws Exception {
         int[] copy = Arrays.copyOf(data, data.length);
         double energyConsumed = Double.NaN;
+        double executionTimeMs = Double.NaN;
         boolean isMeasurementPhase = currentIterationType != null && currentIterationType.equals(IterationType.MEASUREMENT);
 
         if (energyAvailable) {
             try {
                 EnergyCheckUtils.init();
                 String before = EnergyCheckUtils.getEnergyStats();
+                long startTime = System.nanoTime();
                 SortingAlgorithms.bubbleSort(copy);
+                long endTime = System.nanoTime();
                 String after = EnergyCheckUtils.getEnergyStats();
+                
                 energyConsumed = parsePackageEnergyDelta(before, after);
+                executionTimeMs = (endTime - startTime) / 1_000_000.0; // Convert to milliseconds
                 
                 if (isMeasurementPhase) {
-                    System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "bubble_sort", arraySize, energyConsumed);
-                    EnergyLog.append("bubble_sort", arraySize, energyConsumed);
+                    System.out.printf("energy,algo=%s,size=%d,joules=%.9f,time_ms=%.3f%n", "bubble_sort", arraySize, energyConsumed, executionTimeMs);
+                    EnergyLog.append("bubble_sort", arraySize, energyConsumed, executionTimeMs);
                 } else {
-                    System.out.printf("warmup,algo=%s,size=%d,joules=%.9f (WARMUP - NOT LOGGED)%n", "bubble_sort", arraySize, energyConsumed);
+                    System.out.printf("warmup,algo=%s,size=%d,joules=%.9f,time_ms=%.3f (WARMUP - NOT LOGGED)%n", "bubble_sort", arraySize, energyConsumed, executionTimeMs);
                 }
             } catch (Throwable t) {
                 System.err.println("Energy measurement failed: " + t.getMessage());
+                long startTime = System.nanoTime();
                 SortingAlgorithms.bubbleSort(copy);
+                long endTime = System.nanoTime();
+                executionTimeMs = (endTime - startTime) / 1_000_000.0;
             }
         } else {
+            long startTime = System.nanoTime();
             SortingAlgorithms.bubbleSort(copy);
+            long endTime = System.nanoTime();
+            executionTimeMs = (endTime - startTime) / 1_000_000.0;
         }
         bh.consume(copy);
         bh.consume(energyConsumed);
+        bh.consume(executionTimeMs);
     }
 
     @Benchmark
     public void merge_sort_energy(Blackhole bh) throws Exception {
         int[] copy = Arrays.copyOf(data, data.length);
         double energyConsumed = Double.NaN;
+        double executionTimeMs = Double.NaN;
         boolean isMeasurementPhase = currentIterationType != null && currentIterationType.equals(IterationType.MEASUREMENT);
         
         if (energyAvailable) {
             try {
                 EnergyCheckUtils.init();
                 String before = EnergyCheckUtils.getEnergyStats();
+                long startTime = System.nanoTime();
                 SortingAlgorithms.mergeSort(copy);
+                long endTime = System.nanoTime();
                 String after = EnergyCheckUtils.getEnergyStats();
+                
                 energyConsumed = parsePackageEnergyDelta(before, after);
+                executionTimeMs = (endTime - startTime) / 1_000_000.0; // Convert to milliseconds
                 
                 if (isMeasurementPhase) {
-                    System.out.printf("energy,algo=%s,size=%d,joules=%.9f%n", "merge_sort", arraySize, energyConsumed);
-                    EnergyLog.append("merge_sort", arraySize, energyConsumed);
+                    System.out.printf("energy,algo=%s,size=%d,joules=%.9f,time_ms=%.3f%n", "merge_sort", arraySize, energyConsumed, executionTimeMs);
+                    EnergyLog.append("merge_sort", arraySize, energyConsumed, executionTimeMs);
                 } else {
-                    System.out.printf("warmup,algo=%s,size=%d,joules=%.9f (WARMUP - NOT LOGGED)%n", "merge_sort", arraySize, energyConsumed);
+                    System.out.printf("warmup,algo=%s,size=%d,joules=%.9f,time_ms=%.3f (WARMUP - NOT LOGGED)%n", "merge_sort", arraySize, energyConsumed, executionTimeMs);
                 }
             } catch (Throwable t) {
                 System.err.println("Energy measurement failed: " + t.getMessage());
+                long startTime = System.nanoTime();
                 SortingAlgorithms.mergeSort(copy);
+                long endTime = System.nanoTime();
+                executionTimeMs = (endTime - startTime) / 1_000_000.0;
             }
         } else {
+            long startTime = System.nanoTime();
             SortingAlgorithms.mergeSort(copy);
+            long endTime = System.nanoTime();
+            executionTimeMs = (endTime - startTime) / 1_000_000.0;
         }
         bh.consume(copy);
         bh.consume(energyConsumed);
+        bh.consume(executionTimeMs);
     }
 
     private static double parsePackageEnergyDelta(String before, String after) {
