@@ -117,4 +117,4 @@ case "$1" in
         echo "  $0 frequency 2400      # Set 2400 MHz frequency"
         echo "  $0 restore             # Restore default frequency range"
         ;;
-esac
+esac1805
