@@ -30,6 +30,6 @@ fi
 # Ir para diretório do projeto
 cd "$(dirname "$0")/.."
 
-# Executar benchmark com taskset
+# Executar benchmark com taskset (precisa de sudo para acessar RAPL MSR)
 echo "Executando no core $CORE..."
-taskset -c "$CORE" java -Djava.library.path=. -Djmh.ignoreLock=true -jar target/benchmarks.jar EnergyMeasuredSortingBenchmark $BENCHMARK_ARGS
+sudo taskset -c "$CORE" java -Djava.library.path=. -Djmh.ignoreLock=true -jar target/benchmarks.jar EnergyMeasuredSortingBenchmark $BENCHMARK_ARGS
