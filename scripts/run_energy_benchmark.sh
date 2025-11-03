@@ -6,7 +6,6 @@
 set -e
 
 # Default values
-REBUILD=false
 ALGORITHM="all"
 ARRAY_SIZE="10000"
 WARMUP_ITERATIONS="50"
@@ -40,7 +39,6 @@ ${BLUE}Usage:${NC}
 
 ${BLUE}Options:${NC}
     -h, --help                  Show this help message
-    -r, --rebuild               Rebuild the project before running
     -a, --algorithm ALGO        Algorithm to benchmark (default: all)
                                 Options: all, quick_sort, bubble_sort, merge_sort
     -s, --size SIZE             Array size (default: 10000)
@@ -74,18 +72,18 @@ ${BLUE}Examples:${NC}
     # Run with reduced iterations for quick testing with frequency steps
     $0 -w 10 -m 3 --freq-start 1500 --freq-end 2500 --freq-step 500
 
-    # Rebuild, run on core 0, with frequency stepping
-    $0 -r -c 0 --freq-step 1000 -o results/my_benchmark.log
+    # Run on core 0, with frequency stepping
+    $0 -c 0 --freq-step 1000 -o results/my_benchmark.log
 
     # Run all algorithms with custom parameters and frequency stepping
     $0 -s 20000 -w 30 -wt 3 -m 10 -mt 3 -f 2 --freq-step 500
 
 ${BLUE}Notes:${NC}
-    - This script requires the project to be built at least once
+    - The project is always rebuilt before running ('mvn clean package')
     - Energy measurement requires jRAPL to be properly configured
     - Energy measurement requires root/sudo access (script uses sudo automatically)
     - If output file is specified without path, it will be saved in results/
-    - Using --rebuild will run 'mvn clean package' first
+    - Hyperthreading is automatically disabled during benchmarks (not restored)
     - Frequency management requires root/sudo access and sets CPU governor to 'userspace'
     - If --freq-step is not specified, benchmark runs at current CPU frequency
     - Original CPU governor is restored after benchmark (unless --no-restore is used)
@@ -99,10 +97,6 @@ while [[ $# -gt 0 ]]; do
         -h|--help)
             show_help
             exit 0
-            ;;
-        -r|--rebuild)
-            REBUILD=true
-            shift
             ;;
         -a|--algorithm)
             ALGORITHM="$2"
@@ -177,10 +171,25 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$PROJECT_ROOT"
 
-# CPU Frequency Management Functions
+# CPU Frequency and Hyperthreading Management Functions
 ORIGINAL_GOVERNORS=()
 ORIGINAL_MIN_FREQS=()
 ORIGINAL_MAX_FREQS=()
+
+disable_hyperthreading() {
+    echo -e "${BLUE}Disabling hyperthreading...${NC}"
+    
+    if [ -f /sys/devices/system/cpu/smt/control ]; then
+        echo "off" | sudo tee /sys/devices/system/cpu/smt/control > /dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            echo -e "${GREEN}Hyperthreading disabled${NC}"
+        else
+            echo -e "${YELLOW}Failed to disable hyperthreading${NC}"
+        fi
+    else
+        echo -e "${YELLOW}SMT control not available on this system${NC}"
+    fi
+}
 
 save_cpu_state() {
     echo -e "${BLUE}Saving current CPU state...${NC}"
@@ -254,17 +263,15 @@ trap cleanup EXIT
 
 echo -e "${GREEN}=== Energy Measurement Benchmark Runner ===${NC}\n"
 
-# Rebuild if requested
-if [ "$REBUILD" = true ]; then
-    echo -e "${YELLOW}Rebuilding project...${NC}"
-    mvn clean package
-    echo -e "${GREEN}Build complete!${NC}\n"
-fi
+# Always rebuild the project
+echo -e "${YELLOW}Rebuilding project...${NC}"
+mvn clean package
+echo -e "${GREEN}Build complete!${NC}\n"
 
 # Check if benchmark jar exists
 if [ ! -f "target/benchmarks.jar" ]; then
-    echo -e "${RED}Error: target/benchmarks.jar not found${NC}"
-    echo -e "${YELLOW}Run with --rebuild flag or execute: mvn clean package${NC}"
+    echo -e "${RED}Error: target/benchmarks.jar not found after build${NC}"
+    echo -e "${YELLOW}Build may have failed. Check output above.${NC}"
     exit 1
 fi
 
@@ -368,6 +375,10 @@ if [ "$USE_FREQ_STEPPING" = true ]; then
     echo "# Frequency Range: ${FREQ_START}-${FREQ_END} MHz, Step: ${FREQ_STEP} MHz" >> "$OUTPUT_FILE"
 fi
 echo "" >> "$OUTPUT_FILE"
+
+# Disable hyperthreading before running benchmarks
+disable_hyperthreading
+echo ""
 
 # Run benchmark
 echo -e "${YELLOW}Note: Running with sudo for RAPL energy measurements${NC}"
