@@ -1,0 +1,233 @@
+RELATÓRIO - DADOS POR FREQUÊNCIA CPU
+=============================================
+
+DADOS ANALISADOS
+--------------------
+Fonte: results/
+Total de registros: 38509
+Algoritmos: bubble_sort, merge_sort, quick_sort
+Frequências CPU: 500, 1500, 2500, 3500 MHz
+
+
+BUBBLE SORT
+==================================================
+
+CPU: 500 MHz
+------------------------------
+Observações: 25
+
+ENERGIA:
+  Média: 3.280149 J
+  Desvio: 2.289587 J
+  IC 95%: [2.618559, 4.483072] J
+
+TEMPO:
+  Média: 1079.904 ms
+  Desvio: 459.212 ms
+  IC 95%: [943.635, 1319.503] ms
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.953 (p=0.000000)
+
+CPU: 1500 MHz
+------------------------------
+Observações: 93
+
+ENERGIA:
+  Média: 1.069416 J
+  Desvio: 0.211061 J
+  IC 95%: [1.034906, 1.123361] J
+
+TEMPO:
+  Média: 274.231 ms
+  Desvio: 26.460 ms
+  IC 95%: [270.025, 281.370] ms
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.890 (p=0.000000)
+
+CPU: 2500 MHz
+------------------------------
+Observações: 154
+
+ENERGIA:
+  Média: 1.055855 J
+  Desvio: 0.176717 J
+  IC 95%: [1.031716, 1.088684] J
+
+TEMPO:
+  Média: 162.526 ms
+  Desvio: 14.364 ms
+  IC 95%: [160.908, 165.993] ms
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.783 (p=0.000000)
+
+CPU: 3500 MHz
+------------------------------
+Observações: 167
+
+ENERGIA:
+  Média: 1.100815 J
+  Desvio: 0.144924 J
+  IC 95%: [1.081815, 1.126265] J
+
+TEMPO:
+  Média: 150.754 ms
+  Desvio: 10.282 ms
+  IC 95%: [149.621, 153.044] ms
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.728 (p=0.000000)
+
+MERGE SORT
+==================================================
+
+CPU: 500 MHz
+------------------------------
+Observações: 1183
+
+ENERGIA:
+  Média: 0.047560 J
+  Desvio: 0.035532 J
+  IC 95%: [0.045654, 0.049658] J
+
+TEMPO:
+  Média: 14.448 ms
+  Desvio: 8.637 ms
+  IC 95%: [13.977, 14.959] ms
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.898 (p=0.000000)
+
+CPU: 1500 MHz
+------------------------------
+Observações: 4832
+
+ENERGIA:
+  Média: 0.019840 J
+  Desvio: 0.014636 J
+  IC 95%: [0.019443, 0.020269] J
+
+TEMPO:
+  Média: 3.216 ms
+  Desvio: 1.491 ms
+  IC 95%: [3.175, 3.259] ms
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.739 (p=0.000000)
+
+CPU: 2500 MHz
+------------------------------
+Observações: 5379
+
+ENERGIA:
+  Média: 0.028171 J
+  Desvio: 0.021933 J
+  IC 95%: [0.027607, 0.028773] J
+
+TEMPO:
+  Média: 2.495 ms
+  Desvio: 1.632 ms
+  IC 95%: [2.452, 2.539] ms
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.875 (p=0.000000)
+
+CPU: 3500 MHz
+------------------------------
+Observações: 5869
+
+ENERGIA:
+  Média: 0.028685 J
+  Desvio: 0.022807 J
+  IC 95%: [0.028096, 0.029284] J
+
+TEMPO:
+  Média: 2.298 ms
+  Desvio: 1.510 ms
+  IC 95%: [2.260, 2.338] ms
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.871 (p=0.000000)
+
+QUICK SORT
+==================================================
+
+CPU: 500 MHz
+------------------------------
+Observações: 1528
+
+ENERGIA:
+  Média: 0.030511 J
+  Desvio: 0.021759 J
+  IC 95%: [0.029481, 0.031670] J
+
+TEMPO:
+  Média: 9.511 ms
+  Desvio: 5.728 ms
+  IC 95%: [9.237, 9.801] ms
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.908 (p=0.000000)
+
+CPU: 1500 MHz
+------------------------------
+Observações: 4571
+
+ENERGIA:
+  Média: 0.018799 J
+  Desvio: 0.017122 J
+  IC 95%: [0.018313, 0.019296] J
+
+TEMPO:
+  Média: 2.846 ms
+  Desvio: 1.867 ms
+  IC 95%: [2.793, 2.901] ms
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.784 (p=0.000000)
+
+CPU: 2500 MHz
+------------------------------
+Observações: 7260
+
+ENERGIA:
+  Média: 0.017870 J
+  Desvio: 0.017140 J
+  IC 95%: [0.017493, 0.018284] J
+
+TEMPO:
+  Média: 1.579 ms
+  Desvio: 1.305 ms
+  IC 95%: [1.550, 1.611] ms
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.837 (p=0.000000)
+
+CPU: 3500 MHz
+------------------------------
+Observações: 7448
+
+ENERGIA:
+  Média: 0.018410 J
+  Desvio: 0.017072 J
+  IC 95%: [0.018032, 0.018808] J
+
+TEMPO:
+  Média: 1.499 ms
+  Desvio: 1.220 ms
+  IC 95%: [1.473, 1.527] ms
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.855 (p=0.000000)
+
+
+TABELA RESUMO POR FREQUÊNCIA
+========================================
+
+Algoritmo       CPU(MHz)   Energia(J)      Tempo(ms)   
+-------------------------------------------------------
+bubble_sort     500        3.280149        1079.904    
+bubble_sort     1500       1.069416        274.231     
+bubble_sort     2500       1.055855        162.526     
+bubble_sort     3500       1.100815        150.754     
+
+merge_sort      500        0.047560        14.448      
+merge_sort      1500       0.019840        3.216       
+merge_sort      2500       0.028171        2.495       
+merge_sort      3500       0.028685        2.298       
+
+quick_sort      500        0.030511        9.511       
+quick_sort      1500       0.018799        2.846       
+quick_sort      2500       0.017870        1.579       
+quick_sort      3500       0.018410        1.499       
+

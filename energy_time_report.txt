@@ -1,0 +1,70 @@
+RELATÓRIO COMPLETO - ANÁLISE DE ENERGIA E TEMPO JVM
+============================================================
+
+DADOS ANALISADOS
+--------------------
+Fonte: results/*bubblesort*.csv
+Total de registros: 346
+Algoritmos: bubble_sort
+
+RESULTADOS DETALHADOS
+-------------------------
+
+BUBBLE SORT:
+  N observações: 346
+
+  ENERGIA:
+    Média: 1.238270 J
+    Desvio Padrão: 0.845429 J
+    IC 95%: [1.170134, 1.362593] J
+    Margem de erro: ±0.096229 J
+
+  TEMPO:
+    Média: 223.129 ms
+    Desvio Padrão: 268.663 ms
+    IC 95%: [199.420, 258.161] ms
+    Margem de erro: ±29.370 ms
+
+  EFICIÊNCIA ENERGÉTICA:
+    Média: 0.006605 J/ms
+    Desvio Padrão: 0.001295 J/ms
+    IC 95%: [0.006463, 0.006733] J/ms
+    Margem de erro: ±0.000135 J/ms
+
+  CORRELAÇÃO ENERGIA-TEMPO:
+    Coeficiente: 0.914
+    p-value: 0.000000
+    Significante: Sim
+
+RANKINGS COMPARATIVOS
+-------------------------
+
+Por ENERGIA (menor = melhor):
+1. Bubble Sort: 1.238270 J
+
+Por TEMPO (menor = melhor):
+1. Bubble Sort: 223.129 ms
+
+Por EFICIÊNCIA ENERGÉTICA (menor = melhor):
+1. Bubble Sort: 0.006605 J/ms
+
+ANÁLISE COMPARATIVA
+--------------------
+
+Menor consumo energético: Bubble Sort
+Maior consumo energético: Bubble Sort
+Diferença energética: 0.0% mais consumo
+
+Menor tempo execução: Bubble Sort
+Maior tempo execução: Bubble Sort
+Diferença temporal: 0.0% mais tempo
+
+Melhor eficiência energética: Bubble Sort
+Pior eficiência energética: Bubble Sort
+Diferença de eficiência: 0.0% menos eficiente
+
+INSIGHTS SOBRE CORRELAÇÕES
+------------------------------
+
+Bubble Sort:
+  Correlação forte positiva (0.914) - maior tempo = maior energia
