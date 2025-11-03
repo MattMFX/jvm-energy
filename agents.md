@@ -747,3 +747,4 @@ sudo ./scripts/cpu_governor_manager.sh restore
 **Maintained By**: Matheus (matheus@dev)
 
 
+

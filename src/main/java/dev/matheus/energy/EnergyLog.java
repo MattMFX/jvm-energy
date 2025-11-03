@@ -15,6 +15,7 @@ final class EnergyLog {
     private static volatile boolean headerWritten = false;
     
     static {
+        // Use fixed filename so all results go to the same file
         // Generate filename with timestamp: energy_YYYY-MM-DD_HH-mm.csv
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm");
         String timestamp = LocalDateTime.now().format(formatter);
@@ -22,13 +23,23 @@ final class EnergyLog {
     }
 
     static synchronized void append(String algorithm, int size, double joules, double timeMs) {
+        int frequency = getCpuFrequency();
         ensureHeader();
-        writeLine(algorithm + "," + size + "," + format(joules) + "," + format(timeMs));
+        writeLine(algorithm + "," + size + "," + frequency + "," + format(joules) + "," + format(timeMs));
     }
     
     // Keep backward compatibility for existing code
     static synchronized void append(String algorithm, int size, double joules) {
         append(algorithm, size, joules, Double.NaN);
+    }
+    
+    private static int getCpuFrequency() {
+        String freqStr = System.getProperty("benchmark.cpu.frequency", "0");
+        try {
+            return Integer.parseInt(freqStr);
+        } catch (NumberFormatException e) {
+            return 0; // Return 0 if frequency is not set or invalid
+        }
     }
 
     private static void ensureHeader() {
@@ -38,7 +49,7 @@ final class EnergyLog {
             if (!Files.exists(p)) {
                 File parent = p.toFile().getParentFile();
                 if (parent != null && !parent.exists()) parent.mkdirs();
-                writeRaw("algo,size,joules,time_ms\n", false);
+                writeRaw("algo,size,freq_mhz,joules,time_ms\n", false);
             }
             headerWritten = true;
         } catch (Exception ignored) {
