@@ -56,7 +56,7 @@ public class BinaryTreesBenchmark_V7 implements BenchmarkAlgorithm {
                     final TreeNode treeNode1 = bottomUpTree(depth);
                     check += treeNode1.itemCheck();
                 }
-                results[(depth - MIN_DEPTH) / 2] = check;
+                results[(depth - MIN_DEPTH) / 2] = String.valueOf(check);
             });
         }
 
