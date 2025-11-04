@@ -21,6 +21,7 @@ FREQ_START="500"
 FREQ_END="3500"
 FREQ_STEP=""
 RESTORE_GOVERNOR=true
+BENCHMARK_FILTER=""
 
 # Colors for output
 RED='\033[0;31m'
@@ -42,11 +43,15 @@ ${BLUE}Options:${NC}
     -a, --algorithm ALGO        Algorithm to benchmark (default: unified)
                                 
                                 Options:
-                                - unified: runs all 10 benchmarks (DEFAULT)
+                                - unified: runs all benchmarks (DEFAULT)
                                 - all: runs 3 sorting algorithms only (legacy)
                                 - Individual: quick_sort, bubble_sort, merge_sort,
                                   nbody, spectralnorm, binarytrees, mandelbrot,
                                   fannkuchredux, fasta, knucleotide
+    --filter "ALGO1,ALGO2"      Filter benchmarks by prefix (comma-separated)
+                                Examples: "nbody" runs all nbody variants
+                                          "nbody,mandelbrot" runs all nbody and mandelbrot
+                                This works only with -a unified
     -s, --size SIZE             Input size parameter (default: 10000)
                                 For sorting: array size
                                 For other algorithms: algorithm-specific parameter
@@ -94,6 +99,12 @@ ${BLUE}Examples:${NC}
 
     # Run all algorithms with custom parameters and frequency stepping
     $0 -s 20000 -w 30 -wt 3 -m 10 -mt 3 -f 2 --freq-step 500
+    
+    # Run only nbody variants (all 3: nbody, nbody_v5, nbody_v8)
+    $0 --filter "nbody"
+    
+    # Run nbody and mandelbrot variants
+    $0 --filter "nbody,mandelbrot"
 
 ${BLUE}Notes:${NC}
     - The project is always rebuilt before running ('mvn clean package')
@@ -174,6 +185,10 @@ while [[ $# -gt 0 ]]; do
         --no-restore)
             RESTORE_GOVERNOR=false
             shift
+            ;;
+        --filter)
+            BENCHMARK_FILTER="$2"
+            shift 2
             ;;
         *)
             echo -e "${RED}Error: Unknown option $1${NC}"
@@ -378,6 +393,9 @@ JMH_OPTS="$JMH_OPTS $EXTRA_JMH_OPTS"
 
 # Base JVM options (without frequency)
 BASE_JVM_OPTS="-Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=${ENERGY_TIMESTAMP}"
+if [ -n "$BENCHMARK_FILTER" ]; then
+    BASE_JVM_OPTS="$BASE_JVM_OPTS -Dbenchmark.filter=${BENCHMARK_FILTER}"
+fi
 if [ -n "$EXTRA_JVM_OPTS" ]; then
     BASE_JVM_OPTS="$BASE_JVM_OPTS $EXTRA_JVM_OPTS"
 fi
@@ -399,6 +417,7 @@ fi
 # Print configuration
 echo -e "${BLUE}Benchmark Configuration:${NC}"
 echo -e "  Algorithm:           $ALGORITHM"
+[ -n "$BENCHMARK_FILTER" ] && echo -e "  ${GREEN}Benchmark Filter:    $BENCHMARK_FILTER${NC}"
 echo -e "  Array Size:          $ARRAY_SIZE"
 echo -e "  Warmup:              $WARMUP_ITERATIONS iterations × ${WARMUP_TIME}s"
 echo -e "  Measurement:         $MEASUREMENT_ITERATIONS iterations × ${MEASUREMENT_TIME}s"

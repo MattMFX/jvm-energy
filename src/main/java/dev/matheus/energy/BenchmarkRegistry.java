@@ -109,6 +109,53 @@ public final class BenchmarkRegistry {
     }
     
     /**
+     * Enable only benchmarks that match a given prefix.
+     * All other benchmarks will be disabled.
+     * 
+     * @param prefix The prefix to match (e.g., "nbody" matches "nbody", "nbody_v5", "nbody_v8")
+     */
+    public static void enableOnly(String prefix) {
+        ENABLED.clear();
+        for (String name : REGISTRY.keySet()) {
+            if (name.startsWith(prefix)) {
+                ENABLED.add(name);
+            }
+        }
+    }
+    
+    /**
+     * Enable only benchmarks that match any of the given prefixes.
+     * All other benchmarks will be disabled.
+     * 
+     * @param prefixes The prefixes to match
+     */
+    public static void enableOnly(String... prefixes) {
+        ENABLED.clear();
+        for (String prefix : prefixes) {
+            for (String name : REGISTRY.keySet()) {
+                if (name.startsWith(prefix)) {
+                    ENABLED.add(name);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Enable all registered benchmarks.
+     */
+    public static void enableAll() {
+        ENABLED.clear();
+        ENABLED.addAll(REGISTRY.keySet());
+    }
+    
+    /**
+     * Disable all benchmarks.
+     */
+    public static void disableAll() {
+        ENABLED.clear();
+    }
+    
+    /**
      * Clear all registrations (useful for testing).
      */
     public static void clear() {

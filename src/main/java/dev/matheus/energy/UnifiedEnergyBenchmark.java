@@ -47,6 +47,17 @@ public class UnifiedEnergyBenchmark {
         // Initialize benchmark registry
         BenchmarkConfig.initialize();
         
+        // Check if benchmark filter is specified via system property
+        String benchmarkFilter = System.getProperty("benchmark.filter");
+        if (benchmarkFilter != null && !benchmarkFilter.isEmpty()) {
+            System.out.println("Applying benchmark filter: " + benchmarkFilter);
+            String[] prefixes = benchmarkFilter.split(",");
+            for (int i = 0; i < prefixes.length; i++) {
+                prefixes[i] = prefixes[i].trim();
+            }
+            BenchmarkRegistry.enableOnly(prefixes);
+        }
+        
         // Get enabled benchmarks
         enabledBenchmarks = BenchmarkRegistry.getEnabledBenchmarks();
         

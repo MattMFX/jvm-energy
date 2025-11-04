@@ -34,15 +34,43 @@ public final class BenchmarkConfig {
         BenchmarkRegistry.register(new MergeSortBenchmark(), false);
         
         // ========================================
-        // BENCHMARKS GAME ALGORITHMS
+        // BENCHMARKS GAME ALGORITHMS - ALL VARIANTS
         // ========================================
-        BenchmarkRegistry.register(new NBodyBenchmark(), true);
-        BenchmarkRegistry.register(new SpectralNormBenchmark(), true);
-        BenchmarkRegistry.register(new BinaryTreesBenchmark(), true);
-        BenchmarkRegistry.register(new MandelbrotBenchmark(), true);
-        BenchmarkRegistry.register(new FannkuchReduxBenchmark(), true);
-        BenchmarkRegistry.register(new FastaBenchmark(), true);
-        BenchmarkRegistry.register(new KNucleotideBenchmark(), true);
+        
+        // Binary Trees variants
+        BenchmarkRegistry.register(new BinaryTreesBenchmark_V2(), true);
+        BenchmarkRegistry.register(new BinaryTreesBenchmark_V3(), true);
+        BenchmarkRegistry.register(new BinaryTreesBenchmark_V7(), true);
+        
+        // Fannkuch Redux variants
+        BenchmarkRegistry.register(new FannkuchReduxBenchmark_V1(), true);
+        BenchmarkRegistry.register(new FannkuchReduxBenchmark_V2(), true);
+        BenchmarkRegistry.register(new FannkuchReduxBenchmark_V8(), true);
+        
+        // Fasta variants
+        BenchmarkRegistry.register(new FastaBenchmark_V2(), true);
+        BenchmarkRegistry.register(new FastaBenchmark_V6(), true);
+        BenchmarkRegistry.register(new FastaBenchmark_V8(), true);
+        
+        // K-Nucleotide variants
+        BenchmarkRegistry.register(new KNucleotideBenchmark_V3(), true);
+        BenchmarkRegistry.register(new KNucleotideBenchmark_V5(), true);
+        BenchmarkRegistry.register(new KNucleotideBenchmark_V8(), true);
+        
+        // Mandelbrot variants
+        BenchmarkRegistry.register(new MandelbrotBenchmark_V1(), true);
+        BenchmarkRegistry.register(new MandelbrotBenchmark_V2(), true);
+        BenchmarkRegistry.register(new MandelbrotBenchmark_V3(), true);
+        
+        // N-Body variants
+        BenchmarkRegistry.register(new NBodyBenchmark_V1(), true);
+        BenchmarkRegistry.register(new NBodyBenchmark_V5(), true);
+        BenchmarkRegistry.register(new NBodyBenchmark_V8(), true);
+        
+        // Spectral Norm variants
+        BenchmarkRegistry.register(new SpectralNormBenchmark_V1(), true);
+        BenchmarkRegistry.register(new SpectralNormBenchmark_V2(), true);
+        BenchmarkRegistry.register(new SpectralNormBenchmark_V3(), true);
         
         // Add more benchmarks here as needed...
         
