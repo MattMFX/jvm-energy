@@ -16,7 +16,7 @@ public class FannkuchReduxBenchmark_V1 implements BenchmarkAlgorithm {
     
     @Override
     public String getName() {
-        return "fannkuchredux";
+        return "fannkuchredux_v1";
     }
     
     @Override

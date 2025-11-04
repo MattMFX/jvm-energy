@@ -14,7 +14,7 @@ public class SpectralNormBenchmark_V1 implements BenchmarkAlgorithm {
     
     @Override
     public String getName() {
-        return "spectralnorm";
+        return "spectralnorm_v1";
     }
     
     @Override

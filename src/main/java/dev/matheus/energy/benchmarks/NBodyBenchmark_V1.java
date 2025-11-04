@@ -13,7 +13,7 @@ public class NBodyBenchmark_V1 implements BenchmarkAlgorithm {
     
     @Override
     public String getName() {
-        return "nbody";
+        return "nbody_v1";
     }
     
     @Override

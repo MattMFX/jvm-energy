@@ -15,7 +15,7 @@ public class MandelbrotBenchmark_V1 implements BenchmarkAlgorithm {
     
     @Override
     public String getName() {
-        return "mandelbrot";
+        return "mandelbrot_v1";
     }
     
     @Override
