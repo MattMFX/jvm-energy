@@ -51,6 +51,24 @@ class EnergyTimeAnalysis:
                 # Arquivo único
                 self.data = pd.read_csv(self.csv_path_or_pattern)
                 print(f"✓ Arquivo carregado: {self.csv_path_or_pattern}")
+                
+                # Adiciona coluna com nome do arquivo para identificação
+                self.data['source_file'] = os.path.basename(self.csv_path_or_pattern)
+                
+                # Verifica se já existe coluna freq_mhz (novo formato)
+                if 'freq_mhz' in self.data.columns:
+                    # Novo formato: usa freq_mhz diretamente
+                    self.data['cpu_frequency_mhz'] = self.data['freq_mhz']
+                    print(f"✓ Formato novo detectado (coluna freq_mhz)")
+                else:
+                    # Formato antigo: extrai do nome do arquivo
+                    frequency = self.extract_frequency_from_filename(os.path.basename(self.csv_path_or_pattern))
+                    if frequency is not None:
+                        self.data['cpu_frequency_mhz'] = frequency
+                        print(f"✓ Formato antigo detectado (CPU: {frequency} MHz do nome do arquivo)")
+                    else:
+                        self.data['cpu_frequency_mhz'] = 'Não identificado'
+                        print(f"✓ Aviso: frequência CPU não encontrada")
             else:
                 # Múltiplos arquivos - primeiro tenta como diretório
                 if os.path.isdir(self.csv_path_or_pattern):
@@ -71,14 +89,20 @@ class EnergyTimeAnalysis:
                     # Adiciona coluna com nome do arquivo para identificação
                     df['source_file'] = filename
                     
-                    # Extrai e adiciona frequência do processador
-                    frequency = self.extract_frequency_from_filename(filename)
-                    if frequency is not None:
-                        df['cpu_frequency_mhz'] = frequency
-                        print(f"✓ Carregado: {filename} (CPU: {frequency} MHz)")
+                    # Verifica se já existe coluna freq_mhz (novo formato)
+                    if 'freq_mhz' in df.columns:
+                        # Novo formato: usa freq_mhz diretamente
+                        df['cpu_frequency_mhz'] = df['freq_mhz']
+                        print(f"✓ Carregado: {filename} (formato novo com coluna freq_mhz)")
                     else:
-                        df['cpu_frequency_mhz'] = 'Não identificado'
-                        print(f"✓ Carregado: {filename} (CPU: frequência não identificada)")
+                        # Formato antigo: extrai frequência do nome do arquivo
+                        frequency = self.extract_frequency_from_filename(filename)
+                        if frequency is not None:
+                            df['cpu_frequency_mhz'] = frequency
+                            print(f"✓ Carregado: {filename} (CPU: {frequency} MHz)")
+                        else:
+                            df['cpu_frequency_mhz'] = 'Não identificado'
+                            print(f"✓ Carregado: {filename} (CPU: frequência não identificada)")
                     
                     dataframes.append(df)
                 
@@ -89,6 +113,11 @@ class EnergyTimeAnalysis:
             
             print(f"✓ Total de registros: {len(self.data)}")
             print(f"✓ Algoritmos: {', '.join(sorted(self.data['algo'].unique()))}")
+            
+            # Exibe informação sobre tamanhos se disponível
+            if 'size' in self.data.columns:
+                print(f"✓ Tamanhos de entrada detectados: {sorted(self.data['size'].unique())}")
+            
             frequencies = sorted([f for f in self.data['cpu_frequency_mhz'].unique() if f != 'Não identificado'])
             if frequencies:
                 print(f"✓ Frequências CPU: {', '.join(map(str, frequencies))} MHz")
@@ -130,43 +159,87 @@ class EnergyTimeAnalysis:
                 
                 # Energia
                 energy_mean = np.mean(energy_data)
-                energy_std = np.std(energy_data, ddof=1)
                 
                 # Tempo  
                 time_mean = np.mean(time_data)
-                time_std = np.std(time_data, ddof=1)
                 
-                # Correlação
-                correlation, p_value = pearsonr(energy_data, time_data)
+                # Energy-Delay Product (EDP) - Métrica de eficiência energética
+                # EDP = Energy × Time (lower is better)
+                edp_data = energy_data * time_data
+                edp_mean = np.mean(edp_data)
                 
-                # Intervalos de confiança bootstrap (95%)
-                rng = np.random.default_rng(42)
-                
-                energy_bootstrap = bootstrap((energy_data,), np.mean, n_resamples=10000,
-                                           confidence_level=0.95, random_state=rng)
-                time_bootstrap = bootstrap((time_data,), np.mean, n_resamples=10000,
-                                         confidence_level=0.95, random_state=rng)
-                
-                # Armazena resultados
-                results[algo][freq] = {
-                    'n_samples': n_samples,
-                    'energy': {
-                        'mean': energy_mean,
-                        'std': energy_std,
-                        'ci_lower': energy_bootstrap.confidence_interval.low,
-                        'ci_upper': energy_bootstrap.confidence_interval.high
-                    },
-                    'time': {
-                        'mean': time_mean,
-                        'std': time_std,
-                        'ci_lower': time_bootstrap.confidence_interval.low,
-                        'ci_upper': time_bootstrap.confidence_interval.high
-                    },
-                    'correlation': {
-                        'value': correlation,
-                        'p_value': p_value
+                # Para uma única amostra, não calculamos desvio padrão ou IC
+                if n_samples == 1:
+                    results[algo][freq] = {
+                        'n_samples': n_samples,
+                        'energy': {
+                            'mean': energy_mean,
+                            'std': None,
+                            'ci_lower': None,
+                            'ci_upper': None
+                        },
+                        'time': {
+                            'mean': time_mean,
+                            'std': None,
+                            'ci_lower': None,
+                            'ci_upper': None
+                        },
+                        'edp': {
+                            'mean': edp_mean,
+                            'std': None,
+                            'ci_lower': None,
+                            'ci_upper': None
+                        },
+                        'correlation': {
+                            'value': None,
+                            'p_value': None
+                        }
                     }
-                }
+                else:
+                    # Múltiplas amostras: calcula estatísticas completas
+                    energy_std = np.std(energy_data, ddof=1)
+                    time_std = np.std(time_data, ddof=1)
+                    edp_std = np.std(edp_data, ddof=1)
+                    
+                    # Correlação
+                    correlation, p_value = pearsonr(energy_data, time_data)
+                    
+                    # Intervalos de confiança bootstrap (95%)
+                    rng = np.random.default_rng(42)
+                    
+                    energy_bootstrap = bootstrap((energy_data,), np.mean, n_resamples=10000,
+                                               confidence_level=0.95, random_state=rng)
+                    time_bootstrap = bootstrap((time_data,), np.mean, n_resamples=10000,
+                                             confidence_level=0.95, random_state=rng)
+                    edp_bootstrap = bootstrap((edp_data,), np.mean, n_resamples=10000,
+                                           confidence_level=0.95, random_state=rng)
+                    
+                    # Armazena resultados
+                    results[algo][freq] = {
+                        'n_samples': n_samples,
+                        'energy': {
+                            'mean': energy_mean,
+                            'std': energy_std,
+                            'ci_lower': energy_bootstrap.confidence_interval.low,
+                            'ci_upper': energy_bootstrap.confidence_interval.high
+                        },
+                        'time': {
+                            'mean': time_mean,
+                            'std': time_std,
+                            'ci_lower': time_bootstrap.confidence_interval.low,
+                            'ci_upper': time_bootstrap.confidence_interval.high
+                        },
+                        'edp': {
+                            'mean': edp_mean,
+                            'std': edp_std,
+                            'ci_lower': edp_bootstrap.confidence_interval.low,
+                            'ci_upper': edp_bootstrap.confidence_interval.high
+                        },
+                        'correlation': {
+                            'value': correlation,
+                            'p_value': p_value
+                        }
+                    }
         
         # Apresenta dados organizados
         for algo in sorted(results.keys()):
@@ -181,16 +254,28 @@ class EnergyTimeAnalysis:
                 print(f"Observações: {data['n_samples']}")
                 
                 print(f"\nEnergia:")
-                print(f"  Média: {data['energy']['mean']:.6f} J")
-                print(f"  Desvio: {data['energy']['std']:.6f} J") 
-                print(f"  IC 95%: [{data['energy']['ci_lower']:.6f}, {data['energy']['ci_upper']:.6f}] J")
+                print(f"  Valor: {data['energy']['mean']:.6f} J")
+                if data['energy']['std'] is not None:
+                    print(f"  Desvio: {data['energy']['std']:.6f} J") 
+                    print(f"  IC 95%: [{data['energy']['ci_lower']:.6f}, {data['energy']['ci_upper']:.6f}] J")
                 
                 print(f"\nTempo:")
-                print(f"  Média: {data['time']['mean']:.3f} ms")
-                print(f"  Desvio: {data['time']['std']:.3f} ms")
-                print(f"  IC 95%: [{data['time']['ci_lower']:.3f}, {data['time']['ci_upper']:.3f}] ms")
+                print(f"  Valor: {data['time']['mean']:.3f} ms")
+                if data['time']['std'] is not None:
+                    print(f"  Desvio: {data['time']['std']:.3f} ms")
+                    print(f"  IC 95%: [{data['time']['ci_lower']:.3f}, {data['time']['ci_upper']:.3f}] ms")
                 
-                print(f"\nCorrelação Energia-Tempo: {data['correlation']['value']:.3f} (p={data['correlation']['p_value']:.6f})")
+                print(f"\nEDP (Energy-Delay Product):")
+                print(f"  Valor: {data['edp']['mean']:.6f} J·ms")
+                if data['edp']['std'] is not None:
+                    print(f"  Desvio: {data['edp']['std']:.6f} J·ms")
+                    print(f"  IC 95%: [{data['edp']['ci_lower']:.6f}, {data['edp']['ci_upper']:.6f}] J·ms")
+                print(f"  (Menor EDP = Melhor eficiência energética)")
+                
+                if data['correlation']['value'] is not None:
+                    print(f"\nCorrelação Energia-Tempo: {data['correlation']['value']:.3f} (p={data['correlation']['p_value']:.6f})")
+                else:
+                    print(f"\nCorrelação Energia-Tempo: N/A (amostra única)")
         
         return results
     
@@ -224,17 +309,31 @@ class EnergyTimeAnalysis:
                     f.write(f"Observações: {data['n_samples']}\n\n")
                     
                     f.write(f"ENERGIA:\n")
-                    f.write(f"  Média: {data['energy']['mean']:.6f} J\n")
-                    f.write(f"  Desvio: {data['energy']['std']:.6f} J\n")
-                    f.write(f"  IC 95%: [{data['energy']['ci_lower']:.6f}, {data['energy']['ci_upper']:.6f}] J\n\n")
+                    f.write(f"  Valor: {data['energy']['mean']:.6f} J\n")
+                    if data['energy']['std'] is not None:
+                        f.write(f"  Desvio: {data['energy']['std']:.6f} J\n")
+                        f.write(f"  IC 95%: [{data['energy']['ci_lower']:.6f}, {data['energy']['ci_upper']:.6f}] J\n")
+                    f.write("\n")
                     
                     f.write(f"TEMPO:\n")
-                    f.write(f"  Média: {data['time']['mean']:.3f} ms\n")
-                    f.write(f"  Desvio: {data['time']['std']:.3f} ms\n")
-                    f.write(f"  IC 95%: [{data['time']['ci_lower']:.3f}, {data['time']['ci_upper']:.3f}] ms\n\n")
+                    f.write(f"  Valor: {data['time']['mean']:.3f} ms\n")
+                    if data['time']['std'] is not None:
+                        f.write(f"  Desvio: {data['time']['std']:.3f} ms\n")
+                        f.write(f"  IC 95%: [{data['time']['ci_lower']:.3f}, {data['time']['ci_upper']:.3f}] ms\n")
+                    f.write("\n")
                     
-                    f.write(f"CORRELAÇÃO ENERGIA-TEMPO: {data['correlation']['value']:.3f} ")
-                    f.write(f"(p={data['correlation']['p_value']:.6f})\n")
+                    f.write(f"EDP (ENERGY-DELAY PRODUCT):\n")
+                    f.write(f"  Valor: {data['edp']['mean']:.6f} J·ms\n")
+                    if data['edp']['std'] is not None:
+                        f.write(f"  Desvio: {data['edp']['std']:.6f} J·ms\n")
+                        f.write(f"  IC 95%: [{data['edp']['ci_lower']:.6f}, {data['edp']['ci_upper']:.6f}] J·ms\n")
+                    f.write("  (Menor EDP = Melhor eficiência energética)\n\n")
+                    
+                    if data['correlation']['value'] is not None:
+                        f.write(f"CORRELAÇÃO ENERGIA-TEMPO: {data['correlation']['value']:.3f} ")
+                        f.write(f"(p={data['correlation']['p_value']:.6f})\n")
+                    else:
+                        f.write(f"CORRELAÇÃO ENERGIA-TEMPO: N/A (amostra única)\n")
             
             # Tabela resumo por frequência
             f.write(f"\n\nTABELA RESUMO POR FREQUÊNCIA\n")
@@ -265,20 +364,26 @@ class EnergyTimeAnalysis:
                     'n_observacoes': data['n_samples'],
                     
                     # Energia
-                    'energia_media_J': data['energy']['mean'],
-                    'energia_desvio_J': data['energy']['std'],
-                    'energia_ic95_lower_J': data['energy']['ci_lower'],
-                    'energia_ic95_upper_J': data['energy']['ci_upper'],
+                    'energia_valor_J': data['energy']['mean'],
+                    'energia_desvio_J': data['energy']['std'] if data['energy']['std'] is not None else '',
+                    'energia_ic95_lower_J': data['energy']['ci_lower'] if data['energy']['ci_lower'] is not None else '',
+                    'energia_ic95_upper_J': data['energy']['ci_upper'] if data['energy']['ci_upper'] is not None else '',
                     
                     # Tempo
-                    'tempo_medio_ms': data['time']['mean'],
-                    'tempo_desvio_ms': data['time']['std'],
-                    'tempo_ic95_lower_ms': data['time']['ci_lower'],
-                    'tempo_ic95_upper_ms': data['time']['ci_upper'],
+                    'tempo_valor_ms': data['time']['mean'],
+                    'tempo_desvio_ms': data['time']['std'] if data['time']['std'] is not None else '',
+                    'tempo_ic95_lower_ms': data['time']['ci_lower'] if data['time']['ci_lower'] is not None else '',
+                    'tempo_ic95_upper_ms': data['time']['ci_upper'] if data['time']['ci_upper'] is not None else '',
+                    
+                    # EDP (Energy-Delay Product)
+                    'edp_valor_J_ms': data['edp']['mean'],
+                    'edp_desvio_J_ms': data['edp']['std'] if data['edp']['std'] is not None else '',
+                    'edp_ic95_lower_J_ms': data['edp']['ci_lower'] if data['edp']['ci_lower'] is not None else '',
+                    'edp_ic95_upper_J_ms': data['edp']['ci_upper'] if data['edp']['ci_upper'] is not None else '',
                     
                     # Correlação
-                    'correlacao_energia_tempo': data['correlation']['value'],
-                    'correlacao_p_value': data['correlation']['p_value']
+                    'correlacao_energia_tempo': data['correlation']['value'] if data['correlation']['value'] is not None else '',
+                    'correlacao_p_value': data['correlation']['p_value'] if data['correlation']['p_value'] is not None else ''
                 }
                 
                 rows.append(row)
@@ -289,6 +394,62 @@ class EnergyTimeAnalysis:
         print(f"📊 CSV consolidado salvo em: {output_file}")
         
         return df_consolidated
+    
+    def analyze_energy_efficiency_edp(self, results):
+        """Analisa eficiência energética usando Energy-Delay Product (EDP)."""
+        print(f"\n{'='*80}")
+        print("ANÁLISE DE EFICIÊNCIA ENERGÉTICA (ENERGY-DELAY PRODUCT)")
+        print(f"{'='*80}")
+        print("\nEDP = Energia × Tempo (quanto menor, melhor)")
+        print("Prioriza energia, mas penaliza algoritmos que demoram muito.\n")
+        
+        # Coleta todos os EDPs para ranking
+        edp_ranking = []
+        for algo in results.keys():
+            for freq in results[algo].keys():
+                edp_ranking.append({
+                    'algorithm': algo,
+                    'frequency': freq,
+                    'edp': results[algo][freq]['edp']['mean'],
+                    'energy': results[algo][freq]['energy']['mean'],
+                    'time': results[algo][freq]['time']['mean']
+                })
+        
+        # Ordena por EDP (menor = melhor)
+        edp_ranking.sort(key=lambda x: x['edp'])
+        
+        print("="*80)
+        print(f"{'RANK':<6} {'ALGORITMO':<20} {'FREQ':<8} {'EDP (J·ms)':<15} {'Energia (J)':<15} {'Tempo (ms)':<12}")
+        print("="*80)
+        
+        for i, entry in enumerate(edp_ranking[:20], 1):  # Top 20
+            algo_display = entry['algorithm'].replace('_', ' ').title()
+            print(f"{i:<6} {algo_display:<20} {entry['frequency']:<8} "
+                  f"{entry['edp']:<15.6f} {entry['energy']:<15.6f} {entry['time']:<12.3f}")
+        
+        # Análise por algoritmo - encontra melhor frequência para cada
+        print(f"\n{'='*80}")
+        print("MELHOR FREQUÊNCIA POR ALGORITMO (baseado em EDP)")
+        print(f"{'='*80}\n")
+        
+        for algo in sorted(results.keys()):
+            frequencies = sorted(results[algo].keys())
+            edps = [(freq, results[algo][freq]['edp']['mean']) for freq in frequencies]
+            
+            # Encontra frequência com menor EDP
+            best_freq, best_edp = min(edps, key=lambda x: x[1])
+            worst_freq, worst_edp = max(edps, key=lambda x: x[1])
+            
+            improvement = ((worst_edp - best_edp) / worst_edp) * 100
+            
+            algo_name = algo.replace('_', ' ').title()
+            print(f"{algo_name}:")
+            print(f"  Melhor configuração: {best_freq} MHz (EDP: {best_edp:.6f} J·ms)")
+            print(f"  Pior configuração: {worst_freq} MHz (EDP: {worst_edp:.6f} J·ms)")
+            print(f"  Melhoria: {improvement:.1f}%")
+            print()
+        
+        return edp_ranking
     
     def analyze_optimal_frequency(self, results):
         """Analisa frequência ótima para processos em segundo plano."""
@@ -331,10 +492,96 @@ class EnergyTimeAnalysis:
         
         return optimal_frequencies
     
-    def plot_energy_vs_frequency(self, results, output_file='energy_vs_frequency.png'):
-        """Gera gráficos de barras por algoritmo para identificar frequência ótima."""
+    def plot_energy_vs_frequency_individual(self, results, output_dir='results/analysis'):
+        """Gera gráficos individuais por algoritmo para identificar frequência ótima."""
         
         algorithms = sorted(results.keys())
+        colors = ['#2E86AB', '#A23B72', '#F18F01', '#C73E1D', '#6A994E', '#BC4B51']
+        
+        generated_files = []
+        
+        for i, algo in enumerate(algorithms):
+            # Cria figura individual para cada algoritmo
+            fig, ax = plt.subplots(figsize=(10, 6))
+            
+            frequencies = sorted(results[algo].keys())
+            energies = [results[algo][freq]['energy']['mean'] for freq in frequencies]
+            
+            # Verifica se existem intervalos de confiança
+            has_ci = results[algo][frequencies[0]]['energy']['ci_lower'] is not None
+            
+            color = colors[i % len(colors)]
+            
+            if has_ci:
+                # Intervalos de confiança
+                ci_lowers = [results[algo][freq]['energy']['ci_lower'] for freq in frequencies]
+                ci_uppers = [results[algo][freq]['energy']['ci_upper'] for freq in frequencies]
+                
+                # Calcula erros para errorbar (diferenças da média)
+                yerr_lower = np.array(energies) - np.array(ci_lowers)
+                yerr_upper = np.array(ci_uppers) - np.array(energies)
+                yerr = [yerr_lower, yerr_upper]
+                
+                # Cria gráfico de barras com intervalos de confiança
+                bars = ax.bar(range(len(frequencies)), energies, 
+                             color=color, alpha=0.8, 
+                             yerr=yerr, capsize=8,
+                             error_kw={'ecolor': 'black', 'alpha': 0.8})
+                
+                # Adiciona valores exatos nas barras
+                for j, (bar, energy_val) in enumerate(zip(bars, energies)):
+                    height = bar.get_height()
+                    text_y = height + yerr[1][j] + (max(energies) * 0.05)
+                    ax.text(bar.get_x() + bar.get_width()/2., text_y,
+                           f'{energy_val:.4f} J', ha='center', va='bottom', 
+                           fontsize=10, fontweight='bold')
+            else:
+                # Sem intervalos de confiança - apenas barras simples
+                bars = ax.bar(range(len(frequencies)), energies, 
+                             color=color, alpha=0.8)
+                
+                # Adiciona valores exatos nas barras
+                for j, (bar, energy_val) in enumerate(zip(bars, energies)):
+                    height = bar.get_height()
+                    text_y = height + (max(energies) * 0.05)
+                    ax.text(bar.get_x() + bar.get_width()/2., text_y,
+                           f'{energy_val:.4f} J', ha='center', va='bottom', 
+                           fontsize=10, fontweight='bold')
+            
+            # Configurações do gráfico
+            algo_name = algo.replace('_', ' ').title()
+            ax.set_title(f'{algo_name} - Consumo Energético por Frequência CPU', 
+                        fontsize=14, fontweight='bold', pad=20)
+            ax.set_xlabel('Frequência CPU (MHz)', fontsize=12, fontweight='bold')
+            ax.set_ylabel('Consumo de Energia (J)', fontsize=12, fontweight='bold')
+            
+            # Configurações dos ticks
+            ax.set_xticks(range(len(frequencies)))
+            ax.set_xticklabels([f'{freq}' for freq in frequencies], fontsize=11)
+            ax.grid(True, alpha=0.3, axis='y', linestyle='--')
+            
+            plt.tight_layout()
+            
+            # Salva com nome do algoritmo
+            output_file = f"{output_dir}/energy_{algo}.png"
+            plt.savefig(output_file, dpi=300, bbox_inches='tight')
+            plt.close()
+            
+            generated_files.append(output_file)
+        
+        return generated_files
+    
+    def plot_energy_vs_frequency(self, results, output_file='energy_vs_frequency.png'):
+        """Gera gráfico consolidado com todos os algoritmos (modo legado)."""
+        
+        algorithms = sorted(results.keys())
+        
+        # Limita a 10 algoritmos no gráfico consolidado
+        if len(algorithms) > 10:
+            print(f"⚠️  Muitos algoritmos ({len(algorithms)}) para gráfico consolidado.")
+            print(f"    Gerando apenas gráficos individuais.")
+            return
+        
         fig, axes = plt.subplots(1, len(algorithms), figsize=(16, 6))
         
         # Se só há um algoritmo, axes não é uma lista
@@ -349,29 +596,45 @@ class EnergyTimeAnalysis:
             frequencies = sorted(results[algo].keys())
             energies = [results[algo][freq]['energy']['mean'] for freq in frequencies]
             
-            # Intervalos de confiança
-            ci_lowers = [results[algo][freq]['energy']['ci_lower'] for freq in frequencies]
-            ci_uppers = [results[algo][freq]['energy']['ci_upper'] for freq in frequencies]
+            # Verifica se existem intervalos de confiança
+            has_ci = results[algo][frequencies[0]]['energy']['ci_lower'] is not None
             
-            # Calcula erros para errorbar (diferenças da média)
-            yerr_lower = np.array(energies) - np.array(ci_lowers)
-            yerr_upper = np.array(ci_uppers) - np.array(energies)
-            yerr = [yerr_lower, yerr_upper]
-            
-            # Cria gráfico de barras com intervalos de confiança
-            bars = ax.bar(range(len(frequencies)), energies, 
-                         color=colors[i], alpha=0.8, 
-                         yerr=yerr, capsize=8,
-                         error_kw={'ecolor': 'black', 'alpha': 0.8})
-            
-            # Adiciona valores exatos nas barras
-            for j, (bar, energy_val) in enumerate(zip(bars, energies)):
-                height = bar.get_height()
-                # Posiciona o texto acima da barra (considerando a margem das barras de erro)
-                text_y = height + yerr[1][j] + (max(energies) * 0.05)  # 5% de margem extra
-                ax.text(bar.get_x() + bar.get_width()/2., text_y,
-                       f'{energy_val:.4f}', ha='center', va='bottom', 
-                       fontsize=9, fontweight='bold', rotation=0)
+            if has_ci:
+                # Intervalos de confiança
+                ci_lowers = [results[algo][freq]['energy']['ci_lower'] for freq in frequencies]
+                ci_uppers = [results[algo][freq]['energy']['ci_upper'] for freq in frequencies]
+                
+                # Calcula erros para errorbar (diferenças da média)
+                yerr_lower = np.array(energies) - np.array(ci_lowers)
+                yerr_upper = np.array(ci_uppers) - np.array(energies)
+                yerr = [yerr_lower, yerr_upper]
+                
+                # Cria gráfico de barras com intervalos de confiança
+                bars = ax.bar(range(len(frequencies)), energies, 
+                             color=colors[i % len(colors)], alpha=0.8, 
+                             yerr=yerr, capsize=8,
+                             error_kw={'ecolor': 'black', 'alpha': 0.8})
+                
+                # Adiciona valores exatos nas barras
+                for j, (bar, energy_val) in enumerate(zip(bars, energies)):
+                    height = bar.get_height()
+                    # Posiciona o texto acima da barra (considerando a margem das barras de erro)
+                    text_y = height + yerr[1][j] + (max(energies) * 0.05)  # 5% de margem extra
+                    ax.text(bar.get_x() + bar.get_width()/2., text_y,
+                           f'{energy_val:.4f}', ha='center', va='bottom', 
+                           fontsize=9, fontweight='bold', rotation=0)
+            else:
+                # Sem intervalos de confiança - apenas barras simples
+                bars = ax.bar(range(len(frequencies)), energies, 
+                             color=colors[i % len(colors)], alpha=0.8)
+                
+                # Adiciona valores exatos nas barras
+                for j, (bar, energy_val) in enumerate(zip(bars, energies)):
+                    height = bar.get_height()
+                    text_y = height + (max(energies) * 0.05)  # 5% de margem extra
+                    ax.text(bar.get_x() + bar.get_width()/2., text_y,
+                           f'{energy_val:.4f}', ha='center', va='bottom', 
+                           fontsize=9, fontweight='bold', rotation=0)
             
             # Configurações do subplot
             algo_name = algo.replace('_', ' ').title()
@@ -395,7 +658,7 @@ class EnergyTimeAnalysis:
         plt.savefig(output_file, dpi=300, bbox_inches='tight')
         plt.close()
         
-        print(f"📊 Gráfico salvo em: {output_file}")
+        print(f"📊 Gráfico consolidado salvo em: {output_file}")
     
     def run_analysis(self):
         """Executa apresentação de dados organizados por frequência."""
@@ -406,6 +669,9 @@ class EnergyTimeAnalysis:
             # Análise principal
             results = self.analyze()
             
+            # Análise de eficiência energética (EDP) - NOVA!
+            self.analyze_energy_efficiency_edp(results)
+            
             # Análise de frequência ótima para processos em segundo plano
             self.analyze_optimal_frequency(results)
             
@@ -413,7 +679,12 @@ class EnergyTimeAnalysis:
             analysis_dir = "results/analysis"
             os.makedirs(analysis_dir, exist_ok=True)
             
-            # Gera gráfico de energia vs frequência
+            # Gera gráficos individuais por algoritmo (NOVO!)
+            print(f"\n📊 Gerando gráficos individuais por algoritmo...")
+            individual_files = self.plot_energy_vs_frequency_individual(results, analysis_dir)
+            print(f"✓ {len(individual_files)} gráficos individuais gerados")
+            
+            # Gera gráfico consolidado (se não houver muitos algoritmos)
             self.plot_energy_vs_frequency(results, f"{analysis_dir}/energy_vs_frequency.png")
             
             # Gera relatório de texto
@@ -422,12 +693,15 @@ class EnergyTimeAnalysis:
             # Gera CSV consolidado
             self.generate_consolidated_csv(results, f"{analysis_dir}/consolidated_data.csv")
             
-            print(f"\n" + "="*55)
+            print(f"\n" + "="*70)
             print("✅ APRESENTAÇÃO CONCLUÍDA!")
-            print(f"📄 Relatório: energy_frequency_report.txt")
-            print(f"📊 CSV consolidado: {analysis_dir}/consolidated_data.csv")
-            print(f"📈 Gráfico de frequência ótima: {analysis_dir}/energy_vs_frequency.png")
-            print("="*55)
+            print(f"\n📄 Relatórios:")
+            print(f"   • Texto: energy_frequency_report.txt")
+            print(f"   • CSV:   {analysis_dir}/consolidated_data.csv")
+            print(f"\n📊 Gráficos:")
+            print(f"   • Consolidado: {analysis_dir}/energy_vs_frequency.png")
+            print(f"   • Individuais: {analysis_dir}/energy_<algoritmo>.png ({len(individual_files)} arquivos)")
+            print("="*70)
             
         except Exception as e:
             print(f"❌ Erro: {e}")
@@ -445,8 +719,12 @@ Exemplos de uso:
   python energy_analysis.py "results/*.csv"              # Todos CSVs na pasta results
   python energy_analysis.py results/                     # Todos CSVs na pasta results
   python energy_analysis.py                              # Usa padrão: results/
+
+Formatos suportados:
+  - Novo formato: CSV com colunas algo,size,freq_mhz,joules,time_ms
+  - Formato antigo: CSV com colunas algo,joules,time_ms (frequência extraída do nome do arquivo)
   
-O script extrai automaticamente a frequência CPU do nome do arquivo (ex: *-500mhz.csv)
+O script detecta automaticamente o formato e extrai a frequência CPU apropriadamente.
         """
     )
     parser.add_argument('csv_source', nargs='?', default='results/',
