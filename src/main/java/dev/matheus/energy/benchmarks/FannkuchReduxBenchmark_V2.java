@@ -23,7 +23,7 @@ public class FannkuchReduxBenchmark_V2 implements BenchmarkAlgorithm {
     @Override
     public int getEffectiveSize(int requestedSize) {
         // FannkuchRedux: n=12
-        return 12;
+        return 10;
     }
     
     @Override

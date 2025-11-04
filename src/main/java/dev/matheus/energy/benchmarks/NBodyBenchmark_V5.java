@@ -23,7 +23,7 @@ public class NBodyBenchmark_V5 implements BenchmarkAlgorithm {
     @Override
     public int getEffectiveSize(int requestedSize) {
         // N-Body: 50 million
-        return 50_000_000;
+        return 10_000_000;
     }
     
     @Override

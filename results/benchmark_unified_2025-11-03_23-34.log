@@ -1,0 +1,53 @@
+# Benchmark started at Mon Nov  3 11:34:15 PM -03 2025
+# Configuration: algorithm=unified, size=10000, warmup=10×5s, measurement=5×5s, forks=1
+# CPU Core: 0
+# Frequency Range: 500-3500 MHz, Step: 200 MHz
+
+# ========================================
+# Running at 500 MHz (1/16)
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-03_23-34 -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..* -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+# JMH version: 1.37
+# VM version: JDK 21.0.8, OpenJDK 64-Bit Server VM, 21.0.8+9-Ubuntu-0ubuntu124.04.1
+# VM invoker: /usr/lib/jvm/java-21-openjdk-amd64/bin/java
+# VM options: -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-03_23-34 -Dbenchmark.cpu.frequency=500
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 10 iterations, 5 s each
+# Measurement: 5 iterations, 5 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: dev.matheus.energy.UnifiedEnergyBenchmark.runAllBenchmarks
+# Parameters: (size = 10000)
+
+# Run progress: 0.00% complete, ETA 00:01:15
+# Fork: 1 of 1
+# Warmup Iteration   1: Registered benchmarks: [nbody_v5, fannkuchredux_v8, fannkuchredux_v2, fasta, nbody_v8, bubble_sort, spectralnorm, knucleotide_v8, spectralnorm_v2, knucleotide_v5, nbody, spectralnorm_v3, quick_sort, merge_sort, binarytrees_v3, knucleotide, binarytrees_v7, fannkuchredux, fasta_v6, mandelbrot, binarytrees_v2, mandelbrot_v3, fasta_v8, mandelbrot_v2]
+Enabled benchmarks: [spectralnorm, knucleotide_v8, nbody_v5, fannkuchredux_v8, spectralnorm_v2, fannkuchredux_v2, knucleotide_v5, nbody, spectralnorm_v3, fasta, binarytrees_v3, knucleotide, nbody_v8, binarytrees_v7, fannkuchredux, fasta_v6, mandelbrot, binarytrees_v2, mandelbrot_v3, fasta_v8, mandelbrot_v2]
+jRAPL energy measurement enabled
+Benchmarks to run: 21
+  - nbody_v5: N-body simulation (optimized array variant 5)
+  - fannkuchredux_v8: Fannkuch-Redux indexed array access (naive variant 8)
+  - fannkuchredux_v2: Fannkuch-Redux indexed array access (variant 2)
+  - fasta: DNA sequence generation
+  - nbody_v8: N-body simulation (naive variant 8)
+  - spectralnorm: Spectral norm calculation
+  - knucleotide_v8: DNA sequence analysis (naive stream variant 8)
+  - spectralnorm_v2: Spectral norm calculation (parallel variant 2)
+  - knucleotide_v5: DNA sequence analysis (ForkJoin variant 5)
+  - nbody: N-Body simulation of Jovian planets
+  - spectralnorm_v3: Spectral norm calculation (variant 3)
+  - binarytrees_v3: Binary trees allocation/deallocation (variant 3)
+  - knucleotide: DNA sequence analysis with hashtables
+  - binarytrees_v7: Binary trees allocation/deallocation (parallel variant 7)
+  - fannkuchredux: Fannkuch-Redux indexed access
+  - fasta_v6: DNA sequence generation (parallel variant 6)
+  - mandelbrot: Mandelbrot set generation
+  - binarytrees_v2: Binary trees allocation/deallocation (variant 2)
+  - mandelbrot_v3: Mandelbrot set generation (variant 3)
+  - fasta_v8: DNA sequence generation (naive variant 8)
+  - mandelbrot_v2: Mandelbrot set generation (optimized variant 2)
+warmup,algo=nbody_v5,size=50000000,joules=68.713745000,time_ms=7539.812 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=12,joules=758.401489000,time_ms=81369.415 (WARMUP - NOT LOGGED)
