@@ -27,7 +27,7 @@ public class MandelbrotBenchmark_V2 implements BenchmarkAlgorithm {
     @Override
     public int getEffectiveSize(int requestedSize) {
         // Mandelbrot: 16000
-        return 16000;
+        return 1000;
     }
     
     @Override

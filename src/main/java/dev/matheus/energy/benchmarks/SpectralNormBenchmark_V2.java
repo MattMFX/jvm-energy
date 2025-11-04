@@ -24,7 +24,7 @@ public class SpectralNormBenchmark_V2 implements BenchmarkAlgorithm {
     @Override
     public int getEffectiveSize(int requestedSize) {
         // SpectralNorm: n=5500
-        return 5500;
+        return 3000;
     }
     
     @Override
