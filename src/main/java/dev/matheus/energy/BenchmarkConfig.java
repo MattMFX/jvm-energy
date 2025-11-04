@@ -29,9 +29,9 @@ public final class BenchmarkConfig {
         // ========================================
         // SORTING ALGORITHMS
         // ========================================
-        BenchmarkRegistry.register(new QuickSortBenchmark(), true);
-        BenchmarkRegistry.register(new BubbleSortBenchmark(), true);
-        BenchmarkRegistry.register(new MergeSortBenchmark(), true);
+        BenchmarkRegistry.register(new QuickSortBenchmark(), false);
+        BenchmarkRegistry.register(new BubbleSortBenchmark(), false);
+        BenchmarkRegistry.register(new MergeSortBenchmark(), false);
         
         // ========================================
         // BENCHMARKS GAME ALGORITHMS

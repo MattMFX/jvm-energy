@@ -27,7 +27,7 @@ public class FannkuchReduxBenchmark implements BenchmarkAlgorithm {
     @Override
     public int getEffectiveSize(int requestedSize) {
         // Fannkuch-Redux: permutation size 11
-        return 11;
+        return 10;
     }
     
     @Override

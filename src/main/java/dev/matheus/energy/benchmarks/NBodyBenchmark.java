@@ -24,7 +24,7 @@ public class NBodyBenchmark implements BenchmarkAlgorithm {
     @Override
     public int getEffectiveSize(int requestedSize) {
         // N-body simulation: 50 million iterations (good balance)
-        return 50_000_000;
+        return 10_000_000;
     }
     
     @Override

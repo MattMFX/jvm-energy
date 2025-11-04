@@ -1,4 +1,4 @@
-package dev.matheus.energy;
+package dev.matheus.energy.benchmarks;
 
 public class SortingAlgorithms {
 

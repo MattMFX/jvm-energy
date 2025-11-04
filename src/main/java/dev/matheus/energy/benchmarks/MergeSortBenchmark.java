@@ -1,7 +1,7 @@
 package dev.matheus.energy.benchmarks;
 
 import dev.matheus.energy.BenchmarkAlgorithm;
-import dev.matheus.energy.SortingAlgorithms;
+
 import java.util.Arrays;
 import java.util.Random;
 
