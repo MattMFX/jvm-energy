@@ -6,7 +6,7 @@
 set -e
 
 # Default values
-ALGORITHM="all"
+ALGORITHM="unified"
 ARRAY_SIZE="10000"
 WARMUP_ITERATIONS="50"
 WARMUP_TIME="5"
@@ -39,9 +39,17 @@ ${BLUE}Usage:${NC}
 
 ${BLUE}Options:${NC}
     -h, --help                  Show this help message
-    -a, --algorithm ALGO        Algorithm to benchmark (default: all)
-                                Options: all, quick_sort, bubble_sort, merge_sort
-    -s, --size SIZE             Array size (default: 10000)
+    -a, --algorithm ALGO        Algorithm to benchmark (default: unified)
+                                
+                                Options:
+                                - unified: runs all 10 benchmarks (DEFAULT)
+                                - all: runs 3 sorting algorithms only (legacy)
+                                - Individual: quick_sort, bubble_sort, merge_sort,
+                                  nbody, spectralnorm, binarytrees, mandelbrot,
+                                  fannkuchredux, fasta, knucleotide
+    -s, --size SIZE             Input size parameter (default: 10000)
+                                For sorting: array size
+                                For other algorithms: algorithm-specific parameter
     -w, --warmup-iter N         Warmup iterations (default: 50)
     -wt, --warmup-time N        Warmup time in seconds (default: 5)
     -m, --measurement-iter N    Measurement iterations (default: 5)
@@ -57,11 +65,20 @@ ${BLUE}Options:${NC}
     --no-restore                Don't restore original CPU governor after benchmark
 
 ${BLUE}Examples:${NC}
-    # Run all algorithms with default settings (no frequency stepping)
+    # Run all 10 benchmarks (default)
     $0
+
+    # Or explicitly
+    $0 -a unified
+
+    # Legacy: Run only 3 sorting algorithms
+    $0 -a all
 
     # Run only quicksort on array size 50000
     $0 -a quick_sort -s 50000
+
+    # Run nbody benchmark with 50000000 iterations
+    $0 -a nbody -s 50000000
 
     # Run benchmarks across frequencies from 1000 to 3000 MHz in 500 MHz steps
     $0 --freq-start 1000 --freq-end 3000 --freq-step 500
@@ -171,6 +188,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$PROJECT_ROOT"
 
+# Generate a single timestamp for this benchmark session
+# This ensures all frequency runs write to the same CSV file
+ENERGY_TIMESTAMP=$(date +"%Y-%m-%d_%H-%M")
+
 # CPU Frequency and Hyperthreading Management Functions
 ORIGINAL_GOVERNORS=()
 ORIGINAL_MIN_FREQS=()
@@ -195,9 +216,9 @@ save_cpu_state() {
     echo -e "${BLUE}Saving current CPU state...${NC}"
     for cpu_dir in /sys/devices/system/cpu/cpu*/cpufreq/; do
         if [ -d "$cpu_dir" ]; then
-            ORIGINAL_GOVERNORS+=("$(cat "${cpu_dir}scaling_governor" 2>/dev/null)")
-            ORIGINAL_MIN_FREQS+=("$(cat "${cpu_dir}scaling_min_freq" 2>/dev/null)")
-            ORIGINAL_MAX_FREQS+=("$(cat "${cpu_dir}scaling_max_freq" 2>/dev/null)")
+            ORIGINAL_GOVERNORS+=("$(cat "${cpu_dir}scaling_governor" 2>/dev/null || true)")
+            ORIGINAL_MIN_FREQS+=("$(cat "${cpu_dir}scaling_min_freq" 2>/dev/null || true)")
+            ORIGINAL_MAX_FREQS+=("$(cat "${cpu_dir}scaling_max_freq" 2>/dev/null || true)")
         fi
     done
 }
@@ -212,9 +233,9 @@ restore_cpu_state() {
     local idx=0
     for cpu_dir in /sys/devices/system/cpu/cpu*/cpufreq/; do
         if [ -d "$cpu_dir" ] && [ $idx -lt ${#ORIGINAL_GOVERNORS[@]} ]; then
-            echo "${ORIGINAL_MIN_FREQS[$idx]}" | sudo tee "${cpu_dir}scaling_min_freq" > /dev/null 2>&1
-            echo "${ORIGINAL_MAX_FREQS[$idx]}" | sudo tee "${cpu_dir}scaling_max_freq" > /dev/null 2>&1
-            echo "${ORIGINAL_GOVERNORS[$idx]}" | sudo tee "${cpu_dir}scaling_governor" > /dev/null 2>&1
+            echo "${ORIGINAL_MIN_FREQS[$idx]}" | sudo tee "${cpu_dir}scaling_min_freq" > /dev/null 2>&1 || true
+            echo "${ORIGINAL_MAX_FREQS[$idx]}" | sudo tee "${cpu_dir}scaling_max_freq" > /dev/null 2>&1 || true
+            echo "${ORIGINAL_GOVERNORS[$idx]}" | sudo tee "${cpu_dir}scaling_governor" > /dev/null 2>&1 || true
             idx=$((idx + 1))
         fi
     done
@@ -225,7 +246,7 @@ set_cpu_governor() {
     local governor="$1"
     echo -e "${BLUE}Setting CPU governor to '$governor'...${NC}"
     for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
-        echo "$governor" | sudo tee "$cpu" > /dev/null 2>&1
+        echo "$governor" | sudo tee "$cpu" > /dev/null 2>&1 || true
     done
 }
 
@@ -235,21 +256,21 @@ set_cpu_frequency() {
     
     echo -e "${BLUE}Setting CPU frequency to ${freq_mhz} MHz...${NC}"
     for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_min_freq; do
-        echo "$freq_khz" | sudo tee "$cpu" > /dev/null 2>&1
+        echo "$freq_khz" | sudo tee "$cpu" > /dev/null 2>&1 || true
     done
     for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq; do
-        echo "$freq_khz" | sudo tee "$cpu" > /dev/null 2>&1
+        echo "$freq_khz" | sudo tee "$cpu" > /dev/null 2>&1 || true
     done
     
     # Verify frequency was set
     sleep 0.5
-    local actual_freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq 2>/dev/null)
+    local actual_freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq 2>/dev/null || echo "0")
     local actual_mhz=$((actual_freq / 1000))
     echo -e "${GREEN}CPU frequency set to ${actual_mhz} MHz${NC}"
 }
 
 get_current_cpu_frequency() {
-    local freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq 2>/dev/null)
+    local freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq 2>/dev/null || echo "0")
     echo $((freq / 1000))
 }
 
@@ -277,11 +298,13 @@ fi
 
 # Validate algorithm selection
 case $ALGORITHM in
-    all|quick_sort|bubble_sort|merge_sort)
+    all|quick_sort|bubble_sort|merge_sort|unified|nbody|spectralnorm|binarytrees|mandelbrot|fannkuchredux|fasta|knucleotide)
         ;;
     *)
         echo -e "${RED}Error: Invalid algorithm '$ALGORITHM'${NC}"
-        echo -e "${YELLOW}Valid options: all, quick_sort, bubble_sort, merge_sort${NC}"
+        echo -e "${YELLOW}Valid options: all, quick_sort, bubble_sort, merge_sort, unified,${NC}"
+        echo -e "${YELLOW}                nbody, spectralnorm, binarytrees, mandelbrot,${NC}"
+        echo -e "${YELLOW}                fannkuchredux, fasta, knucleotide${NC}"
         exit 1
         ;;
 esac
@@ -309,29 +332,52 @@ if [ -n "$OUTPUT_FILE" ]; then
     mkdir -p "$(dirname "$OUTPUT_FILE")"
     echo -e "${BLUE}Output will be saved to: $OUTPUT_FILE${NC}\n"
 else
-    # Auto-generate output file with timestamp
-    TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
+    # Auto-generate output file with timestamp (use same timestamp as energy CSV for consistency)
     mkdir -p results
-    OUTPUT_FILE="results/benchmark_${ALGORITHM}_${TIMESTAMP}.log"
+    OUTPUT_FILE="results/benchmark_${ALGORITHM}_${ENERGY_TIMESTAMP}.log"
     echo -e "${BLUE}Output will be saved to: $OUTPUT_FILE${NC}\n"
 fi
 
 # Build benchmark pattern
-if [ "$ALGORITHM" = "all" ]; then
+if [ "$ALGORITHM" = "unified" ]; then
+    # Use the new unified benchmark that runs all registered benchmarks
+    BENCHMARK_CLASS="UnifiedEnergyBenchmark"
+    BENCHMARK_PATTERN=".*"
+elif [ "$ALGORITHM" = "all" ]; then
+    # Legacy: run all sorting algorithms individually
+    BENCHMARK_CLASS="EnergyMeasuredSortingBenchmark"
     BENCHMARK_PATTERN=".*energy.*"
 else
-    BENCHMARK_PATTERN="${ALGORITHM}_energy"
+    # Check if this is a legacy sorting algorithm or new benchmark game algorithm
+    case $ALGORITHM in
+        quick_sort|bubble_sort|merge_sort)
+            BENCHMARK_CLASS="EnergyMeasuredSortingBenchmark"
+            BENCHMARK_PATTERN="${ALGORITHM}_energy"
+            ;;
+        *)
+            # For new algorithms, use unified benchmark
+            echo -e "${YELLOW}Note: Individual algorithm '$ALGORITHM' will run via UnifiedEnergyBenchmark${NC}"
+            echo -e "${YELLOW}      To run only this algorithm, temporarily disable others in BenchmarkConfig.java${NC}"
+            BENCHMARK_CLASS="UnifiedEnergyBenchmark"
+            BENCHMARK_PATTERN=".*"
+            ;;
+    esac
 fi
 
 # Build JMH options (without frequency-specific options)
-JMH_OPTS="-p arraySize=$ARRAY_SIZE"
+# Use 'size' for unified benchmark, 'arraySize' for legacy sorting benchmarks
+if [ "$BENCHMARK_CLASS" = "UnifiedEnergyBenchmark" ]; then
+    JMH_OPTS="-p size=$ARRAY_SIZE"
+else
+    JMH_OPTS="-p arraySize=$ARRAY_SIZE"
+fi
 JMH_OPTS="$JMH_OPTS -wi $WARMUP_ITERATIONS -w ${WARMUP_TIME}s"
 JMH_OPTS="$JMH_OPTS -i $MEASUREMENT_ITERATIONS -r ${MEASUREMENT_TIME}s"
 JMH_OPTS="$JMH_OPTS -f $FORKS"
 JMH_OPTS="$JMH_OPTS $EXTRA_JMH_OPTS"
 
 # Base JVM options (without frequency)
-BASE_JVM_OPTS="-Djava.library.path=. -Djmh.ignoreLock=true"
+BASE_JVM_OPTS="-Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=${ENERGY_TIMESTAMP}"
 if [ -n "$EXTRA_JVM_OPTS" ]; then
     BASE_JVM_OPTS="$BASE_JVM_OPTS $EXTRA_JVM_OPTS"
 fi
@@ -360,6 +406,7 @@ echo -e "  Forks:               $FORKS"
 [ -n "$CPU_CORE" ] && echo -e "  CPU Core:            $CPU_CORE"
 [ -n "$EXTRA_JVM_OPTS" ] && echo -e "  Extra JVM Options:   $EXTRA_JVM_OPTS"
 [ -n "$EXTRA_JMH_OPTS" ] && echo -e "  Extra JMH Options:   $EXTRA_JMH_OPTS"
+echo -e "  Energy CSV:          results/energy_${ENERGY_TIMESTAMP}.csv"
 if [ "$USE_FREQ_STEPPING" = true ]; then
     echo -e "  ${GREEN}Frequency Range:     ${FREQ_START} - ${FREQ_END} MHz (step: ${FREQ_STEP} MHz)${NC}"
     echo -e "  ${GREEN}Total Frequency Steps: ${TOTAL_RUNS}${NC}"
@@ -376,16 +423,16 @@ if [ "$USE_FREQ_STEPPING" = true ]; then
 fi
 echo "" >> "$OUTPUT_FILE"
 
-# Disable hyperthreading before running benchmarks
-disable_hyperthreading
-echo ""
-
 # Run benchmark
 echo -e "${YELLOW}Note: Running with sudo for RAPL energy measurements${NC}"
 
 if [ "$USE_FREQ_STEPPING" = true ]; then
-    # Save current CPU state
+    # Save current CPU state BEFORE disabling hyperthreading
     save_cpu_state
+    
+    # Disable hyperthreading before running benchmarks
+    disable_hyperthreading
+    echo ""
     
     # Set governor to userspace for manual frequency control
     set_cpu_governor "userspace"
@@ -409,9 +456,9 @@ if [ "$USE_FREQ_STEPPING" = true ]; then
         
         # Build execution command
         if [ -n "$CPU_CORE" ]; then
-            EXEC_CMD="sudo taskset -c $CPU_CORE java $JVM_OPTS -jar target/benchmarks.jar EnergyMeasuredSortingBenchmark.$BENCHMARK_PATTERN $JMH_OPTS"
+            EXEC_CMD="sudo taskset -c $CPU_CORE java $JVM_OPTS -jar target/benchmarks.jar ${BENCHMARK_CLASS}.$BENCHMARK_PATTERN $JMH_OPTS"
         else
-            EXEC_CMD="sudo java $JVM_OPTS -jar target/benchmarks.jar EnergyMeasuredSortingBenchmark.$BENCHMARK_PATTERN $JMH_OPTS"
+            EXEC_CMD="sudo java $JVM_OPTS -jar target/benchmarks.jar ${BENCHMARK_CLASS}.$BENCHMARK_PATTERN $JMH_OPTS"
         fi
         
         echo -e "${YELLOW}Executing at ${freq} MHz:${NC}"
@@ -446,6 +493,10 @@ if [ "$USE_FREQ_STEPPING" = true ]; then
     echo -e "${GREEN}═══════════════════════════════════════════════════════${NC}"
 else
     # Single run without frequency stepping
+    # Disable hyperthreading before running benchmarks
+    disable_hyperthreading
+    echo ""
+    
     echo -e "${GREEN}Starting benchmark...${NC}\n"
     
     # Get current frequency for logging
@@ -456,9 +507,9 @@ else
     
     # Build execution command
     if [ -n "$CPU_CORE" ]; then
-        EXEC_CMD="sudo taskset -c $CPU_CORE java $JVM_OPTS -jar target/benchmarks.jar EnergyMeasuredSortingBenchmark.$BENCHMARK_PATTERN $JMH_OPTS"
+        EXEC_CMD="sudo taskset -c $CPU_CORE java $JVM_OPTS -jar target/benchmarks.jar ${BENCHMARK_CLASS}.$BENCHMARK_PATTERN $JMH_OPTS"
     else
-        EXEC_CMD="sudo java $JVM_OPTS -jar target/benchmarks.jar EnergyMeasuredSortingBenchmark.$BENCHMARK_PATTERN $JMH_OPTS"
+        EXEC_CMD="sudo java $JVM_OPTS -jar target/benchmarks.jar ${BENCHMARK_CLASS}.$BENCHMARK_PATTERN $JMH_OPTS"
     fi
     
     echo -e "${YELLOW}Executing:${NC}"
@@ -482,5 +533,8 @@ else
     echo -e "${GREEN}✓ Benchmark completed successfully!${NC}"
 fi
 
-echo -e "${BLUE}Results saved to: $OUTPUT_FILE${NC}"
+echo ""
+echo -e "${BLUE}Results saved to:${NC}"
+echo -e "  JMH Log:    $OUTPUT_FILE"
+echo -e "  Energy CSV: results/energy_${ENERGY_TIMESTAMP}.csv"
 

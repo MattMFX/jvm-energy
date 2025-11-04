@@ -15,10 +15,13 @@ final class EnergyLog {
     private static volatile boolean headerWritten = false;
     
     static {
-        // Use fixed filename so all results go to the same file
-        // Generate filename with timestamp: energy_YYYY-MM-DD_HH-mm.csv
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm");
-        String timestamp = LocalDateTime.now().format(formatter);
+        // Get timestamp from system property if available, otherwise generate it
+        // This ensures all benchmark runs (across different JVM instances) use the same file
+        String timestamp = System.getProperty("benchmark.output.timestamp");
+        if (timestamp == null || timestamp.isEmpty()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm");
+            timestamp = LocalDateTime.now().format(formatter);
+        }
         TARGET_FILE = "results/energy_" + timestamp + ".csv";
     }
 
