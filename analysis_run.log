@@ -1,0 +1,5 @@
+/Users/mfmachado/.matplotlib is not a writable directory
+Matplotlib created a temporary cache directory at /var/folders/xb/mct6xjnn3djfbdglg78zr7f80000gn/T/matplotlib-pg7kkxks because there was an issue with the default path (/Users/mfmachado/.matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+Matplotlib is building the font cache; this may take a moment.
+❌ Fonte não encontrada: results/energy_2025-11-04_01-58.csv
+💡 Dica: Use 'results/' para analisar todos os CSVs da pasta results

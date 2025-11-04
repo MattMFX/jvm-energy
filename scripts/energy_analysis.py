@@ -507,16 +507,15 @@ class EnergyTimeAnalysis:
             frequencies = sorted(results[algo].keys())
             energies = [results[algo][freq]['energy']['mean'] for freq in frequencies]
             
-            # Verifica se existem intervalos de confiança
-            has_ci = results[algo][frequencies[0]]['energy']['ci_lower'] is not None
+            # Verifica se TODAS as frequências têm intervalos de confiança
+            ci_lowers = [results[algo][freq]['energy']['ci_lower'] for freq in frequencies]
+            ci_uppers = [results[algo][freq]['energy']['ci_upper'] for freq in frequencies]
+            has_ci = all(ci is not None for ci in ci_lowers) and all(ci is not None for ci in ci_uppers)
             
             color = colors[i % len(colors)]
             
             if has_ci:
-                # Intervalos de confiança
-                ci_lowers = [results[algo][freq]['energy']['ci_lower'] for freq in frequencies]
-                ci_uppers = [results[algo][freq]['energy']['ci_upper'] for freq in frequencies]
-                
+                # Todas as frequências têm intervalos de confiança
                 # Calcula erros para errorbar (diferenças da média)
                 yerr_lower = np.array(energies) - np.array(ci_lowers)
                 yerr_upper = np.array(ci_uppers) - np.array(energies)
@@ -536,7 +535,7 @@ class EnergyTimeAnalysis:
                            f'{energy_val:.4f} J', ha='center', va='bottom', 
                            fontsize=10, fontweight='bold')
             else:
-                # Sem intervalos de confiança - apenas barras simples
+                # Sem intervalos de confiança ou ICs parciais - apenas barras simples
                 bars = ax.bar(range(len(frequencies)), energies, 
                              color=color, alpha=0.8)
                 
@@ -596,14 +595,13 @@ class EnergyTimeAnalysis:
             frequencies = sorted(results[algo].keys())
             energies = [results[algo][freq]['energy']['mean'] for freq in frequencies]
             
-            # Verifica se existem intervalos de confiança
-            has_ci = results[algo][frequencies[0]]['energy']['ci_lower'] is not None
+            # Verifica se TODAS as frequências têm intervalos de confiança
+            ci_lowers = [results[algo][freq]['energy']['ci_lower'] for freq in frequencies]
+            ci_uppers = [results[algo][freq]['energy']['ci_upper'] for freq in frequencies]
+            has_ci = all(ci is not None for ci in ci_lowers) and all(ci is not None for ci in ci_uppers)
             
             if has_ci:
-                # Intervalos de confiança
-                ci_lowers = [results[algo][freq]['energy']['ci_lower'] for freq in frequencies]
-                ci_uppers = [results[algo][freq]['energy']['ci_upper'] for freq in frequencies]
-                
+                # Todas as frequências têm intervalos de confiança
                 # Calcula erros para errorbar (diferenças da média)
                 yerr_lower = np.array(energies) - np.array(ci_lowers)
                 yerr_upper = np.array(ci_uppers) - np.array(energies)

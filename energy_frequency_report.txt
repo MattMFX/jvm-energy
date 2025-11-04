@@ -1,0 +1,2460 @@
+RELATÓRIO - DADOS POR FREQUÊNCIA CPU
+=============================================
+
+DADOS ANALISADOS
+--------------------
+Fonte: results/energy_2025-11-04_01-58.csv
+Total de registros: 11495
+Algoritmos: fannkuchredux_v2, fannkuchredux_v8, mandelbrot, mandelbrot_v2, mandelbrot_v3, nbody_v5, nbody_v8
+Frequências CPU: 400, 600, 700, 800, 1100, 1300, 1500, 1600, 1800, 2000, 2200, 2400, 2500, 2600, 2700 MHz
+
+
+FANNKUCHREDUX V2
+==================================================
+
+CPU: 400 MHz
+------------------------------
+Observações: 55
+
+ENERGIA:
+  Valor: 1.425351 J
+  Desvio: 0.196828 J
+  IC 95%: [1.382908, 1.488890] J
+
+TEMPO:
+  Valor: 471.308 ms
+  Desvio: 39.233 ms
+  IC 95%: [463.258, 484.585] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 678.239433 J·ms
+  Desvio: 159.381367 J·ms
+  IC 95%: [645.514440, 733.595185] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.852 (p=0.000000)
+
+CPU: 600 MHz
+------------------------------
+Observações: 54
+
+ENERGIA:
+  Valor: 1.440640 J
+  Desvio: 0.277073 J
+  IC 95%: [1.388845, 1.552534] J
+
+TEMPO:
+  Valor: 471.222 ms
+  Desvio: 64.532 ms
+  IC 95%: [460.239, 503.895] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 695.109185 J·ms
+  Desvio: 299.931624 J·ms
+  IC 95%: [645.586591, 853.932983] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.926 (p=0.000000)
+
+CPU: 700 MHz
+------------------------------
+Observações: 55
+
+ENERGIA:
+  Valor: 1.455012 J
+  Desvio: 0.227427 J
+  IC 95%: [1.405125, 1.526908] J
+
+TEMPO:
+  Valor: 476.413 ms
+  Desvio: 47.106 ms
+  IC 95%: [467.054, 494.448] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 702.521784 J·ms
+  Desvio: 194.984979 J·ms
+  IC 95%: [661.097660, 768.190541] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.888 (p=0.000000)
+
+CPU: 800 MHz
+------------------------------
+Observações: 54
+
+ENERGIA:
+  Valor: 1.442540 J
+  Desvio: 0.213937 J
+  IC 95%: [1.397719, 1.519830] J
+
+TEMPO:
+  Valor: 473.045 ms
+  Desvio: 51.544 ms
+  IC 95%: [462.893, 492.766] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 691.935721 J·ms
+  Desvio: 201.524650 J·ms
+  IC 95%: [653.017045, 770.892471] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.882 (p=0.000000)
+
+CPU: 1100 MHz
+------------------------------
+Observações: 55
+
+ENERGIA:
+  Valor: 1.424204 J
+  Desvio: 0.187058 J
+  IC 95%: [1.385136, 1.488740] J
+
+TEMPO:
+  Valor: 466.416 ms
+  Desvio: 30.149 ms
+  IC 95%: [461.101, 479.888] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 668.786648 J·ms
+  Desvio: 142.119784 J·ms
+  IC 95%: [642.223798, 725.781247] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.815 (p=0.000000)
+
+CPU: 1300 MHz
+------------------------------
+Observações: 55
+
+ENERGIA:
+  Valor: 1.438092 J
+  Desvio: 0.192967 J
+  IC 95%: [1.395535, 1.498367] J
+
+TEMPO:
+  Valor: 471.827 ms
+  Desvio: 46.113 ms
+  IC 95%: [462.538, 487.934] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 685.888692 J·ms
+  Desvio: 170.330366 J·ms
+  IC 95%: [650.345778, 741.602727] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.842 (p=0.000000)
+
+CPU: 1500 MHz
+------------------------------
+Observações: 55
+
+ENERGIA:
+  Valor: 1.416690 J
+  Desvio: 0.189836 J
+  IC 95%: [1.376723, 1.482332] J
+
+TEMPO:
+  Valor: 468.920 ms
+  Desvio: 41.324 ms
+  IC 95%: [461.151, 485.875] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 670.718866 J·ms
+  Desvio: 162.425830 J·ms
+  IC 95%: [639.521827, 733.048424] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.832 (p=0.000000)
+
+CPU: 1600 MHz
+------------------------------
+Observações: 55
+
+ENERGIA:
+  Valor: 1.423535 J
+  Desvio: 0.284988 J
+  IC 95%: [1.371257, 1.545505] J
+
+TEMPO:
+  Valor: 468.952 ms
+  Desvio: 54.462 ms
+  IC 95%: [460.323, 498.630] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 681.755024 J·ms
+  Desvio: 286.668213 J·ms
+  IC 95%: [636.838877, 833.389136] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.931 (p=0.000000)
+
+CPU: 1800 MHz
+------------------------------
+Observações: 62
+
+ENERGIA:
+  Valor: 1.411462 J
+  Desvio: 0.258369 J
+  IC 95%: [1.358898, 1.490672] J
+
+TEMPO:
+  Valor: 417.840 ms
+  Desvio: 43.031 ms
+  IC 95%: [410.170, 433.899] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 598.862565 J·ms
+  Desvio: 188.626265 J·ms
+  IC 95%: [562.765274, 662.924279] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.832 (p=0.000000)
+
+CPU: 2000 MHz
+------------------------------
+Observações: 70
+
+ENERGIA:
+  Valor: 1.390313 J
+  Desvio: 0.207570 J
+  IC 95%: [1.348549, 1.445912] J
+
+TEMPO:
+  Valor: 369.662 ms
+  Desvio: 21.964 ms
+  IC 95%: [365.713, 376.573] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 517.574025 J·ms
+  Desvio: 110.719546 J·ms
+  IC 95%: [495.732809, 549.739798] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.807 (p=0.000000)
+
+CPU: 2200 MHz
+------------------------------
+Observações: 77
+
+ENERGIA:
+  Valor: 1.404807 J
+  Desvio: 0.209388 J
+  IC 95%: [1.369154, 1.469484] J
+
+TEMPO:
+  Valor: 335.183 ms
+  Desvio: 20.403 ms
+  IC 95%: [331.974, 342.514] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 474.100606 J·ms
+  Desvio: 109.898672 J·ms
+  IC 95%: [457.332948, 511.425003] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.767 (p=0.000000)
+
+CPU: 2400 MHz
+------------------------------
+Observações: 85
+
+ENERGIA:
+  Valor: 1.427035 J
+  Desvio: 0.209104 J
+  IC 95%: [1.392202, 1.485348] J
+
+TEMPO:
+  Valor: 305.905 ms
+  Desvio: 13.431 ms
+  IC 95%: [303.955, 310.637] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 438.790000 J·ms
+  Desvio: 90.076710 J·ms
+  IC 95%: [424.385407, 466.163814] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.812 (p=0.000000)
+
+CPU: 2500 MHz
+------------------------------
+Observações: 87
+
+ENERGIA:
+  Valor: 1.567141 J
+  Desvio: 0.229767 J
+  IC 95%: [1.529583, 1.631445] J
+
+TEMPO:
+  Valor: 294.089 ms
+  Desvio: 17.556 ms
+  IC 95%: [291.165, 299.048] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 464.465340 J·ms
+  Desvio: 105.861967 J·ms
+  IC 95%: [447.834357, 495.028081] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.899 (p=0.000000)
+
+CPU: 2600 MHz
+------------------------------
+Observações: 90
+
+ENERGIA:
+  Valor: 1.640256 J
+  Desvio: 0.234010 J
+  IC 95%: [1.602816, 1.704241] J
+
+TEMPO:
+  Valor: 285.047 ms
+  Desvio: 12.341 ms
+  IC 95%: [283.250, 288.838] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 470.042724 J·ms
+  Desvio: 95.678297 J·ms
+  IC 95%: [455.685866, 498.893297] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.873 (p=0.000000)
+
+CPU: 2700 MHz
+------------------------------
+Observações: 94
+
+ENERGIA:
+  Valor: 1.668262 J
+  Desvio: 0.199313 J
+  IC 95%: [1.634804, 1.717013] J
+
+TEMPO:
+  Valor: 272.788 ms
+  Desvio: 10.021 ms
+  IC 95%: [271.123, 275.279] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 456.652760 J·ms
+  Desvio: 72.366745 J·ms
+  IC 95%: [444.471809, 473.928766] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.795 (p=0.000000)
+
+FANNKUCHREDUX V8
+==================================================
+
+CPU: 400 MHz
+------------------------------
+Observações: 94
+
+ENERGIA:
+  Valor: 1.706297 J
+  Desvio: 0.252662 J
+  IC 95%: [1.664881, 1.771408] J
+
+TEMPO:
+  Valor: 559.748 ms
+  Desvio: 52.430 ms
+  IC 95%: [551.917, 574.795] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 966.566735 J·ms
+  Desvio: 270.232339 J·ms
+  IC 95%: [926.977973, 1050.737608] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.875 (p=0.000000)
+
+CPU: 600 MHz
+------------------------------
+Observações: 96
+
+ENERGIA:
+  Valor: 1.699087 J
+  Desvio: 0.348402 J
+  IC 95%: [1.646655, 1.800871] J
+
+TEMPO:
+  Valor: 555.270 ms
+  Desvio: 87.235 ms
+  IC 95%: [543.693, 585.687] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 971.909315 J·ms
+  Desvio: 500.929430 J·ms
+  IC 95%: [907.520756, 1152.709082] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.946 (p=0.000000)
+
+CPU: 700 MHz
+------------------------------
+Observações: 97
+
+ENERGIA:
+  Valor: 1.676741 J
+  Desvio: 0.376722 J
+  IC 95%: [1.626726, 1.799856] J
+
+TEMPO:
+  Valor: 548.467 ms
+  Desvio: 88.674 ms
+  IC 95%: [537.695, 583.982] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 951.180213 J·ms
+  Desvio: 587.972801 J·ms
+  IC 95%: [882.574450, 1206.500637] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.954 (p=0.000000)
+
+CPU: 800 MHz
+------------------------------
+Observações: 94
+
+ENERGIA:
+  Valor: 1.706523 J
+  Desvio: 0.251315 J
+  IC 95%: [1.665874, 1.770487] J
+
+TEMPO:
+  Valor: 557.537 ms
+  Desvio: 51.916 ms
+  IC 95%: [549.664, 571.701] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 962.984715 J·ms
+  Desvio: 266.534152 J·ms
+  IC 95%: [922.762739, 1036.000016] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.894 (p=0.000000)
+
+CPU: 1100 MHz
+------------------------------
+Observações: 95
+
+ENERGIA:
+  Valor: 1.685337 J
+  Desvio: 0.259488 J
+  IC 95%: [1.644847, 1.754217] J
+
+TEMPO:
+  Valor: 551.128 ms
+  Desvio: 51.042 ms
+  IC 95%: [543.352, 565.898] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 940.901882 J·ms
+  Desvio: 273.458919 J·ms
+  IC 95%: [899.648756, 1017.866707] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.921 (p=0.000000)
+
+CPU: 1300 MHz
+------------------------------
+Observações: 95
+
+ENERGIA:
+  Valor: 1.683642 J
+  Desvio: 0.191002 J
+  IC 95%: [1.649347, 1.726696] J
+
+TEMPO:
+  Valor: 552.624 ms
+  Desvio: 31.707 ms
+  IC 95%: [546.776, 559.671] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 934.961936 J·ms
+  Desvio: 155.459971 J·ms
+  IC 95%: [906.546501, 969.303689] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.758 (p=0.000000)
+
+CPU: 1500 MHz
+------------------------------
+Observações: 95
+
+ENERGIA:
+  Valor: 1.687251 J
+  Desvio: 0.211991 J
+  IC 95%: [1.649970, 1.736513] J
+
+TEMPO:
+  Valor: 555.019 ms
+  Desvio: 38.712 ms
+  IC 95%: [548.268, 563.967] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 943.257456 J·ms
+  Desvio: 190.795658 J·ms
+  IC 95%: [911.293299, 989.406300] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.838 (p=0.000000)
+
+CPU: 1600 MHz
+------------------------------
+Observações: 99
+
+ENERGIA:
+  Valor: 1.629197 J
+  Desvio: 0.204754 J
+  IC 95%: [1.595117, 1.679098] J
+
+TEMPO:
+  Valor: 535.168 ms
+  Desvio: 29.002 ms
+  IC 95%: [530.812, 543.063] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 876.798153 J·ms
+  Desvio: 168.806812 J·ms
+  IC 95%: [850.701232, 918.665994] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.834 (p=0.000000)
+
+CPU: 1800 MHz
+------------------------------
+Observações: 103
+
+ENERGIA:
+  Valor: 1.728434 J
+  Desvio: 0.239128 J
+  IC 95%: [1.688332, 1.782562] J
+
+TEMPO:
+  Valor: 502.769 ms
+  Desvio: 31.049 ms
+  IC 95%: [497.984, 510.585] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 874.979045 J·ms
+  Desvio: 183.436141 J·ms
+  IC 95%: [845.684810, 919.184398] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.813 (p=0.000000)
+
+CPU: 2000 MHz
+------------------------------
+Observações: 117
+
+ENERGIA:
+  Valor: 1.690797 J
+  Desvio: 0.273888 J
+  IC 95%: [1.648938, 1.748907] J
+
+TEMPO:
+  Valor: 444.094 ms
+  Desvio: 34.462 ms
+  IC 95%: [438.972, 451.921] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 758.778870 J·ms
+  Desvio: 197.749366 J·ms
+  IC 95%: [730.251954, 805.705900] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.845 (p=0.000000)
+
+CPU: 2200 MHz
+------------------------------
+Observações: 128
+
+ENERGIA:
+  Valor: 1.719543 J
+  Desvio: 0.328985 J
+  IC 95%: [1.673053, 1.791823] J
+
+TEMPO:
+  Valor: 403.661 ms
+  Desvio: 40.256 ms
+  IC 95%: [398.161, 412.947] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 705.952217 J·ms
+  Desvio: 245.227015 J·ms
+  IC 95%: [672.754814, 762.608202] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.901 (p=0.000000)
+
+CPU: 2400 MHz
+------------------------------
+Observações: 137
+
+ENERGIA:
+  Valor: 1.786300 J
+  Desvio: 0.333912 J
+  IC 95%: [1.741268, 1.857445] J
+
+TEMPO:
+  Valor: 374.124 ms
+  Desvio: 37.772 ms
+  IC 95%: [368.908, 382.203] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 678.614708 J·ms
+  Desvio: 228.343563 J·ms
+  IC 95%: [649.778080, 734.325203] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.824 (p=0.000000)
+
+CPU: 2500 MHz
+------------------------------
+Observações: 145
+
+ENERGIA:
+  Valor: 1.897091 J
+  Desvio: 0.300544 J
+  IC 95%: [1.856059, 1.957236] J
+
+TEMPO:
+  Valor: 353.933 ms
+  Desvio: 28.539 ms
+  IC 95%: [349.946, 359.554] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 678.425643 J·ms
+  Desvio: 175.212133 J·ms
+  IC 95%: [654.989749, 714.558496] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.820 (p=0.000000)
+
+CPU: 2600 MHz
+------------------------------
+Observações: 156
+
+ENERGIA:
+  Valor: 1.866732 J
+  Desvio: 0.310008 J
+  IC 95%: [1.825850, 1.925431] J
+
+TEMPO:
+  Valor: 329.905 ms
+  Desvio: 27.695 ms
+  IC 95%: [326.609, 335.601] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 623.203652 J·ms
+  Desvio: 181.983107 J·ms
+  IC 95%: [601.370132, 663.571306] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.863 (p=0.000000)
+
+CPU: 2700 MHz
+------------------------------
+Observações: 160
+
+ENERGIA:
+  Valor: 1.951954 J
+  Desvio: 0.292004 J
+  IC 95%: [1.912720, 2.005895] J
+
+TEMPO:
+  Valor: 317.111 ms
+  Desvio: 18.804 ms
+  IC 95%: [314.888, 321.057] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 623.513014 J·ms
+  Desvio: 145.383533 J·ms
+  IC 95%: [605.689620, 653.217682] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.830 (p=0.000000)
+
+MANDELBROT
+==================================================
+
+CPU: 400 MHz
+------------------------------
+Observações: 117
+
+ENERGIA:
+  Valor: 0.593888 J
+  Desvio: 0.121238 J
+  IC 95%: [0.575401, 0.620782] J
+
+TEMPO:
+  Valor: 217.210 ms
+  Desvio: 21.504 ms
+  IC 95%: [214.365, 222.726] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 131.305502 J·ms
+  Desvio: 46.657801 J·ms
+  IC 95%: [124.792808, 143.144039] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.893 (p=0.000000)
+
+CPU: 600 MHz
+------------------------------
+Observações: 116
+
+ENERGIA:
+  Valor: 0.599120 J
+  Desvio: 0.133630 J
+  IC 95%: [0.579900, 0.632065] J
+
+TEMPO:
+  Valor: 218.533 ms
+  Desvio: 29.730 ms
+  IC 95%: [214.841, 227.934] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 134.476862 J·ms
+  Desvio: 66.644297 J·ms
+  IC 95%: [126.343236, 155.376204] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.901 (p=0.000000)
+
+CPU: 700 MHz
+------------------------------
+Observações: 117
+
+ENERGIA:
+  Valor: 0.597398 J
+  Desvio: 0.125378 J
+  IC 95%: [0.579634, 0.627881] J
+
+TEMPO:
+  Valor: 217.176 ms
+  Desvio: 23.904 ms
+  IC 95%: [214.198, 223.998] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 132.381977 J·ms
+  Desvio: 54.758695 J·ms
+  IC 95%: [125.668275, 148.444887] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.889 (p=0.000000)
+
+CPU: 800 MHz
+------------------------------
+Observações: 115
+
+ENERGIA:
+  Valor: 0.609944 J
+  Desvio: 0.194103 J
+  IC 95%: [0.586301, 0.670278] J
+
+TEMPO:
+  Valor: 220.668 ms
+  Desvio: 50.827 ms
+  IC 95%: [215.174, 240.297] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 143.900189 J·ms
+  Desvio: 151.257092 J·ms
+  IC 95%: [128.023070, 206.810288] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.951 (p=0.000000)
+
+CPU: 1100 MHz
+------------------------------
+Observações: 115
+
+ENERGIA:
+  Valor: 0.601999 J
+  Desvio: 0.182399 J
+  IC 95%: [0.577935, 0.651331] J
+
+TEMPO:
+  Valor: 220.214 ms
+  Desvio: 43.821 ms
+  IC 95%: [214.716, 233.766] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 140.133847 J·ms
+  Desvio: 112.366161 J·ms
+  IC 95%: [126.407989, 175.391847] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.955 (p=0.000000)
+
+CPU: 1300 MHz
+------------------------------
+Observações: 118
+
+ENERGIA:
+  Valor: 0.591982 J
+  Desvio: 0.117484 J
+  IC 95%: [0.575339, 0.619033] J
+
+TEMPO:
+  Valor: 216.482 ms
+  Desvio: 22.877 ms
+  IC 95%: [213.513, 222.942] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 130.549066 J·ms
+  Desvio: 49.597793 J·ms
+  IC 95%: [124.372458, 144.454829] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.899 (p=0.000000)
+
+CPU: 1500 MHz
+------------------------------
+Observações: 115
+
+ENERGIA:
+  Valor: 0.613794 J
+  Desvio: 0.189500 J
+  IC 95%: [0.588408, 0.663398] J
+
+TEMPO:
+  Valor: 220.357 ms
+  Desvio: 39.545 ms
+  IC 95%: [215.242, 231.111] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 142.314832 J·ms
+  Desvio: 103.597554 J·ms
+  IC 95%: [129.378197, 172.690208] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.951 (p=0.000000)
+
+CPU: 1600 MHz
+------------------------------
+Observações: 117
+
+ENERGIA:
+  Valor: 0.595425 J
+  Desvio: 0.166829 J
+  IC 95%: [0.574038, 0.640567] J
+
+TEMPO:
+  Valor: 217.431 ms
+  Desvio: 33.306 ms
+  IC 95%: [213.497, 228.269] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 134.642667 J·ms
+  Desvio: 91.042672 J·ms
+  IC 95%: [123.670835, 165.437188] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.940 (p=0.000000)
+
+CPU: 1800 MHz
+------------------------------
+Observações: 131
+
+ENERGIA:
+  Valor: 0.585335 J
+  Desvio: 0.183297 J
+  IC 95%: [0.562275, 0.630764] J
+
+TEMPO:
+  Valor: 192.540 ms
+  Desvio: 29.368 ms
+  IC 95%: [189.092, 200.746] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 117.743071 J·ms
+  Desvio: 82.964221 J·ms
+  IC 95%: [107.874181, 140.132492] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.944 (p=0.000000)
+
+CPU: 2000 MHz
+------------------------------
+Observações: 143
+
+ENERGIA:
+  Valor: 0.589133 J
+  Desvio: 0.218809 J
+  IC 95%: [0.563663, 0.643620] J
+
+TEMPO:
+  Valor: 174.676 ms
+  Desvio: 33.136 ms
+  IC 95%: [171.096, 184.211] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 109.697239 J·ms
+  Desvio: 109.793638 J·ms
+  IC 95%: [97.980412, 143.253752] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.943 (p=0.000000)
+
+CPU: 2200 MHz
+------------------------------
+Observações: 160
+
+ENERGIA:
+  Valor: 0.593491 J
+  Desvio: 0.176653 J
+  IC 95%: [0.571216, 0.628941] J
+
+TEMPO:
+  Valor: 158.694 ms
+  Desvio: 23.636 ms
+  IC 95%: [155.925, 163.676] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 97.797739 J·ms
+  Desvio: 58.400374 J·ms
+  IC 95%: [90.920730, 110.417638] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.871 (p=0.000000)
+
+CPU: 2400 MHz
+------------------------------
+Observações: 173
+
+ENERGIA:
+  Valor: 0.601374 J
+  Desvio: 0.166889 J
+  IC 95%: [0.580988, 0.632189] J
+
+TEMPO:
+  Valor: 144.849 ms
+  Desvio: 18.370 ms
+  IC 95%: [142.821, 148.683] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 89.716920 J·ms
+  Desvio: 46.693870 J·ms
+  IC 95%: [84.576818, 99.697335] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.856 (p=0.000000)
+
+CPU: 2500 MHz
+------------------------------
+Observações: 178
+
+ENERGIA:
+  Valor: 0.713881 J
+  Desvio: 0.214112 J
+  IC 95%: [0.687449, 0.751960] J
+
+TEMPO:
+  Valor: 141.273 ms
+  Desvio: 22.908 ms
+  IC 95%: [138.616, 145.751] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 105.316996 J·ms
+  Desvio: 66.305087 J·ms
+  IC 95%: [97.887634, 118.714177] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.915 (p=0.000000)
+
+CPU: 2600 MHz
+------------------------------
+Observações: 185
+
+ENERGIA:
+  Valor: 0.707834 J
+  Desvio: 0.217626 J
+  IC 95%: [0.682812, 0.748806] J
+
+TEMPO:
+  Valor: 135.749 ms
+  Desvio: 23.015 ms
+  IC 95%: [133.276, 140.445] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 100.692377 J·ms
+  Desvio: 71.937150 J·ms
+  IC 95%: [93.559767, 116.584093] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.924 (p=0.000000)
+
+CPU: 2700 MHz
+------------------------------
+Observações: 191
+
+ENERGIA:
+  Valor: 0.757621 J
+  Desvio: 0.195582 J
+  IC 95%: [0.733544, 0.789718] J
+
+TEMPO:
+  Valor: 131.157 ms
+  Desvio: 18.965 ms
+  IC 95%: [129.006, 134.449] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 102.627565 J·ms
+  Desvio: 50.193084 J·ms
+  IC 95%: [96.664364, 111.224762] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.884 (p=0.000000)
+
+MANDELBROT V2
+==================================================
+
+CPU: 400 MHz
+------------------------------
+Observações: 201
+
+ENERGIA:
+  Valor: 0.369583 J
+  Desvio: 0.108832 J
+  IC 95%: [0.356371, 0.387163] J
+
+TEMPO:
+  Valor: 124.175 ms
+  Desvio: 26.294 ms
+  IC 95%: [121.075, 128.486] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 48.606121 J·ms
+  Desvio: 31.393342 J·ms
+  IC 95%: [45.010277, 53.834542] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.953 (p=0.000000)
+
+CPU: 600 MHz
+------------------------------
+Observações: 202
+
+ENERGIA:
+  Valor: 0.365226 J
+  Desvio: 0.110032 J
+  IC 95%: [0.352324, 0.383575] J
+
+TEMPO:
+  Valor: 123.762 ms
+  Desvio: 28.139 ms
+  IC 95%: [120.491, 128.546] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 48.114934 J·ms
+  Desvio: 34.550227 J·ms
+  IC 95%: [44.314688, 54.223326] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.946 (p=0.000000)
+
+CPU: 700 MHz
+------------------------------
+Observações: 204
+
+ENERGIA:
+  Valor: 0.366178 J
+  Desvio: 0.095196 J
+  IC 95%: [0.354712, 0.381175] J
+
+TEMPO:
+  Valor: 122.773 ms
+  Desvio: 23.145 ms
+  IC 95%: [120.030, 126.438] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 46.978555 J·ms
+  Desvio: 25.457964 J·ms
+  IC 95%: [44.062579, 51.191244] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.922 (p=0.000000)
+
+CPU: 800 MHz
+------------------------------
+Observações: 207
+
+ENERGIA:
+  Valor: 0.361539 J
+  Desvio: 0.096505 J
+  IC 95%: [0.350414, 0.377275] J
+
+TEMPO:
+  Valor: 121.200 ms
+  Desvio: 22.725 ms
+  IC 95%: [118.707, 125.070] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 45.845358 J·ms
+  Desvio: 28.042366 J·ms
+  IC 95%: [42.922152, 51.142996] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.929 (p=0.000000)
+
+CPU: 1100 MHz
+------------------------------
+Observações: 211
+
+ENERGIA:
+  Valor: 0.346438 J
+  Desvio: 0.069449 J
+  IC 95%: [0.338230, 0.357264] J
+
+TEMPO:
+  Valor: 118.145 ms
+  Desvio: 16.198 ms
+  IC 95%: [116.323, 120.797] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 41.908506 J·ms
+  Desvio: 16.554092 J·ms
+  IC 95%: [40.042870, 44.680858] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.874 (p=0.000000)
+
+CPU: 1300 MHz
+------------------------------
+Observações: 210
+
+ENERGIA:
+  Valor: 0.357479 J
+  Desvio: 0.077942 J
+  IC 95%: [0.347833, 0.369064] J
+
+TEMPO:
+  Valor: 119.988 ms
+  Desvio: 18.205 ms
+  IC 95%: [117.873, 122.977] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 44.123396 J·ms
+  Desvio: 19.109532 J·ms
+  IC 95%: [41.995016, 47.337355] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.871 (p=0.000000)
+
+CPU: 1500 MHz
+------------------------------
+Observações: 208
+
+ENERGIA:
+  Valor: 0.358539 J
+  Desvio: 0.091337 J
+  IC 95%: [0.347471, 0.372405] J
+
+TEMPO:
+  Valor: 120.528 ms
+  Desvio: 19.166 ms
+  IC 95%: [118.329, 123.605] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 44.785555 J·ms
+  Desvio: 22.076022 J·ms
+  IC 95%: [42.268553, 48.423354] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.902 (p=0.000000)
+
+CPU: 1600 MHz
+------------------------------
+Observações: 211
+
+ENERGIA:
+  Valor: 0.351285 J
+  Desvio: 0.068202 J
+  IC 95%: [0.342962, 0.361329] J
+
+TEMPO:
+  Valor: 118.154 ms
+  Desvio: 13.897 ms
+  IC 95%: [116.548, 120.389] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 42.214785 J·ms
+  Desvio: 13.790751 J·ms
+  IC 95%: [40.565729, 44.271104] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.752 (p=0.000000)
+
+CPU: 1800 MHz
+------------------------------
+Observações: 237
+
+ENERGIA:
+  Valor: 0.351304 J
+  Desvio: 0.082395 J
+  IC 95%: [0.341808, 0.362690] J
+
+TEMPO:
+  Valor: 105.533 ms
+  Desvio: 15.218 ms
+  IC 95%: [103.829, 107.800] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 38.062461 J·ms
+  Desvio: 16.099817 J·ms
+  IC 95%: [36.238212, 40.435268] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.792 (p=0.000000)
+
+CPU: 2000 MHz
+------------------------------
+Observações: 267
+
+ENERGIA:
+  Valor: 0.344153 J
+  Desvio: 0.084431 J
+  IC 95%: [0.334883, 0.355050] J
+
+TEMPO:
+  Valor: 93.561 ms
+  Desvio: 10.424 ms
+  IC 95%: [92.519, 95.071] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 32.901018 J·ms
+  Desvio: 13.232434 J·ms
+  IC 95%: [31.523047, 34.806047] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.800 (p=0.000000)
+
+CPU: 2200 MHz
+------------------------------
+Observações: 297
+
+ENERGIA:
+  Valor: 0.349881 J
+  Desvio: 0.082088 J
+  IC 95%: [0.341475, 0.360482] J
+
+TEMPO:
+  Valor: 84.025 ms
+  Desvio: 7.870 ms
+  IC 95%: [83.256, 85.082] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 29.882276 J·ms
+  Desvio: 10.713167 J·ms
+  IC 95%: [28.833397, 31.316230] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.751 (p=0.000000)
+
+CPU: 2400 MHz
+------------------------------
+Observações: 324
+
+ENERGIA:
+  Valor: 0.348504 J
+  Desvio: 0.092463 J
+  IC 95%: [0.339964, 0.360365] J
+
+TEMPO:
+  Valor: 76.792 ms
+  Desvio: 8.596 ms
+  IC 95%: [76.037, 77.992] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 27.427084 J·ms
+  Desvio: 13.653246 J·ms
+  IC 95%: [26.305684, 29.485308] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.839 (p=0.000000)
+
+CPU: 2500 MHz
+------------------------------
+Observações: 336
+
+ENERGIA:
+  Valor: 0.361800 J
+  Desvio: 0.083586 J
+  IC 95%: [0.353766, 0.371537] J
+
+TEMPO:
+  Valor: 74.395 ms
+  Desvio: 6.747 ms
+  IC 95%: [73.785, 75.260] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 27.325878 J·ms
+  Desvio: 9.626167 J·ms
+  IC 95%: [26.430354, 28.552562] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.729 (p=0.000000)
+
+CPU: 2600 MHz
+------------------------------
+Observações: 343
+
+ENERGIA:
+  Valor: 0.439986 J
+  Desvio: 0.072190 J
+  IC 95%: [0.433271, 0.448806] J
+
+TEMPO:
+  Valor: 72.660 ms
+  Desvio: 6.751 ms
+  IC 95%: [72.045, 73.491] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 32.366520 J·ms
+  Desvio: 9.358281 J·ms
+  IC 95%: [31.476242, 33.487457] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.818 (p=0.000000)
+
+CPU: 2700 MHz
+------------------------------
+Observações: 356
+
+ENERGIA:
+  Valor: 0.490696 J
+  Desvio: 0.105806 J
+  IC 95%: [0.481185, 0.503559] J
+
+TEMPO:
+  Valor: 70.026 ms
+  Desvio: 9.194 ms
+  IC 95%: [69.248, 71.233] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 35.222238 J·ms
+  Desvio: 16.147193 J·ms
+  IC 95%: [33.860896, 37.428065] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.887 (p=0.000000)
+
+MANDELBROT V3
+==================================================
+
+CPU: 400 MHz
+------------------------------
+Observações: 116
+
+ENERGIA:
+  Valor: 0.594556 J
+  Desvio: 0.139566 J
+  IC 95%: [0.573613, 0.626922] J
+
+TEMPO:
+  Valor: 218.132 ms
+  Desvio: 29.157 ms
+  IC 95%: [214.180, 225.543] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 133.341009 J·ms
+  Desvio: 62.724674 J·ms
+  IC 95%: [124.870153, 150.206352] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.905 (p=0.000000)
+
+CPU: 600 MHz
+------------------------------
+Observações: 116
+
+ENERGIA:
+  Valor: 0.595489 J
+  Desvio: 0.125650 J
+  IC 95%: [0.575528, 0.621573] J
+
+TEMPO:
+  Valor: 217.846 ms
+  Desvio: 23.049 ms
+  IC 95%: [214.491, 223.128] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 132.339257 J·ms
+  Desvio: 48.086395 J·ms
+  IC 95%: [125.263616, 143.227205] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.911 (p=0.000000)
+
+CPU: 700 MHz
+------------------------------
+Observações: 115
+
+ENERGIA:
+  Valor: 0.604088 J
+  Desvio: 0.182034 J
+  IC 95%: [0.581023, 0.657909] J
+
+TEMPO:
+  Valor: 219.638 ms
+  Desvio: 47.829 ms
+  IC 95%: [213.922, 235.709] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 140.788918 J·ms
+  Desvio: 129.129293 J·ms
+  IC 95%: [126.631830, 190.351296] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.939 (p=0.000000)
+
+CPU: 800 MHz
+------------------------------
+Observações: 118
+
+ENERGIA:
+  Valor: 0.585180 J
+  Desvio: 0.099684 J
+  IC 95%: [0.570224, 0.607994] J
+
+TEMPO:
+  Valor: 214.597 ms
+  Desvio: 16.707 ms
+  IC 95%: [212.408, 219.133] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 126.996145 J·ms
+  Desvio: 36.480082 J·ms
+  IC 95%: [122.191550, 136.223327] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.859 (p=0.000000)
+
+CPU: 1100 MHz
+------------------------------
+Observações: 120
+
+ENERGIA:
+  Valor: 0.578088 J
+  Desvio: 0.089518 J
+  IC 95%: [0.564319, 0.596368] J
+
+TEMPO:
+  Valor: 213.786 ms
+  Desvio: 14.445 ms
+  IC 95%: [211.773, 217.297] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 124.701639 J·ms
+  Desvio: 30.412839 J·ms
+  IC 95%: [120.285618, 131.622608] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.869 (p=0.000000)
+
+CPU: 1300 MHz
+------------------------------
+Observações: 116
+
+ENERGIA:
+  Valor: 0.603669 J
+  Desvio: 0.161040 J
+  IC 95%: [0.580976, 0.642484] J
+
+TEMPO:
+  Valor: 219.049 ms
+  Desvio: 36.464 ms
+  IC 95%: [214.376, 229.284] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 137.718048 J·ms
+  Desvio: 84.573251 J·ms
+  IC 95%: [126.719873, 161.373418] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.942 (p=0.000000)
+
+CPU: 1500 MHz
+------------------------------
+Observações: 120
+
+ENERGIA:
+  Valor: 0.575766 J
+  Desvio: 0.092654 J
+  IC 95%: [0.561400, 0.594651] J
+
+TEMPO:
+  Valor: 212.719 ms
+  Desvio: 12.146 ms
+  IC 95%: [211.011, 215.551] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 123.349601 J·ms
+  Desvio: 28.262211 J·ms
+  IC 95%: [119.214870, 129.661246] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.782 (p=0.000000)
+
+CPU: 1600 MHz
+------------------------------
+Observações: 119
+
+ENERGIA:
+  Valor: 0.581044 J
+  Desvio: 0.104392 J
+  IC 95%: [0.565665, 0.602974] J
+
+TEMPO:
+  Valor: 214.187 ms
+  Desvio: 14.523 ms
+  IC 95%: [212.209, 217.764] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 125.708359 J·ms
+  Desvio: 34.514177 J·ms
+  IC 95%: [120.842243, 133.690466] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.836 (p=0.000000)
+
+CPU: 1800 MHz
+------------------------------
+Observações: 134
+
+ENERGIA:
+  Valor: 0.586555 J
+  Desvio: 0.148093 J
+  IC 95%: [0.566348, 0.618456] J
+
+TEMPO:
+  Valor: 191.293 ms
+  Desvio: 19.553 ms
+  IC 95%: [188.872, 196.138] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 114.745938 J·ms
+  Desvio: 51.710343 J·ms
+  IC 95%: [108.433105, 127.603033] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.885 (p=0.000000)
+
+CPU: 2000 MHz
+------------------------------
+Observações: 145
+
+ENERGIA:
+  Valor: 0.582191 J
+  Desvio: 0.196090 J
+  IC 95%: [0.557295, 0.624666] J
+
+TEMPO:
+  Valor: 174.004 ms
+  Desvio: 28.135 ms
+  IC 95%: [170.733, 180.852] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 106.383623 J·ms
+  Desvio: 76.821662 J·ms
+  IC 95%: [97.172683, 124.643038] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.927 (p=0.000000)
+
+CPU: 2200 MHz
+------------------------------
+Observações: 161
+
+ENERGIA:
+  Valor: 0.576463 J
+  Desvio: 0.192864 J
+  IC 95%: [0.555925, 0.623003] J
+
+TEMPO:
+  Valor: 156.896 ms
+  Desvio: 26.144 ms
+  IC 95%: [154.213, 163.983] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 95.000852 J·ms
+  Desvio: 83.416977 J·ms
+  IC 95%: [87.169422, 120.559201] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.909 (p=0.000000)
+
+CPU: 2400 MHz
+------------------------------
+Observações: 178
+
+ENERGIA:
+  Valor: 0.569243 J
+  Desvio: 0.124432 J
+  IC 95%: [0.553778, 0.591218] J
+
+TEMPO:
+  Valor: 142.120 ms
+  Desvio: 13.444 ms
+  IC 95%: [140.636, 144.968] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 82.151560 J·ms
+  Desvio: 30.162715 J·ms
+  IC 95%: [78.734806, 88.177410] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.752 (p=0.000000)
+
+CPU: 2500 MHz
+------------------------------
+Observações: 183
+
+ENERGIA:
+  Valor: 0.578956 J
+  Desvio: 0.152586 J
+  IC 95%: [0.560569, 0.606227] J
+
+TEMPO:
+  Valor: 136.472 ms
+  Desvio: 15.055 ms
+  IC 95%: [134.922, 139.843] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 80.809598 J·ms
+  Desvio: 38.837368 J·ms
+  IC 95%: [76.663626, 89.015419] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.787 (p=0.000000)
+
+CPU: 2600 MHz
+------------------------------
+Observações: 187
+
+ENERGIA:
+  Valor: 0.685370 J
+  Desvio: 0.168331 J
+  IC 95%: [0.664786, 0.714645] J
+
+TEMPO:
+  Valor: 134.673 ms
+  Desvio: 17.755 ms
+  IC 95%: [132.652, 137.998] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 94.842285 J·ms
+  Desvio: 43.953999 J·ms
+  IC 95%: [89.655525, 102.919021] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.855 (p=0.000000)
+
+CPU: 2700 MHz
+------------------------------
+Observações: 194
+
+ENERGIA:
+  Valor: 0.727328 J
+  Desvio: 0.153576 J
+  IC 95%: [0.708588, 0.752333] J
+
+TEMPO:
+  Valor: 129.285 ms
+  Desvio: 15.636 ms
+  IC 95%: [127.512, 132.119] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 95.990166 J·ms
+  Desvio: 37.679191 J·ms
+  IC 95%: [91.716932, 102.745345] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.819 (p=0.000000)
+
+NBODY V5
+==================================================
+
+CPU: 400 MHz
+------------------------------
+Observações: 30
+
+ENERGIA:
+  Valor: 6.710885 J
+  Desvio: 0.499877 J
+  IC 95%: [6.569147, 6.934610] J
+
+TEMPO:
+  Valor: 2229.742 ms
+  Desvio: 115.485 ms
+  IC 95%: [2199.783, 2291.065] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 15017.062466 J·ms
+  Desvio: 1991.052523 J·ms
+  IC 95%: [14490.207203, 15973.749037] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.959 (p=0.000000)
+
+CPU: 600 MHz
+------------------------------
+Observações: 30
+
+ENERGIA:
+  Valor: 6.559031 J
+  Desvio: 0.404268 J
+  IC 95%: [6.439443, 6.732412] J
+
+TEMPO:
+  Valor: 2194.149 ms
+  Desvio: 69.960 ms
+  IC 95%: [2175.562, 2228.727] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 14416.561423 J·ms
+  Desvio: 1367.505541 J·ms
+  IC 95%: [14031.721132, 15069.187657] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.917 (p=0.000000)
+
+CPU: 700 MHz
+------------------------------
+Observações: 30
+
+ENERGIA:
+  Valor: 6.672331 J
+  Desvio: 0.735110 J
+  IC 95%: [6.484103, 7.070706] J
+
+TEMPO:
+  Valor: 2222.472 ms
+  Desvio: 174.651 ms
+  IC 95%: [2179.465, 2325.034] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 14949.778688 J·ms
+  Desvio: 3181.045072 J·ms
+  IC 95%: [14171.962846, 16837.225245] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.973 (p=0.000000)
+
+CPU: 800 MHz
+------------------------------
+Observações: 30
+
+ENERGIA:
+  Valor: 6.700653 J
+  Desvio: 0.582728 J
+  IC 95%: [6.538386, 6.971020] J
+
+TEMPO:
+  Valor: 2220.512 ms
+  Desvio: 140.934 ms
+  IC 95%: [2184.865, 2293.257] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 14953.682663 J·ms
+  Desvio: 2385.137553 J·ms
+  IC 95%: [14320.804718, 16142.350912] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.942 (p=0.000000)
+
+CPU: 1100 MHz
+------------------------------
+Observações: 29
+
+ENERGIA:
+  Valor: 6.568963 J
+  Desvio: 0.569796 J
+  IC 95%: [6.433337, 6.911777] J
+
+TEMPO:
+  Valor: 2196.046 ms
+  Desvio: 129.581 ms
+  IC 95%: [2168.347, 2294.652] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 14493.870958 J·ms
+  Desvio: 2370.974933 J·ms
+  IC 95%: [13978.676358, 16207.423539] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.956 (p=0.000000)
+
+CPU: 1300 MHz
+------------------------------
+Observações: 30
+
+ENERGIA:
+  Valor: 6.536831 J
+  Desvio: 0.389596 J
+  IC 95%: [6.415723, 6.696965] J
+
+TEMPO:
+  Valor: 2188.508 ms
+  Desvio: 72.158 ms
+  IC 95%: [2171.064, 2228.185] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 14329.236053 J·ms
+  Desvio: 1331.420691 J·ms
+  IC 95%: [13953.364378, 14941.832389] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.858 (p=0.000000)
+
+CPU: 1500 MHz
+------------------------------
+Observações: 30
+
+ENERGIA:
+  Valor: 6.565175 J
+  Desvio: 0.412415 J
+  IC 95%: [6.453950, 6.764613] J
+
+TEMPO:
+  Valor: 2193.359 ms
+  Desvio: 86.568 ms
+  IC 95%: [2173.838, 2250.999] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 14430.571330 J·ms
+  Desvio: 1535.444636 J·ms
+  IC 95%: [14057.621865, 15301.996929] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.892 (p=0.000000)
+
+CPU: 1600 MHz
+------------------------------
+Observações: 30
+
+ENERGIA:
+  Valor: 6.627151 J
+  Desvio: 0.688796 J
+  IC 95%: [6.436512, 6.943437] J
+
+TEMPO:
+  Valor: 2204.237 ms
+  Desvio: 123.178 ms
+  IC 95%: [2171.835, 2263.479] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 14685.055973 J·ms
+  Desvio: 2480.055677 J·ms
+  IC 95%: [14026.179072, 15926.800082] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.942 (p=0.000000)
+
+CPU: 1800 MHz
+------------------------------
+Observações: 30
+
+ENERGIA:
+  Valor: 6.611814 J
+  Desvio: 0.547829 J
+  IC 95%: [6.454922, 6.851329] J
+
+TEMPO:
+  Valor: 1948.654 ms
+  Desvio: 63.764 ms
+  IC 95%: [1932.136, 1981.794] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 12915.451348 J·ms
+  Desvio: 1536.543779 J·ms
+  IC 95%: [12493.422773, 13651.326947] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.927 (p=0.000000)
+
+CPU: 2000 MHz
+------------------------------
+Observações: 30
+
+ENERGIA:
+  Valor: 6.456138 J
+  Desvio: 0.471144 J
+  IC 95%: [6.320906, 6.663730] J
+
+TEMPO:
+  Valor: 1738.135 ms
+  Desvio: 51.429 ms
+  IC 95%: [1725.839, 1767.558] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 11242.724215 J·ms
+  Desvio: 1184.348507 J·ms
+  IC 95%: [10937.361330, 11854.724504] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.900 (p=0.000000)
+
+CPU: 2200 MHz
+------------------------------
+Observações: 39
+
+ENERGIA:
+  Valor: 6.864003 J
+  Desvio: 1.026885 J
+  IC 95%: [6.616027, 7.297268] J
+
+TEMPO:
+  Valor: 1596.602 ms
+  Desvio: 81.396 ms
+  IC 95%: [1578.853, 1637.153] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 11032.239121 J·ms
+  Desvio: 2353.880996 J·ms
+  IC 95%: [10489.097800, 12027.116208] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.898 (p=0.000000)
+
+CPU: 2400 MHz
+------------------------------
+Observações: 40
+
+ENERGIA:
+  Valor: 6.719353 J
+  Desvio: 0.585112 J
+  IC 95%: [6.571613, 6.946567] J
+
+TEMPO:
+  Valor: 1446.897 ms
+  Desvio: 49.331 ms
+  IC 95%: [1436.061, 1470.409] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 9747.023524 J·ms
+  Desvio: 1212.329465 J·ms
+  IC 95%: [9454.034752, 10238.006094] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.882 (p=0.000000)
+
+CPU: 2500 MHz
+------------------------------
+Observações: 40
+
+ENERGIA:
+  Valor: 6.830904 J
+  Desvio: 0.529482 J
+  IC 95%: [6.691980, 7.025577] J
+
+TEMPO:
+  Valor: 1390.422 ms
+  Desvio: 41.205 ms
+  IC 95%: [1380.769, 1407.595] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 9515.239066 J·ms
+  Desvio: 1016.043953 J·ms
+  IC 95%: [9261.388573, 9898.376338] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.818 (p=0.000000)
+
+CPU: 2600 MHz
+------------------------------
+Observações: 40
+
+ENERGIA:
+  Valor: 7.074486 J
+  Desvio: 0.556951 J
+  IC 95%: [6.936743, 7.291841] J
+
+TEMPO:
+  Valor: 1332.345 ms
+  Desvio: 33.978 ms
+  IC 95%: [1324.752, 1346.769] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 9442.308120 J·ms
+  Desvio: 1007.899454 J·ms
+  IC 95%: [9200.312341, 9850.050420] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.903 (p=0.000000)
+
+CPU: 2700 MHz
+------------------------------
+Observações: 40
+
+ENERGIA:
+  Valor: 7.153378 J
+  Desvio: 0.388825 J
+  IC 95%: [7.035108, 7.271880] J
+
+TEMPO:
+  Valor: 1278.724 ms
+  Desvio: 16.421 ms
+  IC 95%: [1274.489, 1284.706] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 9150.901150 J·ms
+  Desvio: 576.825327 J·ms
+  IC 95%: [8978.449826, 9334.042372] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.595 (p=0.000051)
+
+NBODY V8
+==================================================
+
+CPU: 400 MHz
+------------------------------
+Observações: 15
+
+ENERGIA:
+  Valor: 6.244454 J
+  Desvio: 0.557154 J
+  IC 95%: [6.034473, 6.611352] J
+
+TEMPO:
+  Valor: 2113.419 ms
+  Desvio: 99.209 ms
+  IC 95%: [2077.734, 2182.836] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 13245.880020 J·ms
+  Desvio: 1864.724597 J·ms
+  IC 95%: [12566.912144, 14557.016903] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.945 (p=0.000000)
+
+CPU: 600 MHz
+------------------------------
+Observações: 15
+
+ENERGIA:
+  Valor: 6.342916 J
+  Desvio: 0.684568 J
+  IC 95%: [6.127046, 6.937964] J
+
+TEMPO:
+  Valor: 2134.462 ms
+  Desvio: 149.828 ms
+  IC 95%: [2090.173, 2282.704] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 13632.319527 J·ms
+  Desvio: 2693.464763 J·ms
+  IC 95%: [12839.884326, 16209.735977] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.978 (p=0.000000)
+
+CPU: 700 MHz
+------------------------------
+Observações: 15
+
+ENERGIA:
+  Valor: 6.186625 J
+  Desvio: 0.245822 J
+  IC 95%: [6.077951, 6.317970] J
+
+TEMPO:
+  Valor: 2092.414 ms
+  Desvio: 29.117 ms
+  IC 95%: [2078.954, 2106.812] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 12950.688763 J·ms
+  Desvio: 678.169800 J·ms
+  IC 95%: [12650.519789, 13316.399241] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.855 (p=0.000049)
+
+CPU: 800 MHz
+------------------------------
+Observações: 15
+
+ENERGIA:
+  Valor: 6.151619 J
+  Desvio: 0.242370 J
+  IC 95%: [6.031739, 6.268497] J
+
+TEMPO:
+  Valor: 2088.460 ms
+  Desvio: 30.496 ms
+  IC 95%: [2072.476, 2102.770] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 12852.632646 J·ms
+  Desvio: 656.087092 J·ms
+  IC 95%: [12516.845696, 13150.159228] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.757 (p=0.001088)
+
+CPU: 1100 MHz
+------------------------------
+Observações: 15
+
+ENERGIA:
+  Valor: 6.191129 J
+  Desvio: 0.313967 J
+  IC 95%: [6.050597, 6.356097] J
+
+TEMPO:
+  Valor: 2096.925 ms
+  Desvio: 37.145 ms
+  IC 95%: [2080.635, 2117.334] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 12991.347896 J·ms
+  Desvio: 862.831689 J·ms
+  IC 95%: [12604.764470, 13452.956820] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.828 (p=0.000139)
+
+CPU: 1300 MHz
+------------------------------
+Observações: 15
+
+ENERGIA:
+  Valor: 6.245402 J
+  Desvio: 0.431611 J
+  IC 95%: [6.062296, 6.494264] J
+
+TEMPO:
+  Valor: 2118.888 ms
+  Desvio: 87.627 ms
+  IC 95%: [2087.162, 2182.218] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 13266.089135 J·ms
+  Desvio: 1482.134698 J·ms
+  IC 95%: [12693.814753, 14221.742440] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.929 (p=0.000001)
+
+CPU: 1500 MHz
+------------------------------
+Observações: 15
+
+ENERGIA:
+  Valor: 6.755937 J
+  Desvio: 0.777795 J
+  IC 95%: [6.403925, 7.182179] J
+
+TEMPO:
+  Valor: 2155.505 ms
+  Desvio: 112.142 ms
+  IC 95%: [2111.279, 2226.424] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 14618.434438 J·ms
+  Desvio: 2301.352172 J·ms
+  IC 95%: [13605.040269, 15929.863471] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.688 (p=0.004609)
+
+CPU: 1600 MHz
+------------------------------
+Observações: 15
+
+ENERGIA:
+  Valor: 6.156689 J
+  Desvio: 0.461006 J
+  IC 95%: [6.015153, 6.582983] J
+
+TEMPO:
+  Valor: 2101.981 ms
+  Desvio: 98.619 ms
+  IC 95%: [2073.888, 2203.321] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 12981.228506 J·ms
+  Desvio: 1686.602586 J·ms
+  IC 95%: [12484.942474, 14604.233733] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.942 (p=0.000000)
+
+CPU: 1800 MHz
+------------------------------
+Observações: 15
+
+ENERGIA:
+  Valor: 6.199528 J
+  Desvio: 0.622761 J
+  IC 95%: [5.958506, 6.601414] J
+
+TEMPO:
+  Valor: 1887.779 ms
+  Desvio: 101.295 ms
+  IC 95%: [1855.567, 1971.427] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 11757.942532 J·ms
+  Desvio: 1894.048301 J·ms
+  IC 95%: [11098.362507, 13178.881223] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.927 (p=0.000001)
+
+CPU: 2000 MHz
+------------------------------
+Observações: 17
+
+ENERGIA:
+  Valor: 6.117608 J
+  Desvio: 0.601322 J
+  IC 95%: [5.899305, 6.495894] J
+
+TEMPO:
+  Valor: 1675.279 ms
+  Desvio: 50.766 ms
+  IC 95%: [1658.916, 1711.737] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 10274.417003 J·ms
+  Desvio: 1343.490680 J·ms
+  IC 95%: [9820.666589, 11138.787874] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.895 (p=0.000001)
+
+CPU: 2200 MHz
+------------------------------
+Observações: 20
+
+ENERGIA:
+  Valor: 6.135800 J
+  Desvio: 0.629937 J
+  IC 95%: [5.913691, 6.461879] J
+
+TEMPO:
+  Valor: 1517.508 ms
+  Desvio: 50.705 ms
+  IC 95%: [1500.336, 1546.200] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 9339.570448 J·ms
+  Desvio: 1294.461296 J·ms
+  IC 95%: [8892.931583, 10038.549112] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.937 (p=0.000000)
+
+CPU: 2400 MHz
+------------------------------
+Observações: 20
+
+ENERGIA:
+  Valor: 6.256748 J
+  Desvio: 0.429004 J
+  IC 95%: [6.095872, 6.472599] J
+
+TEMPO:
+  Valor: 1385.537 ms
+  Desvio: 35.598 ms
+  IC 95%: [1375.127, 1411.558] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 8680.942936 J·ms
+  Desvio: 812.726411 J·ms
+  IC 95%: [8420.395741, 9165.185928] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.826 (p=0.000007)
+
+CPU: 2500 MHz
+------------------------------
+Observações: 20
+
+ENERGIA:
+  Valor: 6.318482 J
+  Desvio: 0.488122 J
+  IC 95%: [6.155988, 6.597220] J
+
+TEMPO:
+  Valor: 1327.657 ms
+  Desvio: 35.123 ms
+  IC 95%: [1316.700, 1350.133] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 8401.978580 J·ms
+  Desvio: 868.867194 J·ms
+  IC 95%: [8121.848241, 8928.603750] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.811 (p=0.000015)
+
+CPU: 2600 MHz
+------------------------------
+Observações: 20
+
+ENERGIA:
+  Valor: 6.590009 J
+  Desvio: 0.587044 J
+  IC 95%: [6.367813, 6.872548] J
+
+TEMPO:
+  Valor: 1280.360 ms
+  Desvio: 37.115 ms
+  IC 95%: [1268.200, 1303.214] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 8453.760606 J·ms
+  Desvio: 974.609112 J·ms
+  IC 95%: [8104.549422, 8955.999660] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.782 (p=0.000047)
+
+CPU: 2700 MHz
+------------------------------
+Observações: 24
+
+ENERGIA:
+  Valor: 6.762812 J
+  Desvio: 0.577110 J
+  IC 95%: [6.566866, 7.036247] J
+
+TEMPO:
+  Valor: 1230.203 ms
+  Desvio: 33.261 ms
+  IC 95%: [1222.040, 1255.111] ms
+
+EDP (ENERGY-DELAY PRODUCT):
+  Valor: 8332.735175 J·ms
+  Desvio: 914.942415 J·ms
+  IC 95%: [8050.178191, 8813.435158] J·ms
+  (Menor EDP = Melhor eficiência energética)
+
+CORRELAÇÃO ENERGIA-TEMPO: 0.712 (p=0.000094)
+
+
+TABELA RESUMO POR FREQUÊNCIA
+========================================
+
+Algoritmo       CPU(MHz)   Energia(J)      Tempo(ms)   
+-------------------------------------------------------
+fannkuchredux_v2 400        1.425351        471.308     
+fannkuchredux_v2 600        1.440640        471.222     
+fannkuchredux_v2 700        1.455012        476.413     
+fannkuchredux_v2 800        1.442540        473.045     
+fannkuchredux_v2 1100       1.424204        466.416     
+fannkuchredux_v2 1300       1.438092        471.827     
+fannkuchredux_v2 1500       1.416690        468.920     
+fannkuchredux_v2 1600       1.423535        468.952     
+fannkuchredux_v2 1800       1.411462        417.840     
+fannkuchredux_v2 2000       1.390313        369.662     
+fannkuchredux_v2 2200       1.404807        335.183     
+fannkuchredux_v2 2400       1.427035        305.905     
+fannkuchredux_v2 2500       1.567141        294.089     
+fannkuchredux_v2 2600       1.640256        285.047     
+fannkuchredux_v2 2700       1.668262        272.788     
+
+fannkuchredux_v8 400        1.706297        559.748     
+fannkuchredux_v8 600        1.699087        555.270     
+fannkuchredux_v8 700        1.676741        548.467     
+fannkuchredux_v8 800        1.706523        557.537     
+fannkuchredux_v8 1100       1.685337        551.128     
+fannkuchredux_v8 1300       1.683642        552.624     
+fannkuchredux_v8 1500       1.687251        555.019     
+fannkuchredux_v8 1600       1.629197        535.168     
+fannkuchredux_v8 1800       1.728434        502.769     
+fannkuchredux_v8 2000       1.690797        444.094     
+fannkuchredux_v8 2200       1.719543        403.661     
+fannkuchredux_v8 2400       1.786300        374.124     
+fannkuchredux_v8 2500       1.897091        353.933     
+fannkuchredux_v8 2600       1.866732        329.905     
+fannkuchredux_v8 2700       1.951954        317.111     
+
+mandelbrot      400        0.593888        217.210     
+mandelbrot      600        0.599120        218.533     
+mandelbrot      700        0.597398        217.176     
+mandelbrot      800        0.609944        220.668     
+mandelbrot      1100       0.601999        220.214     
+mandelbrot      1300       0.591982        216.482     
+mandelbrot      1500       0.613794        220.357     
+mandelbrot      1600       0.595425        217.431     
+mandelbrot      1800       0.585335        192.540     
+mandelbrot      2000       0.589133        174.676     
+mandelbrot      2200       0.593491        158.694     
+mandelbrot      2400       0.601374        144.849     
+mandelbrot      2500       0.713881        141.273     
+mandelbrot      2600       0.707834        135.749     
+mandelbrot      2700       0.757621        131.157     
+
+mandelbrot_v2   400        0.369583        124.175     
+mandelbrot_v2   600        0.365226        123.762     
+mandelbrot_v2   700        0.366178        122.773     
+mandelbrot_v2   800        0.361539        121.200     
+mandelbrot_v2   1100       0.346438        118.145     
+mandelbrot_v2   1300       0.357479        119.988     
+mandelbrot_v2   1500       0.358539        120.528     
+mandelbrot_v2   1600       0.351285        118.154     
+mandelbrot_v2   1800       0.351304        105.533     
+mandelbrot_v2   2000       0.344153        93.561      
+mandelbrot_v2   2200       0.349881        84.025      
+mandelbrot_v2   2400       0.348504        76.792      
+mandelbrot_v2   2500       0.361800        74.395      
+mandelbrot_v2   2600       0.439986        72.660      
+mandelbrot_v2   2700       0.490696        70.026      
+
+mandelbrot_v3   400        0.594556        218.132     
+mandelbrot_v3   600        0.595489        217.846     
+mandelbrot_v3   700        0.604088        219.638     
+mandelbrot_v3   800        0.585180        214.597     
+mandelbrot_v3   1100       0.578088        213.786     
+mandelbrot_v3   1300       0.603669        219.049     
+mandelbrot_v3   1500       0.575766        212.719     
+mandelbrot_v3   1600       0.581044        214.187     
+mandelbrot_v3   1800       0.586555        191.293     
+mandelbrot_v3   2000       0.582191        174.004     
+mandelbrot_v3   2200       0.576463        156.896     
+mandelbrot_v3   2400       0.569243        142.120     
+mandelbrot_v3   2500       0.578956        136.472     
+mandelbrot_v3   2600       0.685370        134.673     
+mandelbrot_v3   2700       0.727328        129.285     
+
+nbody_v5        400        6.710885        2229.742    
+nbody_v5        600        6.559031        2194.149    
+nbody_v5        700        6.672331        2222.472    
+nbody_v5        800        6.700653        2220.512    
+nbody_v5        1100       6.568963        2196.046    
+nbody_v5        1300       6.536831        2188.508    
+nbody_v5        1500       6.565175        2193.359    
+nbody_v5        1600       6.627151        2204.237    
+nbody_v5        1800       6.611814        1948.654    
+nbody_v5        2000       6.456138        1738.135    
+nbody_v5        2200       6.864003        1596.602    
+nbody_v5        2400       6.719353        1446.897    
+nbody_v5        2500       6.830904        1390.422    
+nbody_v5        2600       7.074486        1332.345    
+nbody_v5        2700       7.153378        1278.724    
+
+nbody_v8        400        6.244454        2113.419    
+nbody_v8        600        6.342916        2134.462    
+nbody_v8        700        6.186625        2092.414    
+nbody_v8        800        6.151619        2088.460    
+nbody_v8        1100       6.191129        2096.925    
+nbody_v8        1300       6.245402        2118.888    
+nbody_v8        1500       6.755937        2155.505    
+nbody_v8        1600       6.156689        2101.981    
+nbody_v8        1800       6.199528        1887.779    
+nbody_v8        2000       6.117608        1675.279    
+nbody_v8        2200       6.135800        1517.508    
+nbody_v8        2400       6.256748        1385.537    
+nbody_v8        2500       6.318482        1327.657    
+nbody_v8        2600       6.590009        1280.360    
+nbody_v8        2700       6.762812        1230.203    
+
