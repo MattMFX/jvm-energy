@@ -70,7 +70,7 @@ ${BLUE}Options:${NC}
     --no-restore                Don't restore original CPU governor after benchmark
 
 ${BLUE}Examples:${NC}
-    # Run all 10 benchmarks (default)
+    # Run all enabled benchmarks (default) - each gets full 5 seconds
     $0
 
     # Or explicitly
@@ -86,6 +86,7 @@ ${BLUE}Examples:${NC}
     $0 -a nbody -s 50000000
 
     # Run benchmarks across frequencies from 1000 to 3000 MHz in 500 MHz steps
+    # Each algorithm runs separately at each frequency
     $0 --freq-start 1000 --freq-end 3000 --freq-step 500
 
     # Run bubble sort with frequency stepping every 250 MHz
@@ -100,7 +101,8 @@ ${BLUE}Examples:${NC}
     # Run all algorithms with custom parameters and frequency stepping
     $0 -s 20000 -w 30 -wt 3 -m 10 -mt 3 -f 2 --freq-step 500
     
-    # Run only nbody variants (all 3: nbody, nbody_v5, nbody_v8)
+    # Run only nbody variants (all 3: nbody_v1, nbody_v5, nbody_v8)
+    # Each variant runs separately and gets full execution time
     $0 --filter "nbody"
     
     # Run nbody and mandelbrot variants
@@ -108,6 +110,8 @@ ${BLUE}Examples:${NC}
 
 ${BLUE}Notes:${NC}
     - The project is always rebuilt before running ('mvn clean package')
+    - Each algorithm runs SEPARATELY and gets its FULL execution time allocation
+      (e.g., with 5s measurement time, each algorithm gets 5s, not shared)
     - Energy measurement requires jRAPL to be properly configured
     - Energy measurement requires root/sudo access (script uses sudo automatically)
     - If output file is specified without path, it will be saved in results/
@@ -353,49 +357,72 @@ else
     echo -e "${BLUE}Output will be saved to: $OUTPUT_FILE${NC}\n"
 fi
 
-# Build benchmark pattern
-if [ "$ALGORITHM" = "unified" ]; then
-    # Use the new unified benchmark that runs all registered benchmarks
-    BENCHMARK_CLASS="UnifiedEnergyBenchmark"
-    BENCHMARK_PATTERN=".*"
-elif [ "$ALGORITHM" = "all" ]; then
-    # Legacy: run all sorting algorithms individually
-    BENCHMARK_CLASS="EnergyMeasuredSortingBenchmark"
-    BENCHMARK_PATTERN=".*energy.*"
-else
-    # Check if this is a legacy sorting algorithm or new benchmark game algorithm
-    case $ALGORITHM in
+# Function to get list of algorithms to benchmark
+get_algorithms_to_run() {
+    if [ "$ALGORITHM" = "unified" ]; then
+        # Get all enabled algorithms from BenchmarkConfig
+        if [ -n "$BENCHMARK_FILTER" ]; then
+            # Use filter if provided
+            java -cp target/classes dev.matheus.energy.BenchmarkLister "$BENCHMARK_FILTER" 2>/dev/null
+        else
+            # Get all enabled benchmarks
+            java -cp target/classes dev.matheus.energy.BenchmarkLister 2>/dev/null
+        fi
+    elif [ "$ALGORITHM" = "all" ]; then
+        # Legacy: list sorting algorithms
+        echo "quick_sort"
+        echo "bubble_sort"
+        echo "merge_sort"
+    else
+        # Single algorithm (could be sorting or unified)
+        case $ALGORITHM in
+            quick_sort|bubble_sort|merge_sort)
+                echo "$ALGORITHM"
+                ;;
+            *)
+                # For new algorithms, treat as filter
+                java -cp target/classes dev.matheus.energy.BenchmarkLister "$ALGORITHM" 2>/dev/null
+                ;;
+        esac
+    fi
+}
+
+# Build benchmark class and pattern based on algorithm type
+determine_benchmark_class() {
+    local algo_name="$1"
+    
+    # Check if this is a legacy sorting algorithm
+    case $algo_name in
         quick_sort|bubble_sort|merge_sort)
-            BENCHMARK_CLASS="EnergyMeasuredSortingBenchmark"
-            BENCHMARK_PATTERN="${ALGORITHM}_energy"
+            echo "EnergyMeasuredSortingBenchmark"
+            echo "${algo_name}_energy"
             ;;
         *)
-            # For new algorithms, use unified benchmark
-            echo -e "${YELLOW}Note: Individual algorithm '$ALGORITHM' will run via UnifiedEnergyBenchmark${NC}"
-            echo -e "${YELLOW}      To run only this algorithm, temporarily disable others in BenchmarkConfig.java${NC}"
-            BENCHMARK_CLASS="UnifiedEnergyBenchmark"
-            BENCHMARK_PATTERN=".*"
+            # New unified benchmark
+            echo "UnifiedEnergyBenchmark"
+            echo ".*"
             ;;
     esac
+}
+
+# Get list of algorithms to run
+echo -e "${BLUE}Discovering algorithms to benchmark...${NC}"
+ALGORITHMS_TO_RUN=($(get_algorithms_to_run))
+
+if [ ${#ALGORITHMS_TO_RUN[@]} -eq 0 ]; then
+    echo -e "${RED}Error: No algorithms found to benchmark!${NC}"
+    echo -e "${YELLOW}Check your algorithm selection or BenchmarkConfig.java${NC}"
+    exit 1
 fi
 
-# Build JMH options (without frequency-specific options)
-# Use 'size' for unified benchmark, 'arraySize' for legacy sorting benchmarks
-if [ "$BENCHMARK_CLASS" = "UnifiedEnergyBenchmark" ]; then
-    JMH_OPTS="-p size=$ARRAY_SIZE"
-else
-    JMH_OPTS="-p arraySize=$ARRAY_SIZE"
-fi
-JMH_OPTS="$JMH_OPTS -wi $WARMUP_ITERATIONS -w ${WARMUP_TIME}s"
-JMH_OPTS="$JMH_OPTS -i $MEASUREMENT_ITERATIONS -r ${MEASUREMENT_TIME}s"
-JMH_OPTS="$JMH_OPTS -f $FORKS"
-JMH_OPTS="$JMH_OPTS $EXTRA_JMH_OPTS"
+echo -e "${GREEN}Found ${#ALGORITHMS_TO_RUN[@]} algorithm(s) to benchmark:${NC}"
+for algo in "${ALGORITHMS_TO_RUN[@]}"; do
+    echo -e "  - $algo"
+done
+echo ""
 
-# Base JVM options (without frequency)
+# Base JVM options (without frequency and algorithm filter)
 BASE_JVM_OPTS="-Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=${ENERGY_TIMESTAMP}"
-if [ -n "$BENCHMARK_FILTER" ]; then
-    BASE_JVM_OPTS="$BASE_JVM_OPTS -Dbenchmark.filter=${BENCHMARK_FILTER}"
-fi
 if [ -n "$EXTRA_JVM_OPTS" ]; then
     BASE_JVM_OPTS="$BASE_JVM_OPTS $EXTRA_JVM_OPTS"
 fi
@@ -408,17 +435,26 @@ if [ -n "$FREQ_STEP" ]; then
     for ((freq=$FREQ_START; freq<=$FREQ_END; freq+=$FREQ_STEP)); do
         FREQUENCIES+=($freq)
     done
-    TOTAL_RUNS=${#FREQUENCIES[@]}
+    TOTAL_FREQ_RUNS=${#FREQUENCIES[@]}
 else
     USE_FREQ_STEPPING=false
-    TOTAL_RUNS=1
+    TOTAL_FREQ_RUNS=1
+fi
+
+# Calculate total number of benchmark runs
+TOTAL_ALGO_RUNS=${#ALGORITHMS_TO_RUN[@]}
+if [ "$USE_FREQ_STEPPING" = true ]; then
+    TOTAL_RUNS=$((TOTAL_FREQ_RUNS * TOTAL_ALGO_RUNS))
+else
+    TOTAL_RUNS=$TOTAL_ALGO_RUNS
 fi
 
 # Print configuration
 echo -e "${BLUE}Benchmark Configuration:${NC}"
-echo -e "  Algorithm:           $ALGORITHM"
+echo -e "  Algorithm Mode:      $ALGORITHM"
 [ -n "$BENCHMARK_FILTER" ] && echo -e "  ${GREEN}Benchmark Filter:    $BENCHMARK_FILTER${NC}"
-echo -e "  Array Size:          $ARRAY_SIZE"
+echo -e "  ${GREEN}Algorithms to Run:   ${#ALGORITHMS_TO_RUN[@]}${NC}"
+echo -e "  Input Size:          $ARRAY_SIZE"
 echo -e "  Warmup:              $WARMUP_ITERATIONS iterations × ${WARMUP_TIME}s"
 echo -e "  Measurement:         $MEASUREMENT_ITERATIONS iterations × ${MEASUREMENT_TIME}s"
 echo -e "  Forks:               $FORKS"
@@ -428,8 +464,11 @@ echo -e "  Forks:               $FORKS"
 echo -e "  Energy CSV:          results/energy_${ENERGY_TIMESTAMP}.csv"
 if [ "$USE_FREQ_STEPPING" = true ]; then
     echo -e "  ${GREEN}Frequency Range:     ${FREQ_START} - ${FREQ_END} MHz (step: ${FREQ_STEP} MHz)${NC}"
-    echo -e "  ${GREEN}Total Frequency Steps: ${TOTAL_RUNS}${NC}"
+    echo -e "  ${GREEN}Frequency Steps:     ${TOTAL_FREQ_RUNS}${NC}"
     echo -e "  ${GREEN}Frequencies:         ${FREQUENCIES[*]} MHz${NC}"
+    echo -e "  ${GREEN}Total Runs:          ${TOTAL_RUNS} (${TOTAL_FREQ_RUNS} frequencies × ${TOTAL_ALGO_RUNS} algorithms)${NC}"
+else
+    echo -e "  ${GREEN}Total Runs:          ${TOTAL_RUNS}${NC}"
 fi
 echo ""
 
@@ -441,6 +480,83 @@ if [ "$USE_FREQ_STEPPING" = true ]; then
     echo "# Frequency Range: ${FREQ_START}-${FREQ_END} MHz, Step: ${FREQ_STEP} MHz" >> "$OUTPUT_FILE"
 fi
 echo "" >> "$OUTPUT_FILE"
+
+# Function to run a single algorithm benchmark
+run_algorithm_benchmark() {
+    local algo_name="$1"
+    local freq="$2"  # Can be empty if not using frequency stepping
+    local run_number="$3"
+    local total_runs="$4"
+    
+    # Determine benchmark class and pattern for this algorithm
+    local bench_info=($(determine_benchmark_class "$algo_name"))
+    local bench_class="${bench_info[0]}"
+    local bench_pattern="${bench_info[1]}"
+    
+    # Build JMH options based on benchmark class
+    local jmh_opts
+    if [ "$bench_class" = "UnifiedEnergyBenchmark" ]; then
+        jmh_opts="-p size=$ARRAY_SIZE"
+    else
+        jmh_opts="-p arraySize=$ARRAY_SIZE"
+    fi
+    jmh_opts="$jmh_opts -wi $WARMUP_ITERATIONS -w ${WARMUP_TIME}s"
+    jmh_opts="$jmh_opts -i $MEASUREMENT_ITERATIONS -r ${MEASUREMENT_TIME}s"
+    jmh_opts="$jmh_opts -f $FORKS"
+    jmh_opts="$jmh_opts $EXTRA_JMH_OPTS"
+    
+    # Build JVM options with algorithm filter
+    local jvm_opts="$BASE_JVM_OPTS -Dbenchmark.filter=${algo_name}"
+    if [ -n "$freq" ]; then
+        jvm_opts="$jvm_opts -Dbenchmark.cpu.frequency=${freq}"
+    fi
+    
+    # Build execution command
+    local exec_cmd
+    if [ -n "$CPU_CORE" ]; then
+        exec_cmd="sudo taskset -c $CPU_CORE java $jvm_opts -jar target/benchmarks.jar ${bench_class}.$bench_pattern $jmh_opts"
+    else
+        exec_cmd="sudo java $jvm_opts -jar target/benchmarks.jar ${bench_class}.$bench_pattern $jmh_opts"
+    fi
+    
+    # Display banner
+    local banner_text="Running ${algo_name}"
+    if [ -n "$freq" ]; then
+        banner_text="$banner_text @ ${freq} MHz"
+    fi
+    banner_text="$banner_text (${run_number}/${total_runs})"
+    
+    echo ""
+    echo -e "${GREEN}═══════════════════════════════════════════════════════${NC}"
+    echo -e "${GREEN}${banner_text}${NC}"
+    echo -e "${GREEN}═══════════════════════════════════════════════════════${NC}"
+    echo ""
+    
+    echo -e "${YELLOW}Executing: ${algo_name}${NC}"
+    echo -e "  $exec_cmd"
+    echo ""
+    
+    # Log to output file
+    echo "# ========================================" >> "$OUTPUT_FILE"
+    echo "# Running: ${algo_name}" >> "$OUTPUT_FILE"
+    [ -n "$freq" ] && echo "# Frequency: ${freq} MHz" >> "$OUTPUT_FILE"
+    echo "# Run: ${run_number}/${total_runs}" >> "$OUTPUT_FILE"
+    echo "# Command: $exec_cmd" >> "$OUTPUT_FILE"
+    echo "# ========================================" >> "$OUTPUT_FILE"
+    echo "" >> "$OUTPUT_FILE"
+    
+    # Run benchmark
+    if ! eval "$exec_cmd" 2>&1 | tee -a "$OUTPUT_FILE"; then
+        echo ""
+        echo -e "${RED}✗ Benchmark failed for ${algo_name}!${NC}"
+        echo -e "${YELLOW}Check $OUTPUT_FILE for details${NC}"
+        return 1
+    fi
+    
+    echo ""
+    echo -e "${GREEN}✓ Completed ${algo_name} (${run_number}/${total_runs})${NC}"
+    return 0
+}
 
 # Run benchmark
 echo -e "${YELLOW}Note: Running with sudo for RAPL energy measurements${NC}"
@@ -457,58 +573,33 @@ if [ "$USE_FREQ_STEPPING" = true ]; then
     set_cpu_governor "userspace"
     echo ""
     
-    # Run benchmark for each frequency
+    # Run benchmark for each frequency and algorithm combination
     CURRENT_RUN=0
     for freq in "${FREQUENCIES[@]}"; do
-        CURRENT_RUN=$((CURRENT_RUN + 1))
         echo ""
-        echo -e "${GREEN}═══════════════════════════════════════════════════════${NC}"
-        echo -e "${GREEN}Running benchmark ${CURRENT_RUN}/${TOTAL_RUNS} at ${freq} MHz${NC}"
-        echo -e "${GREEN}═══════════════════════════════════════════════════════${NC}"
-        echo ""
+        echo -e "${BLUE}╔════════════════════════════════════════════════════════╗${NC}"
+        echo -e "${BLUE}║  Setting CPU Frequency: ${freq} MHz$(printf '%*s' $((31 - ${#freq})) '')║${NC}"
+        echo -e "${BLUE}╚════════════════════════════════════════════════════════╝${NC}"
         
         # Set CPU frequency
         set_cpu_frequency "$freq"
         
-        # Build JVM options with frequency
-        JVM_OPTS="$BASE_JVM_OPTS -Dbenchmark.cpu.frequency=${freq}"
-        
-        # Build execution command
-        if [ -n "$CPU_CORE" ]; then
-            EXEC_CMD="sudo taskset -c $CPU_CORE java $JVM_OPTS -jar target/benchmarks.jar ${BENCHMARK_CLASS}.$BENCHMARK_PATTERN $JMH_OPTS"
-        else
-            EXEC_CMD="sudo java $JVM_OPTS -jar target/benchmarks.jar ${BENCHMARK_CLASS}.$BENCHMARK_PATTERN $JMH_OPTS"
-        fi
-        
-        echo -e "${YELLOW}Executing at ${freq} MHz:${NC}"
-        echo -e "  $EXEC_CMD"
-        echo ""
-        
-        # Log frequency info to output file
-        echo "# ========================================" >> "$OUTPUT_FILE"
-        echo "# Running at ${freq} MHz (${CURRENT_RUN}/${TOTAL_RUNS})" >> "$OUTPUT_FILE"
-        echo "# Command: $EXEC_CMD" >> "$OUTPUT_FILE"
-        echo "# ========================================" >> "$OUTPUT_FILE"
-        echo "" >> "$OUTPUT_FILE"
-        
-        # Run benchmark
-        if ! eval "$EXEC_CMD" 2>&1 | tee -a "$OUTPUT_FILE"; then
-            echo ""
-            echo -e "${RED}✗ Benchmark failed at ${freq} MHz!${NC}"
-            echo -e "${YELLOW}Check $OUTPUT_FILE for details${NC}"
-            exit 1
-        fi
-        
-        echo ""
-        echo -e "${GREEN}✓ Completed benchmark at ${freq} MHz (${CURRENT_RUN}/${TOTAL_RUNS})${NC}"
-        
-        # Small delay between frequency changes
-        sleep 1
+        # Run each algorithm at this frequency
+        for algo in "${ALGORITHMS_TO_RUN[@]}"; do
+            CURRENT_RUN=$((CURRENT_RUN + 1))
+            
+            if ! run_algorithm_benchmark "$algo" "$freq" "$CURRENT_RUN" "$TOTAL_RUNS"; then
+                exit 1
+            fi
+            
+            # Small delay between benchmarks
+            sleep 1
+        done
     done
     
     echo ""
     echo -e "${GREEN}═══════════════════════════════════════════════════════${NC}"
-    echo -e "${GREEN}All frequency benchmarks completed successfully!${NC}"
+    echo -e "${GREEN}All benchmarks completed successfully!${NC}"
     echo -e "${GREEN}═══════════════════════════════════════════════════════${NC}"
 else
     # Single run without frequency stepping
@@ -516,40 +607,29 @@ else
     disable_hyperthreading
     echo ""
     
-    echo -e "${GREEN}Starting benchmark...${NC}\n"
+    echo -e "${GREEN}Starting benchmarks...${NC}"
     
     # Get current frequency for logging
     CURRENT_FREQ=$(get_current_cpu_frequency)
-    
-    # Build JVM options with current frequency
-    JVM_OPTS="$BASE_JVM_OPTS -Dbenchmark.cpu.frequency=${CURRENT_FREQ}"
-    
-    # Build execution command
-    if [ -n "$CPU_CORE" ]; then
-        EXEC_CMD="sudo taskset -c $CPU_CORE java $JVM_OPTS -jar target/benchmarks.jar ${BENCHMARK_CLASS}.$BENCHMARK_PATTERN $JMH_OPTS"
-    else
-        EXEC_CMD="sudo java $JVM_OPTS -jar target/benchmarks.jar ${BENCHMARK_CLASS}.$BENCHMARK_PATTERN $JMH_OPTS"
-    fi
-    
-    echo -e "${YELLOW}Executing:${NC}"
-    echo -e "  $EXEC_CMD"
     echo -e "${BLUE}Current CPU Frequency: ${CURRENT_FREQ} MHz${NC}"
+    
+    # Run each algorithm
+    CURRENT_RUN=0
+    for algo in "${ALGORITHMS_TO_RUN[@]}"; do
+        CURRENT_RUN=$((CURRENT_RUN + 1))
+        
+        if ! run_algorithm_benchmark "$algo" "$CURRENT_FREQ" "$CURRENT_RUN" "$TOTAL_RUNS"; then
+            exit 1
+        fi
+        
+        # Small delay between benchmarks
+        sleep 1
+    done
+    
     echo ""
-    
-    echo "# Command: $EXEC_CMD" >> "$OUTPUT_FILE"
-    echo "# CPU Frequency: ${CURRENT_FREQ} MHz" >> "$OUTPUT_FILE"
-    echo "" >> "$OUTPUT_FILE"
-    
-    # Run benchmark
-    if ! eval "$EXEC_CMD" 2>&1 | tee -a "$OUTPUT_FILE"; then
-        echo ""
-        echo -e "${RED}✗ Benchmark failed!${NC}"
-        echo -e "${YELLOW}Check $OUTPUT_FILE for details${NC}"
-        exit 1
-    fi
-    
-    echo ""
-    echo -e "${GREEN}✓ Benchmark completed successfully!${NC}"
+    echo -e "${GREEN}═══════════════════════════════════════════════════════${NC}"
+    echo -e "${GREEN}All benchmarks completed successfully!${NC}"
+    echo -e "${GREEN}═══════════════════════════════════════════════════════${NC}"
 fi
 
 echo ""

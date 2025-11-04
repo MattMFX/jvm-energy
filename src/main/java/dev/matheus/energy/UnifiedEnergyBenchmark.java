@@ -10,17 +10,20 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Unified energy measurement benchmark for all registered algorithms.
+ * Simplified unified energy measurement benchmark.
  * 
- * This benchmark automatically discovers and runs all enabled benchmarks
- * from the BenchmarkRegistry. To add or remove benchmarks, modify the
- * BenchmarkConfig class.
+ * This benchmark runs EXACTLY ONE algorithm per execution.
+ * The shell script (run_energy_benchmark.sh) orchestrates running
+ * this benchmark multiple times, once per algorithm.
+ * 
+ * Usage:
+ * - Use -Dbenchmark.filter=<algorithm_name> to specify which algorithm to run
+ * - The benchmark verifies exactly one algorithm is enabled
  * 
  * Features:
- * - Automatic discovery of registered benchmarks
+ * - Single algorithm execution per run (gets full JMH timing)
  * - Energy measurement using jRAPL
  * - Graceful fallback if energy measurement is unavailable
- * - Modular design for easy addition/removal of benchmarks
  */
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
@@ -39,8 +42,8 @@ public class UnifiedEnergyBenchmark {
     // Track current iteration type
     private volatile IterationType currentIterationType;
     
-    // List of enabled benchmarks
-    private List<BenchmarkAlgorithm> enabledBenchmarks;
+    // The single algorithm to benchmark
+    private BenchmarkAlgorithm algorithm;
     
     @Setup(Level.Trial)
     public void setupTrial() {
@@ -59,11 +62,20 @@ public class UnifiedEnergyBenchmark {
         }
         
         // Get enabled benchmarks
-        enabledBenchmarks = BenchmarkRegistry.getEnabledBenchmarks();
+        List<BenchmarkAlgorithm> enabledBenchmarks = BenchmarkRegistry.getEnabledBenchmarks();
         
         if (enabledBenchmarks.isEmpty()) {
-            System.err.println("WARNING: No benchmarks are enabled!");
+            throw new RuntimeException("No benchmarks are enabled! Use -Dbenchmark.filter=<name> to specify an algorithm.");
         }
+        
+        if (enabledBenchmarks.size() > 1) {
+            System.err.println("WARNING: Multiple benchmarks are enabled. Only the first one will run.");
+            System.err.println("Enabled: " + BenchmarkRegistry.getEnabledNames());
+            System.err.println("Consider using -Dbenchmark.filter=<exact_name> to run a specific algorithm.");
+        }
+        
+        // Use only the first enabled benchmark
+        algorithm = enabledBenchmarks.get(0);
         
         // Check if energy measurement is available
         try {
@@ -75,10 +87,7 @@ public class UnifiedEnergyBenchmark {
             System.out.println("jRAPL energy measurement not available: " + t.getMessage());
         }
         
-        System.out.println("Benchmarks to run: " + enabledBenchmarks.size());
-        for (BenchmarkAlgorithm algo : enabledBenchmarks) {
-            System.out.println("  - " + algo.getName() + ": " + algo.getDescription());
-        }
+        System.out.println("Running benchmark: " + algorithm.getName() + " - " + algorithm.getDescription());
     }
     
     @Setup(Level.Iteration)
@@ -88,37 +97,23 @@ public class UnifiedEnergyBenchmark {
     
     @Setup(Level.Invocation)
     public void setupInvocation() {
-        // Setup each benchmark before invocation
-        for (BenchmarkAlgorithm algo : enabledBenchmarks) {
-            int effectiveSize = algo.getEffectiveSize(size);
-            algo.setup(effectiveSize);
-        }
+        int effectiveSize = algorithm.getEffectiveSize(size);
+        algorithm.setup(effectiveSize);
     }
     
     /**
-     * Main benchmark method that runs all enabled benchmarks.
-     * This method measures energy consumption for each algorithm.
+     * Main benchmark method that runs the single enabled algorithm.
+     * This method gets the full JMH timing allocation.
      */
     @Benchmark
-    public void runAllBenchmarks(Blackhole bh) throws Exception {
+    public void runBenchmark(Blackhole bh) throws Exception {
         boolean isMeasurementPhase = currentIterationType != null && 
                                      currentIterationType.equals(IterationType.MEASUREMENT);
         
-        // Run each enabled benchmark
-        for (BenchmarkAlgorithm algo : enabledBenchmarks) {
-            runSingleBenchmark(algo, bh, isMeasurementPhase);
-        }
-    }
-    
-    /**
-     * Run a single benchmark with energy measurement.
-     */
-    private void runSingleBenchmark(BenchmarkAlgorithm algo, Blackhole bh, boolean isMeasurementPhase) 
-            throws Exception {
         double energyConsumed = Double.NaN;
         double executionTimeMs = Double.NaN;
         Object result = null;
-        int effectiveSize = algo.getEffectiveSize(size);
+        int effectiveSize = algorithm.getEffectiveSize(size);
         
         if (energyAvailable) {
             try {
@@ -126,7 +121,7 @@ public class UnifiedEnergyBenchmark {
                 String before = EnergyCheckUtils.getEnergyStats();
                 long startTime = System.nanoTime();
                 
-                result = algo.execute(effectiveSize);
+                result = algorithm.execute(effectiveSize);
                 
                 long endTime = System.nanoTime();
                 String after = EnergyCheckUtils.getEnergyStats();
@@ -136,23 +131,23 @@ public class UnifiedEnergyBenchmark {
                 
                 if (isMeasurementPhase) {
                     System.out.printf("energy,algo=%s,size=%d,joules=%.9f,time_ms=%.3f%n", 
-                                    algo.getName(), effectiveSize, energyConsumed, executionTimeMs);
-                    EnergyLog.append(algo.getName(), effectiveSize, energyConsumed, executionTimeMs);
+                                    algorithm.getName(), effectiveSize, energyConsumed, executionTimeMs);
+                    EnergyLog.append(algorithm.getName(), effectiveSize, energyConsumed, executionTimeMs);
                 } else {
                     System.out.printf("warmup,algo=%s,size=%d,joules=%.9f,time_ms=%.3f (WARMUP - NOT LOGGED)%n", 
-                                    algo.getName(), effectiveSize, energyConsumed, executionTimeMs);
+                                    algorithm.getName(), effectiveSize, energyConsumed, executionTimeMs);
                 }
             } catch (Throwable t) {
-                System.err.println("Energy measurement failed for " + algo.getName() + ": " + t.getMessage());
+                System.err.println("Energy measurement failed for " + algorithm.getName() + ": " + t.getMessage());
                 long startTime = System.nanoTime();
-                result = algo.execute(effectiveSize);
+                result = algorithm.execute(effectiveSize);
                 long endTime = System.nanoTime();
                 executionTimeMs = (endTime - startTime) / 1_000_000.0;
             }
         } else {
             // No energy measurement available, just run the benchmark
             long startTime = System.nanoTime();
-            result = algo.execute(effectiveSize);
+            result = algorithm.execute(effectiveSize);
             long endTime = System.nanoTime();
             executionTimeMs = (endTime - startTime) / 1_000_000.0;
         }
