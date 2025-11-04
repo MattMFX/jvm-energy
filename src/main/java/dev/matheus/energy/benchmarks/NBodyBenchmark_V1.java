@@ -9,7 +9,7 @@ import dev.matheus.energy.BenchmarkAlgorithm;
  * Source: benchmarksgame/nbody/nbody.java
  * Contributed by Mark C. Lewis
  */
-public class NBodyBenchmark implements BenchmarkAlgorithm {
+public class NBodyBenchmark_V1 implements BenchmarkAlgorithm {
     
     @Override
     public String getName() {

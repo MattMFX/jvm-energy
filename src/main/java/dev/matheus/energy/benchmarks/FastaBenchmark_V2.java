@@ -12,7 +12,7 @@ import java.io.OutputStream;
  * Source: benchmarksgame/fasta/fasta.java-2.java
  * Modified by Mehmet D. AKIN
  */
-public class FastaBenchmark implements BenchmarkAlgorithm {
+public class FastaBenchmark_V2 implements BenchmarkAlgorithm {
     
     @Override
     public String getName() {

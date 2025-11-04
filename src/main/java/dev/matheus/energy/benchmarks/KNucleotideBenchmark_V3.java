@@ -13,7 +13,7 @@ import java.util.concurrent.*;
  * ByteString code thanks to Matthieu Bentot and The Anh Tran
  * Modified by Andy Fingerhut
  */
-public class KNucleotideBenchmark implements BenchmarkAlgorithm {
+public class KNucleotideBenchmark_V3 implements BenchmarkAlgorithm {
     
     private byte[] sequence;
     

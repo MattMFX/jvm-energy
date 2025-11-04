@@ -11,7 +11,7 @@ import java.io.ByteArrayOutputStream;
  * Contributed by Stefan Krause
  * Slightly modified by Chad Whipkey
  */
-public class MandelbrotBenchmark implements BenchmarkAlgorithm {
+public class MandelbrotBenchmark_V1 implements BenchmarkAlgorithm {
     
     @Override
     public String getName() {

@@ -10,7 +10,7 @@ import dev.matheus.energy.BenchmarkAlgorithm;
  * Contributed by Java novice Jarkko Miettinen
  * Modified ~3 lines of the original C#-version by Isaac Gouy
  */
-public class SpectralNormBenchmark implements BenchmarkAlgorithm {
+public class SpectralNormBenchmark_V1 implements BenchmarkAlgorithm {
     
     @Override
     public String getName() {

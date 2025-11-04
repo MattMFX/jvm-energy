@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Source: benchmarksgame/fannkuchredux/fannkuchredux.java
  * Contributed by Oleg Mazurov, June 2010
  */
-public class FannkuchReduxBenchmark implements BenchmarkAlgorithm {
+public class FannkuchReduxBenchmark_V1 implements BenchmarkAlgorithm {
     
     private static final int NCHUNKS = 150;
     
