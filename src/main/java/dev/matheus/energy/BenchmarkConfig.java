@@ -76,8 +76,8 @@ public final class BenchmarkConfig {
         
         initialized = true;
         
-        System.out.println("Registered benchmarks: " + BenchmarkRegistry.getAllNames());
-        System.out.println("Enabled benchmarks: " + BenchmarkRegistry.getEnabledNames());
+        System.err.println("Registered benchmarks: " + BenchmarkRegistry.getAllNames());
+        System.err.println("Enabled benchmarks: " + BenchmarkRegistry.getEnabledNames());
     }
     
     /**

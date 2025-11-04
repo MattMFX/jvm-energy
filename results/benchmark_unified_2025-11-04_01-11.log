@@ -1,0 +1,245 @@
+# Benchmark started at Tue Nov  4 01:11:36 AM -03 2025
+# Configuration: algorithm=unified, size=10000, warmup=10×5s, measurement=5×5s, forks=1
+# CPU Core: 0
+# Frequency Range: 500-3500 MHz, Step: 200 MHz
+
+# ========================================
+# Running: Registered
+# Frequency: 500 MHz
+# Run: 1/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=Registered -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: benchmarks:
+# Frequency: 500 MHz
+# Run: 2/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=benchmarks: -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: [nbody_v5,
+# Frequency: 500 MHz
+# Run: 3/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=[nbody_v5, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: fannkuchredux_v8,
+# Frequency: 500 MHz
+# Run: 4/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=fannkuchredux_v8, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: fannkuchredux_v2,
+# Frequency: 500 MHz
+# Run: 5/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=fannkuchredux_v2, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: fasta,
+# Frequency: 500 MHz
+# Run: 6/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=fasta, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: nbody_v8,
+# Frequency: 500 MHz
+# Run: 7/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=nbody_v8, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: bubble_sort,
+# Frequency: 500 MHz
+# Run: 8/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=bubble_sort, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: spectralnorm,
+# Frequency: 500 MHz
+# Run: 9/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=spectralnorm, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: knucleotide_v8,
+# Frequency: 500 MHz
+# Run: 10/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=knucleotide_v8, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: spectralnorm_v2,
+# Frequency: 500 MHz
+# Run: 11/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=spectralnorm_v2, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: knucleotide_v5,
+# Frequency: 500 MHz
+# Run: 12/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=knucleotide_v5, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: nbody,
+# Frequency: 500 MHz
+# Run: 13/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=nbody, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: spectralnorm_v3,
+# Frequency: 500 MHz
+# Run: 14/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=spectralnorm_v3, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: quick_sort,
+# Frequency: 500 MHz
+# Run: 15/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=quick_sort, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: merge_sort,
+# Frequency: 500 MHz
+# Run: 16/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=merge_sort, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: binarytrees_v3,
+# Frequency: 500 MHz
+# Run: 17/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=binarytrees_v3, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: knucleotide,
+# Frequency: 500 MHz
+# Run: 18/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=knucleotide, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: binarytrees_v7,
+# Frequency: 500 MHz
+# Run: 19/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=binarytrees_v7, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: fannkuchredux,
+# Frequency: 500 MHz
+# Run: 20/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=fannkuchredux, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: fasta_v6,
+# Frequency: 500 MHz
+# Run: 21/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=fasta_v6, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: mandelbrot,
+# Frequency: 500 MHz
+# Run: 22/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=mandelbrot, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: binarytrees_v2,
+# Frequency: 500 MHz
+# Run: 23/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=binarytrees_v2, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.
+# ========================================
+# Running: mandelbrot_v3,
+# Frequency: 500 MHz
+# Run: 24/928
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-11 -Dbenchmark.filter=mandelbrot_v3, -Dbenchmark.cpu.frequency=500 -jar target/benchmarks.jar UnifiedEnergyBenchmark..cursor -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+No matching benchmarks. Miss-spelled regexp?
+Use EXTRA verbose mode to debug the pattern matching.

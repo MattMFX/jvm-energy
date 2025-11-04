@@ -1,0 +1,5 @@
+# Benchmark started at Tue Nov  4 12:53:15 AM -03 2025
+# Configuration: algorithm=unified, size=10000, warmup=10×5s, measurement=5×5s, forks=1
+# CPU Core: 0
+# Frequency Range: 500-3500 MHz, Step: 200 MHz
+

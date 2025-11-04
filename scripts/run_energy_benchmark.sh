@@ -400,7 +400,7 @@ determine_benchmark_class() {
         *)
             # New unified benchmark
             echo "UnifiedEnergyBenchmark"
-            echo ".*"
+            echo "runBenchmark"
             ;;
     esac
 }
