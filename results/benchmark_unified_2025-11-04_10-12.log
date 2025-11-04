@@ -1,0 +1,599 @@
+# Benchmark started at Tue Nov  4 10:12:43 AM -03 2025
+# Configuration: algorithm=unified, size=10000, warmup=10×5s, measurement=5×5s, forks=1
+# CPU Core: 0
+# Frequency Stepping: ENABLED (15 frequencies)
+# Frequencies (MHz): 2700 2600 2500 2400 2200 2000 1800 1600 1500 1300 1100 800 700 600 400
+
+# ========================================
+# Running: fannkuchredux_v1
+# Frequency: 2700 MHz
+# Run: 1/135
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_10-12 -Dbenchmark.filter=fannkuchredux_v1 -Dbenchmark.cpu.frequency=2700 -jar target/benchmarks.jar UnifiedEnergyBenchmark.runBenchmark -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+# JMH version: 1.37
+# VM version: JDK 21.0.8, OpenJDK 64-Bit Server VM, 21.0.8+9-Ubuntu-0ubuntu124.04.1
+# VM invoker: /usr/lib/jvm/java-21-openjdk-amd64/bin/java
+# VM options: -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_10-12 -Dbenchmark.filter=fannkuchredux_v1 -Dbenchmark.cpu.frequency=2700
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 10 iterations, 5 s each
+# Measurement: 5 iterations, 5 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: dev.matheus.energy.UnifiedEnergyBenchmark.runBenchmark
+# Parameters: (size = 10000)
+
+# Run progress: 0.00% complete, ETA 00:01:15
+# Fork: 1 of 1
+# Warmup Iteration   1: Registered benchmarks: [nbody_v5, fannkuchredux_v8, fannkuchredux_v2, fannkuchredux_v1, nbody_v1, nbody_v8, bubble_sort, knucleotide_v8, spectralnorm_v1, spectralnorm_v2, knucleotide_v5, spectralnorm_v3, quick_sort, knucleotide_v3, merge_sort, binarytrees_v3, binarytrees_v7, fasta_v2, fasta_v6, binarytrees_v2, mandelbrot_v3, fasta_v8, mandelbrot_v1, mandelbrot_v2]
+Enabled benchmarks: [knucleotide_v8, nbody_v5, fannkuchredux_v8, spectralnorm_v1, spectralnorm_v2, fannkuchredux_v2, knucleotide_v5, spectralnorm_v3, fannkuchredux_v1, nbody_v1, knucleotide_v3, binarytrees_v3, nbody_v8, binarytrees_v7, fasta_v2, fasta_v6, binarytrees_v2, mandelbrot_v3, fasta_v8, mandelbrot_v1, mandelbrot_v2]
+Applying benchmark filter: fannkuchredux_v1
+jRAPL energy measurement enabled
+Running benchmark: fannkuchredux_v1 - Fannkuch-Redux indexed access
+warmup,algo=fannkuchredux_v1,size=10,joules=2.326049000,time_ms=316.279 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.547668000,time_ms=239.831 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.446716000,time_ms=237.644 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.451294000,time_ms=236.633 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.408996000,time_ms=278.119 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.825867000,time_ms=254.595 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.548339000,time_ms=233.707 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.363465000,time_ms=277.130 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.496216000,time_ms=238.906 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.486756000,time_ms=235.516 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.848633000,time_ms=246.195 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.152527000,time_ms=261.300 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.852417000,time_ms=251.105 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.796509000,time_ms=250.918 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.028321000,time_ms=251.923 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.978393000,time_ms=249.979 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.061462000,time_ms=265.606 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.776855000,time_ms=247.032 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.866760000,time_ms=251.658 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.146362000,time_ms=253.452 (WARMUP - NOT LOGGED)
+258.121 ms/op
+# Warmup Iteration   2: warmup,algo=fannkuchredux_v1,size=10,joules=2.321290000,time_ms=309.104 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.640381000,time_ms=251.417 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.594971000,time_ms=244.435 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.923706000,time_ms=249.663 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.487426000,time_ms=246.254 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.471253000,time_ms=245.428 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.990417000,time_ms=254.630 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=3.195191000,time_ms=327.194 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.456726000,time_ms=243.079 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.653442000,time_ms=246.220 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.571655000,time_ms=250.572 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.752075000,time_ms=252.019 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.638184000,time_ms=247.035 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.706055000,time_ms=248.214 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.503295000,time_ms=284.460 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.607239000,time_ms=249.484 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.456299000,time_ms=233.684 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.499084000,time_ms=238.790 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.432312000,time_ms=274.877 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.489929000,time_ms=242.030 (WARMUP - NOT LOGGED)
+258.762 ms/op
+# Warmup Iteration   3: warmup,algo=fannkuchredux_v1,size=10,joules=1.897095000,time_ms=251.307 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=3.013123000,time_ms=301.809 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.510010000,time_ms=237.315 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=3.067932000,time_ms=302.146 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.851746000,time_ms=246.835 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.705994000,time_ms=320.662 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=3.288269000,time_ms=381.805 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.707153000,time_ms=244.401 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.656127000,time_ms=245.664 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.772705000,time_ms=245.306 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.589966000,time_ms=238.970 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.746277000,time_ms=244.319 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.911865000,time_ms=247.166 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.318054000,time_ms=261.400 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.043396000,time_ms=253.525 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.516663000,time_ms=232.928 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.602478000,time_ms=240.243 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.993897000,time_ms=250.782 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.050598000,time_ms=260.899 (WARMUP - NOT LOGGED)
+266.183 ms/op
+# Warmup Iteration   4: warmup,algo=fannkuchredux_v1,size=10,joules=2.178345000,time_ms=263.540 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.753173000,time_ms=248.239 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.941712000,time_ms=244.972 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.622741000,time_ms=242.849 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.552734000,time_ms=240.237 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.654724000,time_ms=286.140 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.936402000,time_ms=352.330 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.951538000,time_ms=248.163 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.227356000,time_ms=257.762 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.827698000,time_ms=249.750 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.549805000,time_ms=236.208 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.513672000,time_ms=236.583 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.552429000,time_ms=236.068 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.254212000,time_ms=248.605 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.210693000,time_ms=271.087 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.836059000,time_ms=247.127 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.823121000,time_ms=245.259 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.994995000,time_ms=252.596 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.513305000,time_ms=235.446 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.750000000,time_ms=245.638 (WARMUP - NOT LOGGED)
+257.001 ms/op
+# Warmup Iteration   5: warmup,algo=fannkuchredux_v1,size=10,joules=3.958069000,time_ms=461.091 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.532959000,time_ms=244.440 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.442993000,time_ms=233.268 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.533142000,time_ms=240.118 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.890808000,time_ms=238.897 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.849548000,time_ms=240.382 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.446900000,time_ms=234.683 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.638672000,time_ms=241.035 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.493164000,time_ms=234.319 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.430542000,time_ms=232.635 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.414001000,time_ms=233.167 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.571534000,time_ms=240.217 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.701416000,time_ms=246.030 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.837647000,time_ms=251.774 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.977661000,time_ms=263.010 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.641724000,time_ms=246.222 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.850525000,time_ms=248.783 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.802490000,time_ms=246.914 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.807068000,time_ms=255.889 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.508301000,time_ms=244.317 (WARMUP - NOT LOGGED)
+255.189 ms/op
+# Warmup Iteration   6: warmup,algo=fannkuchredux_v1,size=10,joules=1.803040000,time_ms=270.676 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.446106000,time_ms=239.133 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.671020000,time_ms=238.579 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.495788000,time_ms=245.307 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.677917000,time_ms=240.023 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.093262000,time_ms=247.541 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.625732000,time_ms=244.552 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.616638000,time_ms=245.679 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.594482000,time_ms=245.273 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.598755000,time_ms=245.215 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.525268000,time_ms=240.248 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.573059000,time_ms=233.246 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.570984000,time_ms=240.434 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.210999000,time_ms=261.936 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.663025000,time_ms=248.753 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.644165000,time_ms=239.424 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.587158000,time_ms=243.864 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.470948000,time_ms=240.457 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.587525000,time_ms=240.368 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.585327000,time_ms=236.095 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.594360000,time_ms=240.576 (WARMUP - NOT LOGGED)
+245.370 ms/op
+# Warmup Iteration   7: warmup,algo=fannkuchredux_v1,size=10,joules=1.486511000,time_ms=239.977 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.662720000,time_ms=241.091 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.606140000,time_ms=242.545 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.459778000,time_ms=235.732 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.276795000,time_ms=269.308 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.264648000,time_ms=285.542 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.419007000,time_ms=232.055 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.645874000,time_ms=242.645 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.571228000,time_ms=248.559 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.810059000,time_ms=242.106 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=3.590454000,time_ms=423.920 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.607361000,time_ms=251.037 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.598206000,time_ms=234.220 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.528015000,time_ms=234.938 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.459228000,time_ms=232.185 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.092591000,time_ms=289.592 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.107238000,time_ms=275.786 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.574341000,time_ms=233.357 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.444702000,time_ms=231.494 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.440613000,time_ms=233.400 (WARMUP - NOT LOGGED)
+257.126 ms/op
+# Warmup Iteration   8: warmup,algo=fannkuchredux_v1,size=10,joules=1.500000000,time_ms=242.643 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.688842000,time_ms=243.972 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.528382000,time_ms=234.701 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.756347000,time_ms=238.286 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.050782000,time_ms=237.875 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.432067000,time_ms=233.365 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.432679000,time_ms=231.538 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.477966000,time_ms=232.692 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.481140000,time_ms=232.162 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.458863000,time_ms=233.054 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.446167000,time_ms=231.585 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.454346000,time_ms=232.541 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.572998000,time_ms=232.498 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.630798000,time_ms=241.263 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.435669000,time_ms=231.746 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.437866000,time_ms=231.832 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.464112000,time_ms=232.670 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.608154000,time_ms=234.171 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.452820000,time_ms=231.567 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.464416000,time_ms=231.846 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.500733000,time_ms=237.169 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.615479000,time_ms=233.720 (WARMUP - NOT LOGGED)
+235.480 ms/op
+# Warmup Iteration   9: warmup,algo=fannkuchredux_v1,size=10,joules=2.519470000,time_ms=405.533 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.509887000,time_ms=233.518 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.048645000,time_ms=247.749 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.731201000,time_ms=253.165 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.437072000,time_ms=233.286 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.551025000,time_ms=233.259 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.691956000,time_ms=236.918 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.455627000,time_ms=234.449 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.483642000,time_ms=232.847 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.464600000,time_ms=233.970 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.512573000,time_ms=234.333 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.732239000,time_ms=237.245 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.455261000,time_ms=236.388 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.462951000,time_ms=232.892 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.520263000,time_ms=232.802 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.457703000,time_ms=232.849 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.656739000,time_ms=241.214 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.412964000,time_ms=232.745 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.538513000,time_ms=233.117 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.538208000,time_ms=247.594 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.453919000,time_ms=234.081 (WARMUP - NOT LOGGED)
+245.458 ms/op
+# Warmup Iteration  10: warmup,algo=fannkuchredux_v1,size=10,joules=1.578918000,time_ms=239.334 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.429077000,time_ms=232.415 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.194275000,time_ms=263.964 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.576172000,time_ms=240.290 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.487121000,time_ms=232.746 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.470215000,time_ms=234.108 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.479736000,time_ms=233.939 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.492432000,time_ms=237.369 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.589478000,time_ms=233.251 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.740417000,time_ms=351.696 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.057129000,time_ms=285.242 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.659729000,time_ms=243.831 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.569580000,time_ms=233.059 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.480346000,time_ms=236.751 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.881835000,time_ms=252.397 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.733216000,time_ms=242.651 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.638794000,time_ms=274.918 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.323364000,time_ms=289.742 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=2.122559000,time_ms=248.132 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v1,size=10,joules=1.740418000,time_ms=236.182 (WARMUP - NOT LOGGED)
+253.297 ms/op
+Iteration   1: energy,algo=fannkuchredux_v1,size=10,joules=3.325684000,time_ms=327.081
+energy,algo=fannkuchredux_v1,size=10,joules=13.062744000,time_ms=1249.233
+energy,algo=fannkuchredux_v1,size=10,joules=3.215942000,time_ms=277.483
+energy,algo=fannkuchredux_v1,size=10,joules=2.163818000,time_ms=239.331
+energy,algo=fannkuchredux_v1,size=10,joules=1.605225000,time_ms=238.481
+energy,algo=fannkuchredux_v1,size=10,joules=1.566162000,time_ms=232.434
+energy,algo=fannkuchredux_v1,size=10,joules=1.803894000,time_ms=265.340
+energy,algo=fannkuchredux_v1,size=10,joules=1.513977000,time_ms=243.265
+energy,algo=fannkuchredux_v1,size=10,joules=1.497802000,time_ms=232.764
+energy,algo=fannkuchredux_v1,size=10,joules=1.438293000,time_ms=231.628
+energy,algo=fannkuchredux_v1,size=10,joules=1.803284000,time_ms=237.173
+energy,algo=fannkuchredux_v1,size=10,joules=1.999695000,time_ms=236.289
+energy,algo=fannkuchredux_v1,size=10,joules=2.297485000,time_ms=255.281
+energy,algo=fannkuchredux_v1,size=10,joules=1.430603000,time_ms=231.516
+energy,algo=fannkuchredux_v1,size=10,joules=1.462036000,time_ms=233.175
+energy,algo=fannkuchredux_v1,size=10,joules=1.477600000,time_ms=232.769
+321.375 ms/op
+Iteration   2: energy,algo=fannkuchredux_v1,size=10,joules=1.487121000,time_ms=231.997
+energy,algo=fannkuchredux_v1,size=10,joules=2.028382000,time_ms=252.845
+energy,algo=fannkuchredux_v1,size=10,joules=1.898804000,time_ms=239.865
+energy,algo=fannkuchredux_v1,size=10,joules=1.684509000,time_ms=237.825
+energy,algo=fannkuchredux_v1,size=10,joules=1.539856000,time_ms=234.031
+energy,algo=fannkuchredux_v1,size=10,joules=1.640564000,time_ms=243.848
+energy,algo=fannkuchredux_v1,size=10,joules=1.468567000,time_ms=235.991
+energy,algo=fannkuchredux_v1,size=10,joules=1.663941000,time_ms=232.365
+energy,algo=fannkuchredux_v1,size=10,joules=1.549133000,time_ms=232.516
+energy,algo=fannkuchredux_v1,size=10,joules=1.447144000,time_ms=232.692
+energy,algo=fannkuchredux_v1,size=10,joules=1.703491000,time_ms=235.411
+energy,algo=fannkuchredux_v1,size=10,joules=1.463928000,time_ms=232.647
+energy,algo=fannkuchredux_v1,size=10,joules=1.785950000,time_ms=233.152
+energy,algo=fannkuchredux_v1,size=10,joules=1.760864000,time_ms=248.108
+energy,algo=fannkuchredux_v1,size=10,joules=1.444703000,time_ms=233.425
+energy,algo=fannkuchredux_v1,size=10,joules=1.612305000,time_ms=240.581
+energy,algo=fannkuchredux_v1,size=10,joules=1.473510000,time_ms=232.389
+energy,algo=fannkuchredux_v1,size=10,joules=1.546021000,time_ms=232.787
+energy,algo=fannkuchredux_v1,size=10,joules=1.718445000,time_ms=234.223
+energy,algo=fannkuchredux_v1,size=10,joules=1.497070000,time_ms=237.499
+energy,algo=fannkuchredux_v1,size=10,joules=1.473572000,time_ms=232.787
+energy,algo=fannkuchredux_v1,size=10,joules=1.765930000,time_ms=234.128
+237.586 ms/op
+Iteration   3: energy,algo=fannkuchredux_v1,size=10,joules=2.080749000,time_ms=247.101
+energy,algo=fannkuchredux_v1,size=10,joules=1.924316000,time_ms=250.746
+energy,algo=fannkuchredux_v1,size=10,joules=1.617493000,time_ms=237.564
+energy,algo=fannkuchredux_v1,size=10,joules=1.477906000,time_ms=236.415
+energy,algo=fannkuchredux_v1,size=10,joules=1.629638000,time_ms=234.417
+energy,algo=fannkuchredux_v1,size=10,joules=1.442077000,time_ms=232.176
+energy,algo=fannkuchredux_v1,size=10,joules=1.588684000,time_ms=232.952
+energy,algo=fannkuchredux_v1,size=10,joules=1.469055000,time_ms=234.197
+energy,algo=fannkuchredux_v1,size=10,joules=1.475708000,time_ms=236.627
+energy,algo=fannkuchredux_v1,size=10,joules=2.936524000,time_ms=321.188
+energy,algo=fannkuchredux_v1,size=10,joules=1.459656000,time_ms=233.666
+energy,algo=fannkuchredux_v1,size=10,joules=1.616699000,time_ms=234.819
+energy,algo=fannkuchredux_v1,size=10,joules=1.570740000,time_ms=249.531
+energy,algo=fannkuchredux_v1,size=10,joules=1.571228000,time_ms=232.605
+energy,algo=fannkuchredux_v1,size=10,joules=1.573303000,time_ms=234.299
+energy,algo=fannkuchredux_v1,size=10,joules=1.592957000,time_ms=236.096
+energy,algo=fannkuchredux_v1,size=10,joules=1.550232000,time_ms=233.683
+energy,algo=fannkuchredux_v1,size=10,joules=1.420898000,time_ms=231.850
+energy,algo=fannkuchredux_v1,size=10,joules=1.708191000,time_ms=240.737
+energy,algo=fannkuchredux_v1,size=10,joules=1.630005000,time_ms=238.537
+energy,algo=fannkuchredux_v1,size=10,joules=1.462707000,time_ms=231.806
+242.345 ms/op
+Iteration   4: energy,algo=fannkuchredux_v1,size=10,joules=2.468689000,time_ms=274.389
+energy,algo=fannkuchredux_v1,size=10,joules=1.526490000,time_ms=236.153
+energy,algo=fannkuchredux_v1,size=10,joules=1.482910000,time_ms=233.569
+energy,algo=fannkuchredux_v1,size=10,joules=1.541382000,time_ms=232.314
+energy,algo=fannkuchredux_v1,size=10,joules=1.430969000,time_ms=232.484
+energy,algo=fannkuchredux_v1,size=10,joules=1.632935000,time_ms=237.677
+energy,algo=fannkuchredux_v1,size=10,joules=1.808838000,time_ms=249.105
+energy,algo=fannkuchredux_v1,size=10,joules=3.266601000,time_ms=292.122
+energy,algo=fannkuchredux_v1,size=10,joules=2.183045000,time_ms=245.886
+energy,algo=fannkuchredux_v1,size=10,joules=3.141601000,time_ms=332.964
+energy,algo=fannkuchredux_v1,size=10,joules=1.533753000,time_ms=237.973
+energy,algo=fannkuchredux_v1,size=10,joules=1.562805000,time_ms=234.152
+energy,algo=fannkuchredux_v1,size=10,joules=1.586792000,time_ms=232.452
+energy,algo=fannkuchredux_v1,size=10,joules=1.485474000,time_ms=233.074
+energy,algo=fannkuchredux_v1,size=10,joules=1.800659000,time_ms=245.251
+energy,algo=fannkuchredux_v1,size=10,joules=2.927430000,time_ms=304.845
+energy,algo=fannkuchredux_v1,size=10,joules=2.040833000,time_ms=260.444
+energy,algo=fannkuchredux_v1,size=10,joules=1.634461000,time_ms=244.729
+energy,algo=fannkuchredux_v1,size=10,joules=1.548645000,time_ms=237.821
+energy,algo=fannkuchredux_v1,size=10,joules=1.972351000,time_ms=245.846
+253.518 ms/op
+Iteration   5: energy,algo=fannkuchredux_v1,size=10,joules=2.092102000,time_ms=260.697
+energy,algo=fannkuchredux_v1,size=10,joules=1.578857000,time_ms=239.341
+energy,algo=fannkuchredux_v1,size=10,joules=1.486206000,time_ms=233.509
+energy,algo=fannkuchredux_v1,size=10,joules=1.407532000,time_ms=232.202
+energy,algo=fannkuchredux_v1,size=10,joules=1.823913000,time_ms=276.945
+energy,algo=fannkuchredux_v1,size=10,joules=1.473023000,time_ms=235.061
+energy,algo=fannkuchredux_v1,size=10,joules=1.630982000,time_ms=235.034
+energy,algo=fannkuchredux_v1,size=10,joules=1.450745000,time_ms=231.547
+energy,algo=fannkuchredux_v1,size=10,joules=1.446350000,time_ms=231.523
+energy,algo=fannkuchredux_v1,size=10,joules=1.638916000,time_ms=235.553
+energy,algo=fannkuchredux_v1,size=10,joules=1.577026000,time_ms=233.995
+energy,algo=fannkuchredux_v1,size=10,joules=1.531128000,time_ms=232.387
+energy,algo=fannkuchredux_v1,size=10,joules=1.484680000,time_ms=234.812
+energy,algo=fannkuchredux_v1,size=10,joules=1.698059000,time_ms=233.853
+energy,algo=fannkuchredux_v1,size=10,joules=1.821106000,time_ms=268.472
+energy,algo=fannkuchredux_v1,size=10,joules=1.664673000,time_ms=232.712
+energy,algo=fannkuchredux_v1,size=10,joules=1.721374000,time_ms=234.409
+energy,algo=fannkuchredux_v1,size=10,joules=1.663269000,time_ms=234.233
+energy,algo=fannkuchredux_v1,size=10,joules=1.609924000,time_ms=233.291
+energy,algo=fannkuchredux_v1,size=10,joules=1.751160000,time_ms=233.676
+energy,algo=fannkuchredux_v1,size=10,joules=2.374146000,time_ms=282.147
+242.405 ms/op
+
+
+Result "dev.matheus.energy.UnifiedEnergyBenchmark.runBenchmark":
+  259.446 ±(99.9%) 135.198 ms/op [Average]
+  (min, avg, max) = (237.586, 259.446, 321.375), stdev = 35.111
+  CI (99.9%): [124.248, 394.644] (assumes normal distribution)
+
+
+# Run complete. Total time: 00:01:17
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+NOTE: Current JVM experimentally supports Compiler Blackholes, and they are in use. Please exercise
+extra caution when trusting the results, look into the generated code to check the benchmark still
+works, and factor in a small probability of new VM bugs. Additionally, while comparisons between
+different JVMs are already problematic, the performance difference caused by different Blackhole
+modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
+
+Benchmark                            (size)  Mode  Cnt    Score     Error  Units
+UnifiedEnergyBenchmark.runBenchmark   10000  avgt    5  259.446 ± 135.198  ms/op
+# ========================================
+# Running: fannkuchredux_v2
+# Frequency: 2700 MHz
+# Run: 2/135
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_10-12 -Dbenchmark.filter=fannkuchredux_v2 -Dbenchmark.cpu.frequency=2700 -jar target/benchmarks.jar UnifiedEnergyBenchmark.runBenchmark -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+# JMH version: 1.37
+# VM version: JDK 21.0.8, OpenJDK 64-Bit Server VM, 21.0.8+9-Ubuntu-0ubuntu124.04.1
+# VM invoker: /usr/lib/jvm/java-21-openjdk-amd64/bin/java
+# VM options: -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_10-12 -Dbenchmark.filter=fannkuchredux_v2 -Dbenchmark.cpu.frequency=2700
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 10 iterations, 5 s each
+# Measurement: 5 iterations, 5 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: dev.matheus.energy.UnifiedEnergyBenchmark.runBenchmark
+# Parameters: (size = 10000)
+
+# Run progress: 0.00% complete, ETA 00:01:15
+# Fork: 1 of 1
+# Warmup Iteration   1: Registered benchmarks: [nbody_v5, fannkuchredux_v8, fannkuchredux_v2, fannkuchredux_v1, nbody_v1, nbody_v8, bubble_sort, knucleotide_v8, spectralnorm_v1, spectralnorm_v2, knucleotide_v5, spectralnorm_v3, quick_sort, knucleotide_v3, merge_sort, binarytrees_v3, binarytrees_v7, fasta_v2, fasta_v6, binarytrees_v2, mandelbrot_v3, fasta_v8, mandelbrot_v1, mandelbrot_v2]
+Enabled benchmarks: [knucleotide_v8, nbody_v5, fannkuchredux_v8, spectralnorm_v1, spectralnorm_v2, fannkuchredux_v2, knucleotide_v5, spectralnorm_v3, fannkuchredux_v1, nbody_v1, knucleotide_v3, binarytrees_v3, nbody_v8, binarytrees_v7, fasta_v2, fasta_v6, binarytrees_v2, mandelbrot_v3, fasta_v8, mandelbrot_v1, mandelbrot_v2]
+Applying benchmark filter: fannkuchredux_v2
+jRAPL energy measurement enabled
+Running benchmark: fannkuchredux_v2 - Fannkuch-Redux indexed array access (variant 2)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.688110000,time_ms=379.553 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.960815000,time_ms=306.727 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.179016000,time_ms=299.601 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.327820000,time_ms=298.576 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.958496000,time_ms=295.114 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.792786000,time_ms=290.924 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.861816000,time_ms=274.267 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.652588000,time_ms=279.099 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.733642000,time_ms=327.590 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.807983000,time_ms=283.886 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.235596000,time_ms=284.318 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.640075000,time_ms=274.544 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.977600000,time_ms=287.379 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.685364000,time_ms=278.921 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.732910000,time_ms=279.059 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=3.147156000,time_ms=329.996 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.917481000,time_ms=283.749 (WARMUP - NOT LOGGED)
+302.908 ms/op
+# Warmup Iteration   2: warmup,algo=fannkuchredux_v2,size=10,joules=3.138733000,time_ms=391.821 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.643250000,time_ms=309.514 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.077881000,time_ms=282.302 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.993897000,time_ms=284.301 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.722046000,time_ms=274.568 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.038086000,time_ms=283.260 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.180481000,time_ms=297.392 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.957642000,time_ms=282.624 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=3.054870000,time_ms=372.663 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.670350000,time_ms=278.702 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.626526000,time_ms=278.014 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=4.017761000,time_ms=488.362 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.644836000,time_ms=268.212 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.577942000,time_ms=267.541 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.843140000,time_ms=275.421 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.565064000,time_ms=268.760 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.569274000,time_ms=268.754 (WARMUP - NOT LOGGED)
+308.873 ms/op
+# Warmup Iteration   3: warmup,algo=fannkuchredux_v2,size=10,joules=1.827576000,time_ms=285.296 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.637940000,time_ms=266.966 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.598693000,time_ms=267.464 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.599487000,time_ms=269.034 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.632507000,time_ms=267.909 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.558472000,time_ms=266.041 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.650208000,time_ms=266.200 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.075989000,time_ms=287.791 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.323730000,time_ms=303.276 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.589539000,time_ms=272.434 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.850036000,time_ms=267.276 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.091003000,time_ms=270.692 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.624084000,time_ms=266.140 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.104614000,time_ms=270.953 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.596985000,time_ms=268.774 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.873047000,time_ms=268.417 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.612244000,time_ms=269.469 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.749207000,time_ms=269.257 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.109742000,time_ms=303.913 (WARMUP - NOT LOGGED)
+277.189 ms/op
+# Warmup Iteration   4: warmup,algo=fannkuchredux_v2,size=10,joules=4.209351000,time_ms=541.477 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.652954000,time_ms=267.693 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.546203000,time_ms=265.789 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.726806000,time_ms=267.083 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.569458000,time_ms=266.254 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.837341000,time_ms=271.658 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.468201000,time_ms=335.061 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.648804000,time_ms=268.502 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.683227000,time_ms=266.599 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.632080000,time_ms=266.410 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.686584000,time_ms=266.184 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.752258000,time_ms=267.918 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.647156000,time_ms=266.512 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.635376000,time_ms=267.921 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.683533000,time_ms=270.144 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.570069000,time_ms=269.151 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.700439000,time_ms=268.666 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.604614000,time_ms=265.986 (WARMUP - NOT LOGGED)
+289.205 ms/op
+# Warmup Iteration   5: warmup,algo=fannkuchredux_v2,size=10,joules=2.021790000,time_ms=318.742 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.727540000,time_ms=266.153 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.576782000,time_ms=265.501 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.128113000,time_ms=278.766 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.650391000,time_ms=267.589 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.058411000,time_ms=289.631 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.463868000,time_ms=306.951 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.511780000,time_ms=282.867 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=3.295044000,time_ms=378.422 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.116394000,time_ms=311.895 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.580383000,time_ms=271.052 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.779297000,time_ms=273.422 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.560608000,time_ms=266.873 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.040589000,time_ms=280.303 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.552917000,time_ms=266.308 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.705383000,time_ms=271.963 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.580628000,time_ms=266.410 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.013367000,time_ms=282.492 (WARMUP - NOT LOGGED)
+287.246 ms/op
+# Warmup Iteration   6: warmup,algo=fannkuchredux_v2,size=10,joules=1.585815000,time_ms=266.641 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.724732000,time_ms=269.257 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.578979000,time_ms=265.972 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.566468000,time_ms=266.208 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.646546000,time_ms=267.260 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.221130000,time_ms=277.129 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.902343000,time_ms=281.293 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.537170000,time_ms=266.115 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.683289000,time_ms=267.613 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.572449000,time_ms=266.190 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.768799000,time_ms=266.976 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.570495000,time_ms=266.193 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.548157000,time_ms=268.470 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.823975000,time_ms=267.275 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.693725000,time_ms=266.281 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.676880000,time_ms=266.731 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.562317000,time_ms=266.804 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.736877000,time_ms=266.682 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.595764000,time_ms=266.139 (WARMUP - NOT LOGGED)
+269.179 ms/op
+# Warmup Iteration   7: warmup,algo=fannkuchredux_v2,size=10,joules=1.806824000,time_ms=272.817 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.541199000,time_ms=266.681 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.717102000,time_ms=266.375 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.640015000,time_ms=265.894 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.706299000,time_ms=272.548 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.414428000,time_ms=272.471 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.690246000,time_ms=266.107 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.664673000,time_ms=266.379 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.584167000,time_ms=266.951 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.687622000,time_ms=267.398 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.570496000,time_ms=266.000 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.611267000,time_ms=266.213 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.579345000,time_ms=267.368 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.871644000,time_ms=285.328 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.593750000,time_ms=267.316 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.558167000,time_ms=266.089 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.652710000,time_ms=267.340 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.658020000,time_ms=267.240 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.639588000,time_ms=266.445 (WARMUP - NOT LOGGED)
+270.350 ms/op
+# Warmup Iteration   8: warmup,algo=fannkuchredux_v2,size=10,joules=1.751403000,time_ms=278.024 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.615967000,time_ms=267.923 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.630188000,time_ms=266.489 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.826049000,time_ms=296.668 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.515869000,time_ms=305.778 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.649414000,time_ms=267.054 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.641845000,time_ms=266.382 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.567322000,time_ms=266.881 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.856018000,time_ms=312.400 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.573242000,time_ms=266.206 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.789001000,time_ms=270.068 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.574829000,time_ms=267.159 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.810425000,time_ms=269.505 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.538940000,time_ms=265.566 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.667664000,time_ms=266.478 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.716308000,time_ms=266.479 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.740417000,time_ms=267.046 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.533264000,time_ms=265.812 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.542420000,time_ms=265.925 (WARMUP - NOT LOGGED)
+275.030 ms/op
+# Warmup Iteration   9: warmup,algo=fannkuchredux_v2,size=10,joules=1.665955000,time_ms=269.998 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.574646000,time_ms=266.799 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.729920000,time_ms=266.308 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.090271000,time_ms=282.595 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.090026000,time_ms=301.034 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.590149000,time_ms=268.470 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.735901000,time_ms=267.236 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.643250000,time_ms=266.659 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.756530000,time_ms=269.347 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.577820000,time_ms=269.555 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.524292000,time_ms=265.566 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.758423000,time_ms=266.952 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.575623000,time_ms=266.194 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.683838000,time_ms=266.888 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.554749000,time_ms=265.568 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.945862000,time_ms=274.435 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.476013000,time_ms=419.470 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.708618000,time_ms=266.224 (WARMUP - NOT LOGGED)
+280.326 ms/op
+# Warmup Iteration  10: warmup,algo=fannkuchredux_v2,size=10,joules=1.656067000,time_ms=270.774 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.615723000,time_ms=267.621 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.537658000,time_ms=265.978 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.741882000,time_ms=334.773 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.561218000,time_ms=266.369 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.764344000,time_ms=267.448 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.683471000,time_ms=276.827 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.708557000,time_ms=271.268 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.640503000,time_ms=268.145 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.558655000,time_ms=266.199 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=2.014770000,time_ms=273.879 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.803101000,time_ms=277.085 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.830079000,time_ms=267.198 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.658813000,time_ms=275.935 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.616700000,time_ms=270.115 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.698364000,time_ms=271.192 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.672852000,time_ms=270.873 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.566467000,time_ms=267.303 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v2,size=10,joules=1.552673000,time_ms=268.834 (WARMUP - NOT LOGGED)
+274.420 ms/op
+Iteration   1: energy,algo=fannkuchredux_v2,size=10,joules=1.696534000,time_ms=268.320
+energy,algo=fannkuchredux_v2,size=10,joules=1.551147000,time_ms=266.107

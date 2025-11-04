@@ -19,7 +19,7 @@ public class KNucleotideBenchmark_V3 implements BenchmarkAlgorithm {
     
     @Override
     public String getName() {
-        return "knucleotide";
+        return "knucleotide_v3";
     }
     
     @Override

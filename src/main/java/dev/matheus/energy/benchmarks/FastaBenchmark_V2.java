@@ -16,7 +16,7 @@ public class FastaBenchmark_V2 implements BenchmarkAlgorithm {
     
     @Override
     public String getName() {
-        return "fasta";
+        return "fasta_v2";
     }
     
     @Override
