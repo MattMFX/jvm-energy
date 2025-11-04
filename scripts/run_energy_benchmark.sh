@@ -17,11 +17,12 @@ CPU_CORE=""
 OUTPUT_FILE=""
 EXTRA_JVM_OPTS=""
 EXTRA_JMH_OPTS=""
-FREQ_START="500"
-FREQ_END="3500"
-FREQ_STEP=""
 RESTORE_GOVERNOR=true
 BENCHMARK_FILTER=""
+USE_FREQ_STEPPING=false
+
+# Hardware-supported CPU frequencies (in MHz)
+HARDWARE_FREQUENCIES=(2700 2600 2500 2400 2200 2000 1800 1600 1500 1300 1100 800 700 600 400)
 
 # Colors for output
 RED='\033[0;31m'
@@ -64,9 +65,8 @@ ${BLUE}Options:${NC}
     -o, --output FILE           Save output to file (optional, auto-generates timestamp if not provided)
     -j, --jvm-opts "OPTS"       Additional JVM options (e.g., "-Xmx4g -Xms4g")
     --jmh-opts "OPTS"           Additional JMH options
-    --freq-start MHZ            Starting CPU frequency in MHz (default: 500)
-    --freq-end MHZ              Ending CPU frequency in MHz (default: 3500)
-    --freq-step MHZ             Frequency step size in MHz (optional, runs single frequency if not set)
+    --freq                      Enable CPU frequency stepping across hardware-supported frequencies
+                                (2700, 2600, 2500, 2400, 2200, 2000, 1800, 1600, 1500, 1300, 1100, 800, 700, 600, 400 MHz)
     --no-restore                Don't restore original CPU governor after benchmark
 
 ${BLUE}Examples:${NC}
@@ -85,21 +85,21 @@ ${BLUE}Examples:${NC}
     # Run nbody benchmark with 50000000 iterations
     $0 -a nbody -s 50000000
 
-    # Run benchmarks across frequencies from 1000 to 3000 MHz in 500 MHz steps
+    # Run benchmarks across all hardware-supported frequencies
     # Each algorithm runs separately at each frequency
-    $0 --freq-start 1000 --freq-end 3000 --freq-step 500
+    $0 --freq
 
-    # Run bubble sort with frequency stepping every 250 MHz
-    $0 -a bubble_sort --freq-step 250
+    # Run bubble sort with frequency stepping
+    $0 -a bubble_sort --freq
 
     # Run with reduced iterations for quick testing with frequency steps
-    $0 -w 10 -m 3 --freq-start 1500 --freq-end 2500 --freq-step 500
+    $0 -w 10 -m 3 --freq
 
     # Run on core 0, with frequency stepping
-    $0 -c 0 --freq-step 1000 -o results/my_benchmark.log
+    $0 -c 0 --freq -o results/my_benchmark.log
 
     # Run all algorithms with custom parameters and frequency stepping
-    $0 -s 20000 -w 30 -wt 3 -m 10 -mt 3 -f 2 --freq-step 500
+    $0 -s 20000 -w 30 -wt 3 -m 10 -mt 3 -f 2 --freq
     
     # Run only nbody variants (all 3: nbody_v1, nbody_v5, nbody_v8)
     # Each variant runs separately and gets full execution time
@@ -116,9 +116,11 @@ ${BLUE}Notes:${NC}
     - Energy measurement requires root/sudo access (script uses sudo automatically)
     - If output file is specified without path, it will be saved in results/
     - Hyperthreading is automatically disabled during benchmarks (not restored)
+    - Turbo boost is automatically disabled during benchmarks and restored after
     - Frequency management requires root/sudo access and sets CPU governor to 'userspace'
-    - If --freq-step is not specified, benchmark runs at current CPU frequency
-    - Original CPU governor is restored after benchmark (unless --no-restore is used)
+    - If --freq is not specified, benchmark runs at current CPU frequency
+    - With --freq, benchmarks run across 15 hardware-supported frequencies (2.7 GHz down to 400 MHz)
+    - Original CPU governor and turbo boost state are restored after benchmark (unless --no-restore is used)
 
 EOF
 }
@@ -174,17 +176,9 @@ while [[ $# -gt 0 ]]; do
             EXTRA_JMH_OPTS="$2"
             shift 2
             ;;
-        --freq-start)
-            FREQ_START="$2"
-            shift 2
-            ;;
-        --freq-end)
-            FREQ_END="$2"
-            shift 2
-            ;;
-        --freq-step)
-            FREQ_STEP="$2"
-            shift 2
+        --freq)
+            USE_FREQ_STEPPING=true
+            shift
             ;;
         --no-restore)
             RESTORE_GOVERNOR=false
@@ -212,9 +206,10 @@ cd "$PROJECT_ROOT"
 ENERGY_TIMESTAMP=$(date +"%Y-%m-%d_%H-%M")
 
 # CPU Frequency and Hyperthreading Management Functions
-ORIGINAL_GOVERNORS=()
-ORIGINAL_MIN_FREQS=()
-ORIGINAL_MAX_FREQS=()
+ORIGINAL_GOVERNOR=""
+ORIGINAL_MIN_FREQ=""
+ORIGINAL_MAX_FREQ=""
+ORIGINAL_TURBO_STATE=""
 
 disable_hyperthreading() {
     echo -e "${BLUE}Disabling hyperthreading...${NC}"
@@ -231,15 +226,69 @@ disable_hyperthreading() {
     fi
 }
 
+disable_turbo_boost() {
+    echo -e "${BLUE}Disabling turbo boost...${NC}"
+    
+    # Try Intel P-state driver first
+    if [ -f /sys/devices/system/cpu/intel_pstate/no_turbo ]; then
+        ORIGINAL_TURBO_STATE=$(cat /sys/devices/system/cpu/intel_pstate/no_turbo 2>/dev/null || echo "")
+        echo "1" | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo > /dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            echo -e "${GREEN}Turbo boost disabled (Intel P-state)${NC}"
+            return 0
+        fi
+    fi
+    
+    # Try generic CPUfreq boost control
+    if [ -f /sys/devices/system/cpu/cpufreq/boost ]; then
+        ORIGINAL_TURBO_STATE=$(cat /sys/devices/system/cpu/cpufreq/boost 2>/dev/null || echo "")
+        echo "0" | sudo tee /sys/devices/system/cpu/cpufreq/boost > /dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            echo -e "${GREEN}Turbo boost disabled (CPUfreq)${NC}"
+            return 0
+        fi
+    fi
+    
+    echo -e "${YELLOW}Turbo boost control not available on this system${NC}"
+}
+
+restore_turbo_boost() {
+    if [ "$RESTORE_GOVERNOR" = false ]; then
+        return
+    fi
+    
+    if [ -z "$ORIGINAL_TURBO_STATE" ]; then
+        return
+    fi
+    
+    echo -e "${BLUE}Restoring turbo boost state...${NC}"
+    
+    # Restore Intel P-state
+    if [ -f /sys/devices/system/cpu/intel_pstate/no_turbo ]; then
+        echo "$ORIGINAL_TURBO_STATE" | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo > /dev/null 2>&1 || true
+        echo -e "${GREEN}Turbo boost state restored${NC}"
+        return
+    fi
+    
+    # Restore CPUfreq boost
+    if [ -f /sys/devices/system/cpu/cpufreq/boost ]; then
+        echo "$ORIGINAL_TURBO_STATE" | sudo tee /sys/devices/system/cpu/cpufreq/boost > /dev/null 2>&1 || true
+        echo -e "${GREEN}Turbo boost state restored${NC}"
+        return
+    fi
+}
+
 save_cpu_state() {
     echo -e "${BLUE}Saving current CPU state...${NC}"
-    for cpu_dir in /sys/devices/system/cpu/cpu*/cpufreq/; do
-        if [ -d "$cpu_dir" ]; then
-            ORIGINAL_GOVERNORS+=("$(cat "${cpu_dir}scaling_governor" 2>/dev/null || true)")
-            ORIGINAL_MIN_FREQS+=("$(cat "${cpu_dir}scaling_min_freq" 2>/dev/null || true)")
-            ORIGINAL_MAX_FREQS+=("$(cat "${cpu_dir}scaling_max_freq" 2>/dev/null || true)")
-        fi
-    done
+    
+    # Save current governor
+    ORIGINAL_GOVERNOR=$(sudo cpupower frequency-info -p 2>/dev/null | grep -oP '(?<=governor ")[^"]+' | head -1)
+    
+    # Save min and max frequencies (in kHz)
+    ORIGINAL_MIN_FREQ=$(sudo cpupower frequency-info -l 2>/dev/null | grep -oP '\d+' | head -1)
+    ORIGINAL_MAX_FREQ=$(sudo cpupower frequency-info -l 2>/dev/null | grep -oP '\d+' | tail -1)
+    
+    echo -e "${GREEN}Saved state: Governor=${ORIGINAL_GOVERNOR}, Min=${ORIGINAL_MIN_FREQ} kHz, Max=${ORIGINAL_MAX_FREQ} kHz${NC}"
 }
 
 restore_cpu_state() {
@@ -249,48 +298,56 @@ restore_cpu_state() {
     fi
     
     echo -e "${BLUE}Restoring original CPU state...${NC}"
-    local idx=0
-    for cpu_dir in /sys/devices/system/cpu/cpu*/cpufreq/; do
-        if [ -d "$cpu_dir" ] && [ $idx -lt ${#ORIGINAL_GOVERNORS[@]} ]; then
-            echo "${ORIGINAL_MIN_FREQS[$idx]}" | sudo tee "${cpu_dir}scaling_min_freq" > /dev/null 2>&1 || true
-            echo "${ORIGINAL_MAX_FREQS[$idx]}" | sudo tee "${cpu_dir}scaling_max_freq" > /dev/null 2>&1 || true
-            echo "${ORIGINAL_GOVERNORS[$idx]}" | sudo tee "${cpu_dir}scaling_governor" > /dev/null 2>&1 || true
-            idx=$((idx + 1))
-        fi
-    done
-    echo -e "${GREEN}CPU state restored${NC}"
+    
+    if [ -n "$ORIGINAL_GOVERNOR" ]; then
+        sudo cpupower frequency-set -g "$ORIGINAL_GOVERNOR" > /dev/null 2>&1 || true
+    fi
+    
+    if [ -n "$ORIGINAL_MIN_FREQ" ] && [ -n "$ORIGINAL_MAX_FREQ" ]; then
+        sudo cpupower frequency-set -d "${ORIGINAL_MIN_FREQ}kHz" -u "${ORIGINAL_MAX_FREQ}kHz" > /dev/null 2>&1 || true
+    fi
+    
+    restore_turbo_boost
+    
+    echo -e "${GREEN}CPU state restored to governor=${ORIGINAL_GOVERNOR}${NC}"
 }
 
 set_cpu_governor() {
     local governor="$1"
     echo -e "${BLUE}Setting CPU governor to '$governor'...${NC}"
-    for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
-        echo "$governor" | sudo tee "$cpu" > /dev/null 2>&1 || true
-    done
+    sudo cpupower frequency-set -g "$governor" > /dev/null 2>&1
+    echo -e "${GREEN}Governor set to '$governor'${NC}"
 }
 
 set_cpu_frequency() {
     local freq_mhz="$1"
-    local freq_khz=$((freq_mhz * 1000))
     
     echo -e "${BLUE}Setting CPU frequency to ${freq_mhz} MHz...${NC}"
-    for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_min_freq; do
-        echo "$freq_khz" | sudo tee "$cpu" > /dev/null 2>&1 || true
-    done
-    for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq; do
-        echo "$freq_khz" | sudo tee "$cpu" > /dev/null 2>&1 || true
-    done
+    
+    # Set both min and max to the same frequency to lock it
+    sudo cpupower frequency-set -d "${freq_mhz}MHz" -u "${freq_mhz}MHz" > /dev/null 2>&1
     
     # Verify frequency was set
     sleep 0.5
-    local actual_freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq 2>/dev/null || echo "0")
-    local actual_mhz=$((actual_freq / 1000))
+    local actual_mhz=$(get_current_cpu_frequency)
     echo -e "${GREEN}CPU frequency set to ${actual_mhz} MHz${NC}"
 }
 
 get_current_cpu_frequency() {
-    local freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq 2>/dev/null || echo "0")
-    echo $((freq / 1000))
+    # Get current CPU frequency in MHz
+    local freq_info=$(sudo cpupower frequency-info -f 2>/dev/null | grep -oP '\d+\.\d+ [MG]Hz')
+    
+    if [[ $freq_info =~ ([0-9.]+)\ GHz ]]; then
+        # Convert GHz to MHz
+        echo "scale=0; ${BASH_REMATCH[1]} * 1000 / 1" | bc
+    elif [[ $freq_info =~ ([0-9.]+)\ MHz ]]; then
+        # Already in MHz
+        echo "scale=0; ${BASH_REMATCH[1]} / 1" | bc
+    else
+        # Fallback to sysfs
+        local freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq 2>/dev/null || echo "0")
+        echo $((freq / 1000))
+    fi
 }
 
 # Setup cleanup trap
@@ -428,16 +485,11 @@ if [ -n "$EXTRA_JVM_OPTS" ]; then
 fi
 
 # Determine if we're doing frequency stepping
-if [ -n "$FREQ_STEP" ]; then
-    USE_FREQ_STEPPING=true
-    # Calculate frequency array
-    FREQUENCIES=()
-    for ((freq=$FREQ_START; freq<=$FREQ_END; freq+=$FREQ_STEP)); do
-        FREQUENCIES+=($freq)
-    done
+if [ "$USE_FREQ_STEPPING" = true ]; then
+    # Use hardware-supported frequencies
+    FREQUENCIES=("${HARDWARE_FREQUENCIES[@]}")
     TOTAL_FREQ_RUNS=${#FREQUENCIES[@]}
 else
-    USE_FREQ_STEPPING=false
     TOTAL_FREQ_RUNS=1
 fi
 
@@ -463,11 +515,12 @@ echo -e "  Forks:               $FORKS"
 [ -n "$EXTRA_JMH_OPTS" ] && echo -e "  Extra JMH Options:   $EXTRA_JMH_OPTS"
 echo -e "  Energy CSV:          results/energy_${ENERGY_TIMESTAMP}.csv"
 if [ "$USE_FREQ_STEPPING" = true ]; then
-    echo -e "  ${GREEN}Frequency Range:     ${FREQ_START} - ${FREQ_END} MHz (step: ${FREQ_STEP} MHz)${NC}"
-    echo -e "  ${GREEN}Frequency Steps:     ${TOTAL_FREQ_RUNS}${NC}"
-    echo -e "  ${GREEN}Frequencies:         ${FREQUENCIES[*]} MHz${NC}"
+    echo -e "  ${GREEN}Frequency Stepping:  ENABLED${NC}"
+    echo -e "  ${GREEN}Frequency Steps:     ${TOTAL_FREQ_RUNS} frequencies${NC}"
+    echo -e "  ${GREEN}Frequencies (MHz):   ${FREQUENCIES[*]}${NC}"
     echo -e "  ${GREEN}Total Runs:          ${TOTAL_RUNS} (${TOTAL_FREQ_RUNS} frequencies × ${TOTAL_ALGO_RUNS} algorithms)${NC}"
 else
+    echo -e "  Frequency Stepping:  DISABLED"
     echo -e "  ${GREEN}Total Runs:          ${TOTAL_RUNS}${NC}"
 fi
 echo ""
@@ -477,7 +530,8 @@ echo "# Benchmark started at $(date)" > "$OUTPUT_FILE"
 echo "# Configuration: algorithm=$ALGORITHM, size=$ARRAY_SIZE, warmup=$WARMUP_ITERATIONS×${WARMUP_TIME}s, measurement=$MEASUREMENT_ITERATIONS×${MEASUREMENT_TIME}s, forks=$FORKS" >> "$OUTPUT_FILE"
 [ -n "$CPU_CORE" ] && echo "# CPU Core: $CPU_CORE" >> "$OUTPUT_FILE"
 if [ "$USE_FREQ_STEPPING" = true ]; then
-    echo "# Frequency Range: ${FREQ_START}-${FREQ_END} MHz, Step: ${FREQ_STEP} MHz" >> "$OUTPUT_FILE"
+    echo "# Frequency Stepping: ENABLED (${TOTAL_FREQ_RUNS} frequencies)" >> "$OUTPUT_FILE"
+    echo "# Frequencies (MHz): ${FREQUENCIES[*]}" >> "$OUTPUT_FILE"
 fi
 echo "" >> "$OUTPUT_FILE"
 
@@ -569,6 +623,10 @@ if [ "$USE_FREQ_STEPPING" = true ]; then
     disable_hyperthreading
     echo ""
     
+    # Disable turbo boost for consistent performance
+    disable_turbo_boost
+    echo ""
+    
     # Set governor to userspace for manual frequency control
     set_cpu_governor "userspace"
     echo ""
@@ -605,6 +663,10 @@ else
     # Single run without frequency stepping
     # Disable hyperthreading before running benchmarks
     disable_hyperthreading
+    echo ""
+    
+    # Disable turbo boost for consistent performance
+    disable_turbo_boost
     echo ""
     
     echo -e "${GREEN}Starting benchmarks...${NC}"

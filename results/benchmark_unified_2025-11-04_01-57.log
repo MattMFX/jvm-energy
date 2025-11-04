@@ -1,0 +1,59 @@
+# Benchmark started at Tue Nov  4 01:57:40 AM -03 2025
+# Configuration: algorithm=unified, size=10000, warmup=10×5s, measurement=5×5s, forks=1
+# CPU Core: 0
+# Frequency Stepping: ENABLED (15 frequencies)
+# Frequencies (MHz): 2700 2600 2500 2400 2200 2000 1800 1600 1500 1300 1100 800 700 600 400
+
+# ========================================
+# Running: fannkuchredux
+# Frequency: 2700 MHz
+# Run: 1/135
+# Command: sudo taskset -c 0 java -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-57 -Dbenchmark.filter=fannkuchredux -Dbenchmark.cpu.frequency=2700 -jar target/benchmarks.jar UnifiedEnergyBenchmark.runBenchmark -p size=10000 -wi 10 -w 5s -i 5 -r 5s -f 1 
+# ========================================
+
+# WARNING: JMH lock is ignored by user request, make sure no other JMH instances are running
+# JMH version: 1.37
+# VM version: JDK 21.0.8, OpenJDK 64-Bit Server VM, 21.0.8+9-Ubuntu-0ubuntu124.04.1
+# VM invoker: /usr/lib/jvm/java-21-openjdk-amd64/bin/java
+# VM options: -Djava.library.path=. -Djmh.ignoreLock=true -Dbenchmark.output.timestamp=2025-11-04_01-57 -Dbenchmark.filter=fannkuchredux -Dbenchmark.cpu.frequency=2700
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 10 iterations, 5 s each
+# Measurement: 5 iterations, 5 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: dev.matheus.energy.UnifiedEnergyBenchmark.runBenchmark
+# Parameters: (size = 10000)
+
+# Run progress: 0.00% complete, ETA 00:01:15
+# Fork: 1 of 1
+# Warmup Iteration   1: Registered benchmarks: [nbody_v5, fannkuchredux_v8, fannkuchredux_v2, fasta, nbody_v8, bubble_sort, spectralnorm, knucleotide_v8, spectralnorm_v2, knucleotide_v5, nbody, spectralnorm_v3, quick_sort, merge_sort, binarytrees_v3, knucleotide, binarytrees_v7, fannkuchredux, fasta_v6, mandelbrot, binarytrees_v2, mandelbrot_v3, fasta_v8, mandelbrot_v2]
+Enabled benchmarks: [spectralnorm, knucleotide_v8, nbody_v5, fannkuchredux_v8, spectralnorm_v2, fannkuchredux_v2, knucleotide_v5, nbody, spectralnorm_v3, fasta, binarytrees_v3, knucleotide, nbody_v8, binarytrees_v7, fannkuchredux, fasta_v6, mandelbrot, binarytrees_v2, mandelbrot_v3, fasta_v8, mandelbrot_v2]
+Applying benchmark filter: fannkuchredux
+WARNING: Multiple benchmarks are enabled. Only the first one will run.
+Enabled: [fannkuchredux_v8, fannkuchredux_v2, fannkuchredux]
+Consider using -Dbenchmark.filter=<exact_name> to run a specific algorithm.
+jRAPL energy measurement enabled
+Running benchmark: fannkuchredux_v8 - Fannkuch-Redux indexed array access (naive variant 8)
+warmup,algo=fannkuchredux_v8,size=10,joules=3.321594000,time_ms=414.315 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=2.092895000,time_ms=365.101 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=1.902039000,time_ms=316.324 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=1.978577000,time_ms=343.609 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=1.910888000,time_ms=330.356 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=2.435608000,time_ms=329.048 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=3.017090000,time_ms=336.142 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=2.091736000,time_ms=334.490 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=1.929016000,time_ms=327.948 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=1.936035000,time_ms=327.955 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=1.926270000,time_ms=331.998 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=3.104554000,time_ms=374.989 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=2.095337000,time_ms=329.236 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=2.071716000,time_ms=328.711 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=2.115845000,time_ms=331.013 (WARMUP - NOT LOGGED)
+347.106 ms/op
+# Warmup Iteration   2: warmup,algo=fannkuchredux_v8,size=10,joules=2.737061000,time_ms=403.756 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=1.953613000,time_ms=328.560 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=1.906311000,time_ms=327.510 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=2.066223000,time_ms=327.814 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=1.924866000,time_ms=326.572 (WARMUP - NOT LOGGED)
+warmup,algo=fannkuchredux_v8,size=10,joules=1.909546000,time_ms=327.546 (WARMUP - NOT LOGGED)
